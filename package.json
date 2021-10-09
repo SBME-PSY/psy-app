@@ -20,7 +20,6 @@
     "@fortawesome/free-regular-svg-icons": "^5.15.4",
     "@fortawesome/free-solid-svg-icons": "^5.15.4",
     "@fortawesome/react-native-fontawesome": "^0.2.7",
-    "@types/react-native-snap-carousel": "^3.8.4",
     "expo": "~42.0.0",
     "expo-status-bar": "~1.0.4",
     "i18next": "^21.2.4",
