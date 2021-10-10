@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { NativeBaseProvider, VStack,Text, Box, Center, Button,Heading} from "native-base";
 import { faSignInAlt,faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-const Doctorsignup=()=>{
+const Doctorlanding=()=>{
     const {t,i18n} = useTranslation();
     return(
         <NativeBaseProvider>
@@ -25,4 +25,4 @@ const Doctorsignup=()=>{
     )
 }
 
-export default Doctorsignup;
+export default Doctorlanding;

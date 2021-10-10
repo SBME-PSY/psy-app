@@ -46,7 +46,7 @@ export default function Landing({navigation}) {
               <VStack alignItems="center" mt="12%">
                 <Button  mb={7} size="md" borderRadius={25} px={20}><Text fontSize="lg" color="#FEFDFF" fontWeight="bold">{t('Sign-Up')} <FontAwesomeIcon color="#FEFDFF" icon={ faSignInAlt } /> </Text></Button>
                 <Button borderRadius={25} px={20} variant="outline"><Text fontSize="lg" color="#FEFDFF" fontWeight="bold">{t('Sign-In')} <FontAwesomeIcon color="#FEFDFF" icon={ faUserPlus } /></Text></Button>
-                <Button variant="link" onPress={()=>navigation.navigate('Doctorsignup')} ><Text color="amber.600" fontWeight="bold" style={{textDecorationLine:"underline"}}  mt={5}>{t('Are you a doctor?')}</Text></Button>
+                <Button variant="link" onPress={()=>navigation.navigate('Doctorlanding')} ><Text color="amber.600" fontWeight="bold" style={{textDecorationLine:"underline"}}  mt={5}>{t('Are you a doctor?')}</Text></Button>
               </VStack>
             </ImageBackground>
           </Box>
