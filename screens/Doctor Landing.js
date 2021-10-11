@@ -9,7 +9,8 @@ const Doctorlanding=()=>{
         <NativeBaseProvider>
             <VStack width="100%" height="100%">
                 <Box height="40%" width="100%" borderBottomRadius={50} bgColor="#003049">
-                    <Heading mt="40%" fontSize="2xl" fontWeight="bold"  textAlign="center" color="#FEFDFF" >{t('Hello Doctor')} !!!</Heading>
+                    <Text  color="#FEFDFF" textAlign='center' fontSize="3xl" fontWeight="bold" mt="15%" ml="5%">Psy-Awareness</Text>
+                    <Heading mt="20%" fontSize="2xl" fontWeight="bold"  textAlign="center" color="#FEFDFF" >{t('Hello Doctor')} !!!</Heading>
                 </Box>
                 <Box width="100%">
                     <VStack>
