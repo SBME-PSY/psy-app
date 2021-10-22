@@ -20,12 +20,12 @@ const Quotes= [
     id:2
   },
   {
-    body:"“If you plan on being anything less than you are capable of being, you will probably be unhappy all the days of your life.”",
-    author: "– Abraham Maslow –",
+    body:"“Genuine feelings cannot be produced, nor can they be eradicated… the body sticks to the facts.”",
+    author: "– Alice Miller –",
     id:3
   },
 ];
-let globe = <FontAwesomeIcon   color="#dc2626" icon={faGlobe} />;
+let globe = <FontAwesomeIcon   color="#262626" icon={faGlobe} />;
 export default function Landing({navigation}) {
   const {t,i18n} = useTranslation();
   return (
@@ -45,8 +45,8 @@ export default function Landing({navigation}) {
               </Text>
               <VStack alignItems="center" mt="12%">
                 <Button  mb={7} size="md" onPress={()=>navigation.navigate('Userregister')} borderRadius={25} px={20}><Text fontSize="lg" color="#FEFDFF" fontWeight="bold">{t('Sign-Up')} <FontAwesomeIcon color="#FEFDFF" icon={ faSignInAlt } /> </Text></Button>
-                <Button borderRadius={25} px={20} variant="outline"><Text fontSize="lg" onPress={()=>navigation.navigate('Usersignin')} color="#FEFDFF" fontWeight="bold">{t('Sign-In')} <FontAwesomeIcon color="#FEFDFF" icon={ faUserPlus } /></Text></Button>
-                <Button variant="link" onPress={()=>navigation.navigate('Doctorlanding')} ><Text color="amber.600" fontWeight="bold" style={{textDecorationLine:"underline"}}  mt={5}>{t('Are you a doctor?')}</Text></Button>
+                <Button borderRadius={25} onPress={()=>navigation.navigate('Usersignin')} px={20} variant="solid" bgColor="amber.600"><Text fontSize="lg" color='#fff'   fontWeight="bold">{t('Sign-In')} <FontAwesomeIcon  color='#fff' icon={ faUserPlus } /></Text></Button>
+                <Button variant="link" onPress={()=>navigation.navigate('Doctorlanding')} ><Text color="white" fontWeight="bold" style={{textDecorationLine:"underline"}}  mt={5}>{t('Are you a doctor?')}</Text></Button>
               </VStack>
             </ImageBackground>
           </Box>
