@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faEnvelope, faEye, faLock } from "@fortawesome/free-solid-svg-icons";
 
 
-const Signin=()=>{
+const Signin=({btn_color,pressed_btn_color})=>{
     const {t,i18n} = useTranslation();
     const [isPasswordShown,setIsPasswordShown]=useState(false);
     return(
@@ -28,7 +28,7 @@ const Signin=()=>{
                                         InputLeftElement={<Icon as={<FontAwesomeIcon  icon={faLock} />}  mr={5} />}/>
                             </FormControl>
                             <FormControl my='10'>
-                                <Button bgColor="success.500"  _pressed={{bgColor:"#003049"}} borderRadius={50}>{t('Sign-In')}</Button>
+                                <Button bgColor={btn_color}  _pressed={{bgColor:pressed_btn_color}} borderRadius={50}>{t('Sign-In')}</Button>
                             </FormControl>
                 </Center>
         </NativeBaseProvider>

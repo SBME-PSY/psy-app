@@ -3,12 +3,12 @@ import React from "react";
 import i18n from './languages/i18n';
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
-import Doctorlanding from "./screens/Doctor Landing";
-import Userregister from "./screens/User Register";
+import Doctorlanding from "./screens/Doctors/Doctor Landing";
+import Userregister from "./screens/Users/User Register";
 import { useTranslation } from "react-i18next";
-import Doctorregister from "./screens/Doctor Register";
-import Doctorsignin from "./screens/Sign-in_Doctors";
-import Usersignin from "./screens/Sign-in_User";
+import Doctorregister from "./screens/Doctors/Doctor Register";
+import Doctorsignin from "./screens/Doctors/Sign-in_Doctors";
+import Usersignin from "./screens/Users/Sign-in_User";
 
 
 const Stack = createNativeStackNavigator();

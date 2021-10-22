@@ -1,5 +1,5 @@
 import { Text,Button, Avatar} from "native-base";
-import React, { useState } from "react";
+import React, { useState ,useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faCamera} from "@fortawesome/free-solid-svg-icons";
@@ -9,6 +9,17 @@ import * as ImagePicker from 'expo-image-picker';
 const Imageupload=({navigator,btn_caption})=>{
     const {t,i18n} = useTranslation();
     const [image,setImage]= useState(null);
+
+    useEffect(() => {
+        (async () => {
+          if (Platform.OS !== 'web') {
+            const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+            if (status !== 'granted') {
+              alert('Sorry, we need camera roll permissions to make this work!');
+            }
+          }
+        })();
+      }, []);
 
     const AddImage= async ()=>{
         let _image = await ImagePicker.launchImageLibraryAsync(
