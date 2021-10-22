@@ -3,11 +3,23 @@ import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faCamera, faEnvelope, faEye, faHome, faLock, faPhone, faUser } from "@fortawesome/free-solid-svg-icons";
-import { View } from "react-native";
+import * as ImagePicker from 'expo-image-picker';
+import Imageupload from "./Image Upload";
 
 const Registerform = ({username,address,isdoctor,certificate,certificate_pic,signup}) =>{
     const {t,i18n} = useTranslation();
     const [isPasswordShown,setIsPasswordShown]=useState(false);
+
+    // const AddImage= async ()=>{
+    //     let _image = await ImagePicker.launchImageLibraryAsync(
+    //         {
+    //             mediaTypes: ImagePicker.MediaTypeOptions.Images,
+    //             allowsEditing: true,
+    //             aspect: [4,3],
+    //             quality: 1,
+    //         }
+    //     );
+    // }
 
     return(
         <NativeBaseProvider>
@@ -25,7 +37,8 @@ const Registerform = ({username,address,isdoctor,certificate,certificate_pic,sig
                                 </FormControl>
                                 <FormControl my={2} isRequired>
                                     <FormControl.Label _text={{color:'#003049'}}>{t('Profile Picture')}</FormControl.Label>
-                                    <Button w="80%" borderRadius={50}><Text textAlign="center" color="white">{t('Pick a Picture')} <FontAwesomeIcon color="white" icon={faCamera}/> </Text></Button>
+                                    {/* <Button onPress={AddImage}  w="80%" borderRadius={50}><Text textAlign="center" color="white">{t('Pick a Picture')} <FontAwesomeIcon color="white" icon={faCamera}/> </Text></Button> */}
+                                    <Imageupload  pic='Profile Picture' btn_caption='Pick a Picture' />
                                 </FormControl>
                                 <FormControl my={2} isRequired>
                                     <FormControl.Label _text={{color:'#003049'}}>{t('Email')}</FormControl.Label>
@@ -56,7 +69,8 @@ const Registerform = ({username,address,isdoctor,certificate,certificate_pic,sig
                                         </FormControl>
                                         <FormControl my={2} isRequired>
                                             <FormControl.Label _text={{color:'#003049'}}>{t(certificate_pic)}</FormControl.Label>
-                                            <Button  borderRadius={50}><Text textAlign="center" color="white">{t('upload a picture of your college degree')} <FontAwesomeIcon color="white" icon={faCamera}/> </Text></Button>
+                                            {/* <Button  onPress={AddImage} borderRadius={50}><Text textAlign="center" color="white">{t('upload a picture of your college degree')} <FontAwesomeIcon color="white" icon={faCamera}/> </Text></Button> */}
+                                            <Imageupload pic={certificate_pic} btn_caption='upload a picture of your college degree' />
                                         </FormControl>
                                     </>
                                 )}
