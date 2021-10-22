@@ -1,12 +1,11 @@
 import React from "react";
-import {Text,NativeBaseProvider,VStack,Box,Button, Link, HStack, ScrollView, View, Center, Select} from "native-base";
-import { ImageBackground ,Dimensions,StyleSheet} from "react-native";
+import {Text,NativeBaseProvider,VStack,Box,Button, Link, HStack,Select} from "native-base";
+import { ImageBackground ,Dimensions} from "react-native";
 import Therapy_session from '../assets/Img/Therapy_Session.jpeg';
 import { faSignInAlt,faUserPlus, faGlobe } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import Slidercarousel from "../components/Slider";
 import { useTranslation } from "react-i18next";
-import { useState } from "react/cjs/react.development";
 
 const {width} = Dimensions.get("window");
 const Quotes= [
@@ -46,7 +45,7 @@ export default function Landing({navigation}) {
               </Text>
               <VStack alignItems="center" mt="12%">
                 <Button  mb={7} size="md" onPress={()=>navigation.navigate('Userregister')} borderRadius={25} px={20}><Text fontSize="lg" color="#FEFDFF" fontWeight="bold">{t('Sign-Up')} <FontAwesomeIcon color="#FEFDFF" icon={ faSignInAlt } /> </Text></Button>
-                <Button borderRadius={25} px={20} variant="outline"><Text fontSize="lg" color="#FEFDFF" fontWeight="bold">{t('Sign-In')} <FontAwesomeIcon color="#FEFDFF" icon={ faUserPlus } /></Text></Button>
+                <Button borderRadius={25} px={20} variant="outline"><Text fontSize="lg" onPress={()=>navigation.navigate('Usersignin')} color="#FEFDFF" fontWeight="bold">{t('Sign-In')} <FontAwesomeIcon color="#FEFDFF" icon={ faUserPlus } /></Text></Button>
                 <Button variant="link" onPress={()=>navigation.navigate('Doctorlanding')} ><Text color="amber.600" fontWeight="bold" style={{textDecorationLine:"underline"}}  mt={5}>{t('Are you a doctor?')}</Text></Button>
               </VStack>
             </ImageBackground>

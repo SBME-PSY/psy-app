@@ -1,8 +1,8 @@
-import { NativeBaseProvider,VStack,Center,Box,Text,Heading, FormControl,Input, Icon,  Select, Button, ScrollView, Image, HStack, Tooltip, IconButton, Avatar} from "native-base";
+import { Text,Button, Avatar} from "native-base";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { faCamera, faEnvelope, faEye, faHome, faLock, faPhone, faTimes, faUser } from "@fortawesome/free-solid-svg-icons";
+import { faCamera} from "@fortawesome/free-solid-svg-icons";
 import * as ImagePicker from 'expo-image-picker';
 
 

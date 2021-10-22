@@ -1,4 +1,4 @@
-import { NativeBaseProvider,VStack,Center,Box,Text,Heading, FormControl,Input, Icon,  Select, Button, ScrollView} from "native-base";
+import { NativeBaseProvider,VStack,Heading, ScrollView} from "native-base";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { KeyboardAvoidingView } from "native-base";
@@ -6,13 +6,7 @@ import Registerform from "../components/Register form";
 const Userregister=()=>{
     const {t,i18n} = useTranslation();
     const [isPasswordShown,setIsPasswordShown]=useState(false);
-    // const [email,setEmail]= useState('');
-    // const [emailValidated,setEmailValidated]= useState(false);
-    // const [username,setUsername]=useState('');
-    // const [password,setPassword]=useState('');
-    // const validate=(data)=>{
-    //     const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    // }
+
     return(
         <NativeBaseProvider>
             <ScrollView>

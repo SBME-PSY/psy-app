@@ -2,25 +2,12 @@ import { NativeBaseProvider,VStack,Center,Box,Text,Heading, FormControl,Input, I
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { faCamera, faEnvelope, faEye, faHome, faLock, faPhone, faUser } from "@fortawesome/free-solid-svg-icons";
-import * as ImagePicker from 'expo-image-picker';
+import {  faEnvelope, faEye, faHome, faLock, faPhone, faUser } from "@fortawesome/free-solid-svg-icons";
 import Imageupload from "./Image Upload";
 
 const Registerform = ({username,address,isdoctor,certificate,certificate_pic,signup}) =>{
     const {t,i18n} = useTranslation();
     const [isPasswordShown,setIsPasswordShown]=useState(false);
-
-    // const AddImage= async ()=>{
-    //     let _image = await ImagePicker.launchImageLibraryAsync(
-    //         {
-    //             mediaTypes: ImagePicker.MediaTypeOptions.Images,
-    //             allowsEditing: true,
-    //             aspect: [4,3],
-    //             quality: 1,
-    //         }
-    //     );
-    // }
-
     return(
         <NativeBaseProvider>
                 <Box width="100%">
