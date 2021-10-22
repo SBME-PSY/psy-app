@@ -6,6 +6,7 @@ import { faSignInAlt,faUserPlus, faGlobe } from "@fortawesome/free-solid-svg-ico
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import Slidercarousel from "../components/Slider";
 import { useTranslation } from "react-i18next";
+import { useState } from "react/cjs/react.development";
 
 const {width} = Dimensions.get("window");
 const Quotes= [
@@ -36,15 +37,15 @@ export default function Landing({navigation}) {
               <HStack>
                 <Text  color="#FEFDFF"  w="80%" fontSize="4xl" fontWeight="bold" mt="15%" mb="5%" ml="5%">Psy-Awareness</Text>
                 <Select mt="18%" dropdownIcon={globe} variant='unstyled'>
-                  <Select.Item label="Arabic" value="ar"  onPress={()=> i18n.changeLanguage("ar")} />
-                  <Select.Item label="English" value="en"  onPress={()=> i18n.changeLanguage("en")}/>
+                  <Select.Item label="Arabic (ع)" value="ar"  onPress={()=> i18n.changeLanguage("ar")} />
+                  <Select.Item label="English (en) " value="en"  onPress={()=> i18n.changeLanguage("en")}/>
                 </Select>
               </HStack>
               <Text color="#FEFDFF" w="90%" fontSize="xl"  ml="5%" fontWeight='bold'>
                   {t('A Personal Psychiatrist at the Palm of your hand')}
               </Text>
               <VStack alignItems="center" mt="12%">
-                <Button  mb={7} size="md" borderRadius={25} px={20}><Text fontSize="lg" color="#FEFDFF" fontWeight="bold">{t('Sign-Up')} <FontAwesomeIcon color="#FEFDFF" icon={ faSignInAlt } /> </Text></Button>
+                <Button  mb={7} size="md" onPress={()=>navigation.navigate('Userregister')} borderRadius={25} px={20}><Text fontSize="lg" color="#FEFDFF" fontWeight="bold">{t('Sign-Up')} <FontAwesomeIcon color="#FEFDFF" icon={ faSignInAlt } /> </Text></Button>
                 <Button borderRadius={25} px={20} variant="outline"><Text fontSize="lg" color="#FEFDFF" fontWeight="bold">{t('Sign-In')} <FontAwesomeIcon color="#FEFDFF" icon={ faUserPlus } /></Text></Button>
                 <Button variant="link" onPress={()=>navigation.navigate('Doctorlanding')} ><Text color="amber.600" fontWeight="bold" style={{textDecorationLine:"underline"}}  mt={5}>{t('Are you a doctor?')}</Text></Button>
               </VStack>
