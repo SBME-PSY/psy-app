@@ -2,7 +2,7 @@ import { Text,Button, Avatar} from "native-base";
 import React, { useState ,useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { faCamera} from "@fortawesome/free-solid-svg-icons";
+import {  faImages} from "@fortawesome/free-solid-svg-icons";
 import * as ImagePicker from 'expo-image-picker';
 
 
@@ -40,7 +40,7 @@ const Imageupload=({navigator,btn_caption})=>{
             {
             image && <Avatar my={2}  size='2xl'  source={{uri:image}} alignSelf='center' borderRadius={100} />
             }
-            <Button alignSelf='center' onPress={AddImage} borderRadius={50}><Text textAlign="center" color="white">{t(btn_caption)} <FontAwesomeIcon color="white" icon={faCamera}/> </Text></Button>
+            <Button alignSelf='center' onPress={AddImage} borderRadius={50}><Text textAlign="center" color="white">{t(btn_caption)} <FontAwesomeIcon color="white"  icon={faImages}/> </Text></Button>
         </>
     )
 

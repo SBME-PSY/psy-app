@@ -9,7 +9,10 @@ import { useTranslation } from "react-i18next";
 import Doctorregister from "./screens/Doctors/Doctor Register";
 import Doctorsignin from "./screens/Doctors/Sign-in_Doctors";
 import Usersignin from "./screens/Users/Sign-in_User";
+import { I18nManager } from "react-native";
 
+I18nManager.forceRTL(false);
+I18nManager.allowRTL(false);
 
 const Stack = createNativeStackNavigator();
 

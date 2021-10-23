@@ -2,7 +2,7 @@ import { NativeBaseProvider,VStack,Center,Box,Text,Heading, FormControl,Input, I
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import {  faEnvelope, faEye, faHome, faLock, faPhone, faUser } from "@fortawesome/free-solid-svg-icons";
+import {  faCertificate, faEnvelope, faEye, faHome, faLock, faPhone, faUser } from "@fortawesome/free-solid-svg-icons";
 import Imageupload from "./Image Upload";
 
 const Registerform = ({username,address,isdoctor,certificate,certificate_pic,signup}) =>{
@@ -52,11 +52,10 @@ const Registerform = ({username,address,isdoctor,certificate,certificate_pic,sig
                                                 <Input 
                                                     variant="underlined"
                                                     placeholder= {t('Enter your collage certificate')}
-                                                    InputLeftElement={<Icon as={<FontAwesomeIcon  icon={faPhone} />}  mr={5} />}/>
+                                                    InputLeftElement={<Icon as={<FontAwesomeIcon  icon={faCertificate} />}  mr={5} />}/>
                                         </FormControl>
                                         <FormControl my={2} isRequired>
                                             <FormControl.Label _text={{color:'#003049'}}>{t(certificate_pic)}</FormControl.Label>
-                                            {/* <Button  onPress={AddImage} borderRadius={50}><Text textAlign="center" color="white">{t('upload a picture of your college degree')} <FontAwesomeIcon color="white" icon={faCamera}/> </Text></Button> */}
                                             <Imageupload pic={certificate_pic} btn_caption='upload a picture of your college degree' />
                                         </FormControl>
                                     </>
