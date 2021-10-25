@@ -15,7 +15,7 @@ const Doctorregister=()=>{
                         <Heading mt="10" fontSize="2xl" fontWeight="bold"  textAlign="center" color="#003049" >{t('Hello Doctor')} </Heading>
                         <Heading fontSize="sm" mt="2"  textAlign="center" color="#003049" >{t('Just a few more steps to start')} !!!</Heading>
                 </KeyboardAvoidingView>
-                <Registerform  isdoctor={true} username='Username' certificate="Certificate" certificate_pic='Certificate Picture' address="Address" signup ='Sign-Up' />
+                <Registerform  isdoctor={true} name='Doctor Name' certificate="Certificate" certificate_pic_label='Certificate Picture' address="Clinc Address" signup ='Sign-Up as a doctor' />
             </VStack>
             </ScrollView>
         </NativeBaseProvider>

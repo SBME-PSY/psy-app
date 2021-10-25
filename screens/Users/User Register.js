@@ -15,7 +15,7 @@ const Userregister=()=>{
                         <Heading mt="10" fontSize="2xl" fontWeight="bold"  textAlign="center" color="#003049" >{t('Welcome to our App')} </Heading>
                         <Heading fontSize="sm" mt="2"  textAlign="center" color="#003049" >{t('Just a few more steps to start')} !!!</Heading>
                 </KeyboardAvoidingView>
-                <Registerform  isdoctor={false} username='Username'  address="Address" signup ='Sign-Up' />
+                <Registerform  isdoctor={false} name='Username'  address="Address" signup ='Sign-Up' />
             </VStack>
             </ScrollView>
         </NativeBaseProvider>

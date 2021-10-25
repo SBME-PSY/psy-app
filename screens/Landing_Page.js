@@ -34,13 +34,13 @@ export default function Landing({navigation}) {
           <Box height="60%" width="100%" borderBottomRightRadius={50}  bgColor="black">
             <ImageBackground blurRadius={3}  borderBottomRightRadius={50} imageStyle={{opacity: 0.6}} source={Therapy_session} style={{flex:1}} resizeMode="cover" >
               <HStack mt='15%'>
-                <Text  color="#FEFDFF"  w="80%" fontSize="4xl" fontWeight="bold"  mb="5%" ml="5%">Psy-Awareness</Text>
-                <Select  dropdownIcon={globe} variant='unstyled'>
+                <Text  color="#FEFDFF"  w="80%" fontSize="3xl" fontWeight="bold"  mb="5%" ml="5%">Psy-Awareness</Text>
+                <Select mt={2} dropdownIcon={globe} variant='unstyled'>
                   <Select.Item label="Arabic (ع)" value="ar"  onPress={()=> i18n.changeLanguage("ar")} />
                   <Select.Item label="English (en) " value="en"  onPress={()=> i18n.changeLanguage("en")}/>
                 </Select>
               </HStack>
-              <Text color="#FEFDFF" w="90%" fontSize="xl"  ml="5%" fontWeight='bold'>
+              <Text color="#FEFDFF" w="90%" fontSize="lg"  ml="5%" fontWeight='bold'>
                   {t('A Personal Psychiatrist at the Palm of your hand')}
               </Text>
               <VStack alignItems="center" mt="12%">

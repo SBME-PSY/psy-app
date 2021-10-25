@@ -4,9 +4,9 @@ import { useTranslation } from "react-i18next";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import {  faImages} from "@fortawesome/free-solid-svg-icons";
 import * as ImagePicker from 'expo-image-picker';
+import { Formik } from "formik";
 
-
-const Imageupload=({navigator,btn_caption})=>{
+const Imageupload=({navigator,btn_caption,values_object,pic_label})=>{
     const {t,i18n} = useTranslation();
     const [image,setImage]= useState(null);
 
@@ -20,27 +20,34 @@ const Imageupload=({navigator,btn_caption})=>{
           }
         })();
       }, []);
-
     const AddImage= async ()=>{
         let _image = await ImagePicker.launchImageLibraryAsync(
-            {   aspect:[16,9],
+            {   
                 mediaTypes: ImagePicker.MediaTypeOptions.Images,
                 allowsEditing: true,
-                quality: 1,
+                quality: 0.5,
+                base64:true
             }
         );
-        console.log(JSON.stringify(_image));
+        values_object.image_uri= pic_label;
+        values_object[pic_label]= _image['base64'];
+        // console.log(JSON.stringify(_image));
         if(_image.cancelled === false){
             setImage(_image.uri);
         }
     }
-
     return(
         <>
+          <Formik initialValues={{pic_uri:''}}>
+            {(props)=>(
+            <>
             {
-            image && <Avatar my={2}  size='2xl'  source={{uri:image}} alignSelf='center' borderRadius={100} />
+            image && <Avatar my={2} size='2xl' value={props.values.pic_uri} source={{uri:image}} alignSelf='center' borderRadius={100} />
             }
-            <Button alignSelf='center' onPress={AddImage} borderRadius={50}><Text textAlign="center" color="white">{t(btn_caption)} <FontAwesomeIcon color="white"  icon={faImages}/> </Text></Button>
+            <Button alignSelf='center' onPress={()=> AddImage()} borderRadius={50}><Text textAlign="center" color="white">{t(btn_caption)} <FontAwesomeIcon color="white"  icon={faImages}/> </Text></Button>
+            </>
+            )}
+          </Formik>
         </>
     )
 
