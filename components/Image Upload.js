@@ -29,7 +29,7 @@ const Imageupload=({navigator,btn_caption,values_object,pic_label})=>{
                 base64:true
             }
         );
-        values_object.image_uri= pic_label;
+        values_object.pic_label= pic_label;
         values_object[pic_label]= _image['base64'];
         // console.log(JSON.stringify(_image));
         if(_image.cancelled === false){
