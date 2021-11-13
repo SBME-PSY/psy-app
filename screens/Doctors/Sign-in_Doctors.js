@@ -16,7 +16,7 @@ const Doctorsignin=()=>{
                         </Box>
                 </KeyboardAvoidingView>
                 <Box height='80%' width="100%" bg='white' borderTopRadius={50} >
-                    <Signin btn_color='#003049' pressed_btn_color='success.500' />
+                    <Signin btn_color='#003049' role='doctor' pressed_btn_color='success.500' />
                 </Box>
             </VStack>
         </NativeBaseProvider>

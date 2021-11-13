@@ -1,11 +1,11 @@
 import React from "react";
-import {Text,NativeBaseProvider,VStack,Box,Button, Link, HStack,Select} from "native-base";
+import {Text,NativeBaseProvider,VStack,Box,Button, HStack,Select} from "native-base";
 import { ImageBackground ,Dimensions} from "react-native";
 import Therapy_session from '../assets/Img/Therapy_Session.jpeg';
 import { faSignInAlt,faUserPlus, faGlobe } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import Slidercarousel from "../components/Slider";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "react-i18next"; 
 
 const {width} = Dimensions.get("window");
 const Quotes= [
@@ -35,7 +35,7 @@ export default function Landing({navigation}) {
             <ImageBackground blurRadius={3}  borderBottomRightRadius={50} imageStyle={{opacity: 0.6}} source={Therapy_session} style={{flex:1}} resizeMode="cover" >
               <HStack mt='15%'>
                 <Text  color="#FEFDFF"  w="80%" fontSize="3xl" fontWeight="bold"  mb="5%" ml="5%">Psy-Awareness</Text>
-                <Select mt={2} dropdownIcon={globe} variant='unstyled'>
+                <Select  dropdownIcon={globe} variant='unstyled'>
                   <Select.Item label="Arabic (ع)" value="ar"  onPress={()=> i18n.changeLanguage("ar")} />
                   <Select.Item label="English (en) " value="en"  onPress={()=> i18n.changeLanguage("en")}/>
                 </Select>
