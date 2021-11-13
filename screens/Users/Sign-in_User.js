@@ -16,7 +16,7 @@ const Usersignin=()=>{
                         </Box>
                 </KeyboardAvoidingView>
                 <Box height='80%' width="100%" bg='white' borderTopRadius={50}>
-                    <Signin btn_color='success.500' pressed_btn_color="#003049" />
+                    <Signin btn_color='success.500' role='user'  pressed_btn_color="#003049" />
                 </Box>
             </VStack>
         </NativeBaseProvider>

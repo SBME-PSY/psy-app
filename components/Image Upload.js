@@ -6,7 +6,7 @@ import {  faImages} from "@fortawesome/free-solid-svg-icons";
 import * as ImagePicker from 'expo-image-picker';
 import { Formik } from "formik";
 
-const Imageupload=({navigator,btn_caption,values_object,pic_label})=>{
+const Imageupload=({navigator,values_object})=>{
     const {t,i18n} = useTranslation();
     const [image,setImage]= useState(null);
 
@@ -26,12 +26,12 @@ const Imageupload=({navigator,btn_caption,values_object,pic_label})=>{
                 mediaTypes: ImagePicker.MediaTypeOptions.Images,
                 allowsEditing: true,
                 quality: 0.5,
-                base64:true
+                base64:true,
+                aspect:[4,3]
             }
         );
-        values_object.pic_label= pic_label;
-        values_object[pic_label]= _image['base64'];
-        // console.log(JSON.stringify(_image));
+        // 
+        values_object.profilePicture= `data:image/jpg;base64,${_image.base64}`;
         if(_image.cancelled === false){
             setImage(_image.uri);
         }
@@ -44,13 +44,12 @@ const Imageupload=({navigator,btn_caption,values_object,pic_label})=>{
             {
             image && <Avatar my={2} size='2xl' value={props.values.pic_uri} source={{uri:image}} alignSelf='center' borderRadius={100} />
             }
-            <Button alignSelf='center' onPress={()=> AddImage()} borderRadius={50}><Text textAlign="center" color="white">{t(btn_caption)} <FontAwesomeIcon color="white"  icon={faImages}/> </Text></Button>
+            <Button alignSelf='center' onPress={()=> AddImage()} borderRadius={50}><Text textAlign="center" color="white">{t('Pick a Picture')} <FontAwesomeIcon color="white"  icon={faImages}/> </Text></Button>
             </>
             )}
           </Formik>
         </>
     )
-
 }
 
 export default Imageupload;

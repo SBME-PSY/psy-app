@@ -9,35 +9,95 @@ import { useTranslation } from "react-i18next";
 import Doctorregister from "./screens/Doctors/Doctor Register";
 import Doctorsignin from "./screens/Doctors/Sign-in_Doctors";
 import Usersignin from "./screens/Users/Sign-in_User";
-import { I18nManager } from "react-native";
+import { I18nManager, View } from "react-native";
+import Doctorhome from "./screens/Doctors/doctorHome";
+import Userhome from "./screens/Users/userHome";
+import { createDrawerNavigator } from "@react-navigation/drawer";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import ViewDoctorProfile from "./screens/Doctors/View Doctor Profile";
 
 I18nManager.forceRTL(false);
 I18nManager.allowRTL(false);
 
+
 const Stack = createNativeStackNavigator();
+
+const Drawer = createDrawerNavigator();
+
+const Tab = createBottomTabNavigator();
+
+function DoctorTabs () {
+  const {t,i18n} = useTranslation();
+  return(
+    <Tab.Navigator initialRouteName='Home' 
+
+      screenOptions={{
+        tabBarActiveTintColor: '#e91e63',
+        headerShown:false,
+        tabBarStyle:{
+          height:60,
+          position: 'absolute',
+          bottom: 16,
+          marginHorizontal:16,
+          borderRadius: 20,
+        }
+      }}
+    >
+      <Tab.Screen options={{
+        tabBarLabel:t('Home'),
+      }} name='Doctorhome'  component={Doctorhome} />
+      <Tab.Screen options={{
+        tabBarLabel:t('Profile'),
+      }} name='ViewDoctorProfile'  component={ViewDoctorProfile} />
+    </Tab.Navigator>
+  )
+}
+
+function UserDrawer() {
+  return (
+      <Drawer.Navigator initialRouteName="Userhome">
+        <Drawer.Screen name="Userhome" component={Userhome} />
+      </Drawer.Navigator>
+  );
+}
+// function DoctorDrawer() {
+//   const {t,i18n} = useTranslation();
+//   return (
+//       <Drawer.Navigator  initialRouteName="Doctorhome">
+//         <Drawer.Screen  options={{title:t('Home') }} name="Doctorhome" component={Doctorhome} />  
+//         <Drawer.Screen options={{title:t('Profile') }} name="ViewDoctorProfile" component={ViewDoctorProfile}/>  
+//       </Drawer.Navigator>
+//   );
+// }
+
 
 export default function App() {
   const {t,i18n} = useTranslation();
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Landing" options={{ headerShown: false }}  component={Landing}></Stack.Screen>
-        <Stack.Screen name="Doctorlanding" options={{ headerShown: false }} component={Doctorlanding} />
-        <Stack.Screen name="Userregister" options={{
-          title:t("Register"),
-          headerTintColor:"white",
-          headerTitleStyle:{color:"#FEFDFF"},
-          headerStyle:{backgroundColor:"#003049"}}} component={Userregister} />
-        <Stack.Screen  name='Doctorregister'  component={Doctorregister} options={{
-          title:t("Register"),
-          headerTintColor:"white",
-          headerTitleStyle:{color:"#FEFDFF"},
-          headerStyle:{backgroundColor:"#003049"}
-        }}/>
-        <Stack.Screen name="Doctorsignin" options={{ headerShown: false }}  component={Doctorsignin}></Stack.Screen>
-        <Stack.Screen name="Usersignin" options={{ headerShown: false }}  component={Usersignin}></Stack.Screen>
-
-      </Stack.Navigator>
-    </NavigationContainer>
+    <>
+      <NavigationContainer >
+        <Stack.Navigator  >
+          <Stack.Screen name="Landing" options={{ headerShown: false }}  component={Landing}></Stack.Screen>
+          <Stack.Screen name="Doctorlanding" options={{ headerShown: false }} component={Doctorlanding} />
+          <Stack.Screen name="Userregister" options={{
+            title:t("Register"),
+            headerTintColor:"white",
+            headerTitleAlign: 'center',
+            headerTitleStyle:{color:"#FEFDFF"},
+            headerStyle:{backgroundColor:"#003049"}}} component={Userregister} />
+          <Stack.Screen  name='Doctorregister'  component={Doctorregister} options={{
+            title:t("Register"),
+            headerTitleAlign: 'center',
+            headerTintColor:"white",
+            headerTitleStyle:{color:"#FEFDFF"},
+            headerStyle:{backgroundColor:"#003049"}
+          }}/>
+          <Stack.Screen name="Doctorsignin" options={{ headerShown: false }}  component={Doctorsignin}/>
+          <Stack.Screen name="Usersignin" options={{ headerShown: false }}  component={Usersignin}/>
+          <Stack.Screen name="Doctorhome" options={{ headerShown: false }}  component={DoctorTabs}  />
+          <Stack.Screen name="Userhome" options={{ headerShown: false }}  component={UserDrawer}  />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </>
   );
 }
