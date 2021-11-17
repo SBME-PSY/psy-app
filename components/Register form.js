@@ -11,6 +11,7 @@ import ResumeUpload from "./Resume Upload";
 import Constants from "expo-constants";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios, { Axios } from "axios";
+import CVPicture from "./CertificatePictureUpload";
 
 const {manifest} = Constants;
 const api = (typeof manifest.packagerOpts === `object`) && manifest.packagerOpts.dev
@@ -101,10 +102,10 @@ const Registerform = ({navigation,Name_label,address_label,isdoctor,signup,role}
                                                 />
                                         <Text color='danger.500' >{ props.touched.name &&  props.errors.name}</Text>
                                     </FormControl>
-                                    <FormControl my={2} isRequired>
+                                    {/* <FormControl my={2} isRequired>
                                         <FormControl.Label  _text={{color:'#003049'}}>{t('Profile Picture')}</FormControl.Label>
                                         <Imageupload values_object={props.values}/>
-                                    </FormControl>
+                                    </FormControl> */}
                                     <FormControl my={2} isRequired>
                                         <FormControl.Label _text={{color:'#003049'}}>{t('Email')}</FormControl.Label>
                                         <Input 
@@ -147,14 +148,15 @@ const Registerform = ({navigation,Name_label,address_label,isdoctor,signup,role}
                                     {isdoctor && (
                                         <FormControl my='5'>
                                             <FormControl.Label>{t('Resume')}</FormControl.Label>
-                                            <ResumeUpload values_object={props.values} />
+                                            {/* <ResumeUpload values_object={props.values} /> */}
+                                            <CVPicture values_object={props.values} />
                                         </FormControl>
                                     )}
                                     <FormControl my={2} isRequired>
                                         <FormControl.Label><Text color='#003049'>{t('choose your gender')}</Text></FormControl.Label>
                                         <Select onValueChange={props.handleChange('sex')} value={props.values.sex} placeholder={t('Sex')}>
-                                            <Select.Item label={t('Male')} value='male'></Select.Item>
-                                            <Select.Item label={t('Female')} value='female'></Select.Item>
+                                            <Select.Item label={t('Male')} value='Male'></Select.Item>
+                                            <Select.Item label={t('Female')} value='Female'></Select.Item>
                                         </Select>
                                     </FormControl>
                                     <FormControl my={2} isRequired >

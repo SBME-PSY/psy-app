@@ -12,8 +12,6 @@ import { SvgUri , SvgCssUri } from 'react-native-svg';
 import * as yup from 'yup';
 import { Alert, I18nManager, TouchableOpacity, View } from 'react-native';
 
-
-
 const {manifest} = Constants;
 const api = (typeof manifest.packagerOpts === `object`) && manifest.packagerOpts.dev
   ? manifest.debuggerHost.split(`:`).shift().concat(`:8000`)
@@ -33,7 +31,8 @@ export default function Viewprofile({role,Address_label,Name_label,header_color}
     const [isCurrenrtPasswordShown,setIsCurrenrtPasswordShown]=useState(false);
     const [isNewPasswordShown,setIsNewPasswordShown]=useState(false);
     const [isconfirmNewPasswordShowen,setIsconfirmNewPasswordShown] = useState(false);
-
+    let uri = 'https://ui-avatars.com/api/?rounded=true&background=fff&size=512&name=John+Doe';
+    
     const getData = async ()=>{
         let token = await AsyncStorage.getItem('token')
         axios.get(`http://${api}/psy/${role}s/profile`,{
@@ -42,7 +41,7 @@ export default function Viewprofile({role,Address_label,Name_label,header_color}
             }
         })
         .then((response) => {
-            // console.log(response.data.data);
+            console.log(response.data.data);
             // console.log(response.data);
             setProfileData(response.data.data);
             Isloading(false);
@@ -68,7 +67,16 @@ export default function Viewprofile({role,Address_label,Name_label,header_color}
                 animation:'ease-in-out',
                 status:'success'
             })
-            setTimeout(()=>getData(),500)
+            setTimeout(()=>{
+                getData();
+                setShowNameModal(false);
+                setShowEmailModal(false);
+                setShowPasswordModal(false);
+                setShowMaritalStatusModal(false);
+                setShowPhoneModal(false);
+                setShowPictureModal(false);
+
+            },500);
         })
         .catch(err => {
             console.error(err);
@@ -88,6 +96,7 @@ export default function Viewprofile({role,Address_label,Name_label,header_color}
             </NativeBaseProvider>
         )
     }
+
     else{
         // view doctor or user profile
         return(
@@ -95,14 +104,16 @@ export default function Viewprofile({role,Address_label,Name_label,header_color}
                 <VStack justifyContent='center'>
                     <VStack h='30%'>
                         <HStack w='100%' h='50%'  bgColor={header_color} justifyContent='center' >
-                            {/* <SvgUri width='100' height='100'  uri={profileData.picture}/> */}
-                                <Avatar size='2xl' zIndex={3} mt='10' />
+                                {/* <HStack  style={{aspectRatio:1}} w='auto' borderRadius={50}  mt={12} zIndex={3} justifyContent='center' >
+                                    <SvgUri width='200' height='120' uri={profileData.picture}/>
+                                </HStack> */}
+                                <Avatar size='2xl' source={{uri:uri}} zIndex={3} mt='10' />
                         </HStack>
-                        <HStack  h='50%'>
+                        <HStack  h='70%' justifyContent='center'>
+                            <Text textAlign='center'  fontWeight='medium' mt='16'  fontSize='2xl'> {profileData.name}</Text>
                         </HStack>
                     </VStack>
                     <ScrollView h='60%'>
-                        <Text textAlign='center'  fontWeight='medium' mt='2'  fontSize='3xl'> {profileData.name}</Text>
                         <Text mt='5' textAlign='center' color='danger.900'>{t('You can edit any field of your Personal Data by just clicking on it and filing your new data 😊')}</Text>
 
                         <HStack mt='3' borderWidth={1}  py='2' justifyContent='flex-start' borderColor='warning.800' width='100%'>
