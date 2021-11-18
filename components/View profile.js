@@ -12,12 +12,15 @@ import { SvgUri , SvgCssUri } from 'react-native-svg';
 import * as yup from 'yup';
 import { Alert, I18nManager, TouchableOpacity, View } from 'react-native';
 
+
 const {manifest} = Constants;
 const api = (typeof manifest.packagerOpts === `object`) && manifest.packagerOpts.dev
   ? manifest.debuggerHost.split(`:`).shift().concat(`:8000`)
   : `api.example.com`;
 
+  //address is still to be added
 export default function Viewprofile({role,Address_label,Name_label,header_color}){
+    const {t,i18n} = useTranslation();
     const [loading , Isloading] = useState(true);
     const [profileData,setProfileData] = useState();
     const [showNameModal, setShowNameModal] = useState(false);
@@ -26,12 +29,9 @@ export default function Viewprofile({role,Address_label,Name_label,header_color}
     const [showPasswordModal, setShowPasswordModal] = useState(false);
     const [showPictureModal, setShowPictureModal] = useState(false);
     const [showMaritalStatusModal, setShowMaritalStatusModal] = useState(false);
-
-    const {t,i18n} = useTranslation();
     const [isCurrenrtPasswordShown,setIsCurrenrtPasswordShown]=useState(false);
     const [isNewPasswordShown,setIsNewPasswordShown]=useState(false);
     const [isconfirmNewPasswordShowen,setIsconfirmNewPasswordShown] = useState(false);
-    let uri = 'https://ui-avatars.com/api/?rounded=true&background=fff&size=512&name=John+Doe';
     
     const getData = async ()=>{
         let token = await AsyncStorage.getItem('token')
@@ -107,7 +107,7 @@ export default function Viewprofile({role,Address_label,Name_label,header_color}
                                 {/* <HStack  style={{aspectRatio:1}} w='auto' borderRadius={50}  mt={12} zIndex={3} justifyContent='center' >
                                     <SvgUri width='200' height='120' uri={profileData.picture}/>
                                 </HStack> */}
-                                <Avatar size='2xl' source={{uri:uri}} zIndex={3} mt='10' />
+                                <Avatar size='2xl' source={{uri:profileData.picture}} zIndex={3} mt='10' />
                         </HStack>
                         <HStack  h='70%' justifyContent='center'>
                             <Text textAlign='center'  fontWeight='medium' mt='16'  fontSize='2xl'> {profileData.name}</Text>
