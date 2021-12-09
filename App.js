@@ -15,7 +15,7 @@ import Userhome from "./screens/Users/userHome";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import ViewDoctorProfile from "./screens/Doctors/View Doctor Profile";
-
+import ViewUserProfile from './screens/Users/View User Profile'
 I18nManager.forceRTL(false);
 I18nManager.allowRTL(false);
 
@@ -53,13 +53,41 @@ function DoctorTabs () {
   )
 }
 
-function UserDrawer() {
-  return (
-      <Drawer.Navigator initialRouteName="Userhome">
-        <Drawer.Screen name="Userhome" component={Userhome} />
-      </Drawer.Navigator>
-  );
+function UserTabs (){
+  const {t,i18n} = useTranslation();
+  return(
+    <Tab.Navigator initialRouteName="Home" 
+    screenOptions={{
+      tabBarActiveTintColor: '#e91e63',
+      headerShown:false,
+      tabBarStyle:{
+        height:60,
+        position: 'absolute',
+        bottom: 16,
+        marginHorizontal:16,
+        borderRadius: 20,
+      }
+    }}
+    >
+      <Tab.Screen   
+        options={{
+          tabBarLabel:t('Home'),
+        }} name='UserHome'  component={Userhome} 
+      />
+      <Tab.Screen options={{
+        tabBarLabel:t('Profile'),
+      }} name='ViewUserProfile'  component={ViewUserProfile} />
+    </Tab.Navigator>
+  )
 }
+
+// function UserDrawer() {
+//   return (
+//       <Drawer.Navigator initialRouteName="Userhome">
+//         <Drawer.Screen name="Userhome" component={Userhome} />
+//       </Drawer.Navigator>
+//   );
+// }
 // function DoctorDrawer() {
 //   const {t,i18n} = useTranslation();
 //   return (
@@ -95,7 +123,7 @@ export default function App() {
           <Stack.Screen name="Doctorsignin" options={{ headerShown: false }}  component={Doctorsignin}/>
           <Stack.Screen name="Usersignin" options={{ headerShown: false }}  component={Usersignin}/>
           <Stack.Screen name="Doctorhome" options={{ headerShown: false }}  component={DoctorTabs}  />
-          <Stack.Screen name="Userhome" options={{ headerShown: false }}  component={UserDrawer}  />
+          <Stack.Screen name="Userhome" options={{ headerShown: false }}  component={UserTabs}  />
         </Stack.Navigator>
       </NavigationContainer>
     </>
