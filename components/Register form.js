@@ -64,7 +64,7 @@ const Registerform = ({navigation,Name_label,address_label,isdoctor,signup,role}
                     <VStack>
                         <Center mt="10%" px={5}>
                             <Formik
-                            initialValues={{name:'',email:'',password:'',confirmPassword:'',sex:'',maritalStatus:'',address:'',phone:''}}
+                            initialValues={{name:'',email:'',password:'',relativePhone:'',confirmPassword:'',sex:'',maritalStatus:'',address:'',phone:''}}
                                 onSubmit={ (data,actions)=> {
                                     data["role"]= role;
                                     console.log(data)
@@ -187,6 +187,21 @@ const Registerform = ({navigation,Name_label,address_label,isdoctor,signup,role}
                                             placeholder= {t('Phone Number')}
                                             InputLeftElement={<Icon as={<FontAwesomeIcon  icon={faPhone} />}  mr={5} />}/>
                                     </FormControl>
+                                    {!isdoctor && 
+                                        <FormControl my={2} isRequired>
+                                            <FormControl.Label _text={{color:'#003049'}}>{t('Relative Phone Number')}</FormControl.Label>
+                                                <FormControl.HelperText>{t('The Phone number should consist of 11 numbers and start with 011,012,010, or 015')}</FormControl.HelperText>
+                                                <FormControl.HelperText>{t('This is optional and not required but prefered')}</FormControl.HelperText>
+                                                <Input 
+                                                    onChangeText={props.handleChange('relativePhone')}
+                                                    value={props.values.relativePhone}
+                                                    type={'number'}
+                                                    keyboardType='phone-pad'
+                                                    variant="underlined"
+                                                    placeholder= {t('Relative Phone Number')}
+                                                    InputLeftElement={<Icon as={<FontAwesomeIcon  icon={faPhone} />}  mr={5} />}/>
+                                        </FormControl>
+                                    }
                                     <FormControl my="5">
                                         <Button  onPress={props.handleSubmit} bgColor="success.500"  _pressed={{bgColor:"#003049"}} borderRadius={50}>{t(signup)}</Button>
                                     </FormControl>

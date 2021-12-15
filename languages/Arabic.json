@@ -17,6 +17,8 @@
         "Phone number is required":"من فضلك ادخل رقم هاتفك",
         "Hello Doctor":"مرحبا بك دكتور",
         "Cancel":"الغاء",
+        "This is optional and not required but prefered":"ادخال هذا الرقم اختياري ،من الممكن ان تترك هذا الحقل خالبيا لكن يفضل ملئه ببيانات صحيحه",
+        "Relative Phone Number":"رقم هاتف احد اﻻقارب",
         "Gender":"الجنس",
         "Thank you for trusting us": "شكرا علي ثقتك بنا",
         "What would you like to do?":"ما الذي تود فعله ؟",
