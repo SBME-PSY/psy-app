@@ -28,13 +28,15 @@ const Quotes= [
 let globe = <FontAwesomeIcon   color="#fff" icon={faGlobe} />;
 export default function Landing({navigation}) {
   const {t,i18n} = useTranslation();
+  
   return (
     <NativeBaseProvider>
         <VStack width="100%" height="100%">
           <Box height="60%" width="100%" borderBottomRightRadius={50}  bgColor="black">
             <ImageBackground blurRadius={3}  borderBottomRightRadius={50} imageStyle={{opacity: 0.6}} source={Therapy_session} style={{flex:1}} resizeMode="cover" >
               <HStack mt='15%'>
-                <Text  color="#FEFDFF"  w="80%" fontSize="3xl" fontWeight="bold"  mb="5%" ml="5%">Psy-Awareness</Text>
+                <Text  color="#FEFDFF"  w="80%" fontFamily='Rancho' fontSize="3xl" fontWeight="bold"  mb="5%" ml="5%">Psy-Awareness</Text>
+                
                 <Select  dropdownIcon={globe} variant='unstyled'>
                   <Select.Item label="Arabic (ع)" value="ar"  onPress={()=> i18n.changeLanguage("ar")} />
                   <Select.Item label="English (en) " value="en"  onPress={()=> i18n.changeLanguage("en")}/>

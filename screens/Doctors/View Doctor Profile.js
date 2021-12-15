@@ -17,7 +17,7 @@ import Viewprofile from '../../components/View profile';
 const ViewDoctorProfile=()=>{
     return(
         <NativeBaseProvider>
-            <Viewprofile role='doctor' Address_label='Clinc Address' Name_label='Doctor Name' header_color='#003049' />
+            <Viewprofile role='doctor' Address_label='Clinic Address' Name_label='Doctor Name' header_color='#003049' />
         </NativeBaseProvider>
     )
 }

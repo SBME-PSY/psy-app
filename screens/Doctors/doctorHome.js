@@ -3,6 +3,8 @@ import React from "react";
 import WelcomeSVG from "../../components/WelcomeSVG";
 import { useTranslation } from "react-i18next";
 
+
+
 const Doctorhome=({navigation})=>{
     const {t,i18n} = useTranslation();
     return(
