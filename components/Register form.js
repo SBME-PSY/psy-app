@@ -13,6 +13,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios, { Axios } from "axios";
 import CVPicture from "./CertificatePictureUpload";
 
+
 const {manifest} = Constants;
 const api = (typeof manifest.packagerOpts === `object`) && manifest.packagerOpts.dev
   ? manifest.debuggerHost.split(`:`).shift().concat(`:8000`)
@@ -46,7 +47,6 @@ const Registerform = ({navigation,Name_label,address_label,isdoctor,signup,role}
             console.log(err);
         }
     }
-
     // const getData = async () => {
     //     try {
     //     const value = await AsyncStorage.getItem('token')

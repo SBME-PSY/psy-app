@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {Text,NativeBaseProvider,VStack,Box,Button, HStack,Select} from "native-base";
 import { ImageBackground ,Dimensions} from "react-native";
 import Therapy_session from '../assets/Img/Therapy_Session.jpeg';
@@ -6,6 +6,7 @@ import { faSignInAlt,faUserPlus, faGlobe } from "@fortawesome/free-solid-svg-ico
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import Slidercarousel from "../components/Slider";
 import { useTranslation } from "react-i18next"; 
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const {width} = Dimensions.get("window");
 const Quotes= [
@@ -29,6 +30,16 @@ let globe = <FontAwesomeIcon   color="#fff" icon={faGlobe} />;
 export default function Landing({navigation}) {
   const {t,i18n} = useTranslation();
   
+
+  useEffect(()=>{
+    if(AsyncStorage.getItem('token')){
+      console.log(AsyncStorage.getItem('token'))
+    }
+    else{
+      console.log(' token deleted ' )
+    }
+  },[])
+
   return (
     <NativeBaseProvider>
         <VStack width="100%" height="100%">
@@ -46,8 +57,8 @@ export default function Landing({navigation}) {
                   {t('A Personal Psychiatrist at the Palm of your hand')}
               </Text>
               <VStack alignItems="center" mt="12%">
-                <Button  mb={7} size="md" onPress={()=>navigation.navigate('Userregister')} borderRadius={25} px={20}><Text fontSize="lg" color="#FEFDFF" fontWeight="bold">{t('Sign-Up')} <FontAwesomeIcon color="#FEFDFF" icon={ faSignInAlt } /> </Text></Button>
-                <Button borderRadius={25}  onPress={()=>navigation.navigate('Usersignin')} px={20} variant="outline" colorScheme="light"><Text fontSize="lg" color='#fff'   fontWeight="bold">{t('Sign-In')} <FontAwesomeIcon  color='#fff' icon={ faUserPlus } /></Text></Button>
+                <Button  mb={7} size="md" onPress={()=>navigation.navigate('Userregister')} borderRadius={25} px={20}><Text fontSize="lg" color="#FEFDFF" fontWeight="bold">{t('Sign-Up')} <FontAwesomeIcon  color='#fff' icon={ faUserPlus } /> </Text></Button>
+                <Button borderRadius={25}  onPress={()=>navigation.navigate('Usersignin')} px={20} variant="outline" colorScheme="light"><Text fontSize="lg" color='#fff'   fontWeight="bold">{t('Sign-In')} <FontAwesomeIcon color="#FEFDFF" icon={ faSignInAlt } /> </Text></Button>
                 <Button variant="link" onPress={()=>navigation.navigate('Doctorlanding')} ><Text color="amber.600" fontWeight="bold" style={{textDecorationLine:"underline"}}  mt={5}>{t('Are you a doctor?')}</Text></Button>
               </VStack>
             </ImageBackground>

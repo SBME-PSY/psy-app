@@ -15,7 +15,8 @@ import Userhome from "./screens/Users/userHome";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import ViewDoctorProfile from "./screens/Doctors/View Doctor Profile";
-import ViewUserProfile from './screens/Users/View User Profile'
+import ViewUserProfile from './screens/Users/View User Profile';
+import Clinics from './screens/Doctors/clinics';
 I18nManager.forceRTL(false);
 I18nManager.allowRTL(false);
 
@@ -49,6 +50,9 @@ function DoctorTabs () {
       <Tab.Screen options={{
         tabBarLabel:t('Profile'),
       }} name='ViewDoctorProfile'  component={ViewDoctorProfile} />
+      {/* <Tab.Screen options={{
+        tabBarLabel: t('Clinics')
+      }}  name='Clinics' component={Clinics} /> */}
     </Tab.Navigator>
   )
 }
@@ -105,6 +109,7 @@ export default function App() {
     <>
       <NavigationContainer >
         <Stack.Navigator  >
+          
           <Stack.Screen name="Landing" options={{ headerShown: false }}  component={Landing}></Stack.Screen>
           <Stack.Screen name="Doctorlanding" options={{ headerShown: false }} component={Doctorlanding} />
           <Stack.Screen name="Userregister" options={{
@@ -119,6 +124,10 @@ export default function App() {
             headerTintColor:"white",
             headerTitleStyle:{color:"#FEFDFF"},
             headerStyle:{backgroundColor:"#003049"}
+          }}/>
+          <Stack.Screen  name='clinics'  component={Clinics} options={{
+            title:t("Clinics"),
+            headerTitleAlign: 'center',
           }}/>
           <Stack.Screen name="Doctorsignin" options={{ headerShown: false }}  component={Doctorsignin}/>
           <Stack.Screen name="Usersignin" options={{ headerShown: false }}  component={Usersignin}/>

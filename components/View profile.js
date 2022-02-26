@@ -4,7 +4,7 @@ import axios ,{Axios} from 'axios';
 import Constants from "expo-constants";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faArrowAltCircleRight, faArrowRight, faEnvelope, faEye, faEyeSlash, faGenderless, faHeart, faHome, faLock, faPhone, faUser, faVenusMars  } from '@fortawesome/free-solid-svg-icons';
+import { faArrowAltCircleRight, faArrowRight, faClinicMedical, faEnvelope, faEye, faEyeSlash, faGenderless, faHeart, faHome, faLock, faOutdent, faPhone, faUser, faVenusMars  } from '@fortawesome/free-solid-svg-icons';
 import { useTranslation } from "react-i18next";
 import { Formik } from "formik";
 import Imageupload from './Image Upload';
@@ -19,7 +19,7 @@ const api = (typeof manifest.packagerOpts === `object`) && manifest.packagerOpts
   : `api.example.com`;
 
   //address is still to be added
-export default function Viewprofile({role,Address_label,Name_label,header_color}){
+export default function Viewprofile({navigation,role,Address_label,Name_label,header_color}){
     const {t,i18n} = useTranslation();
     const [loading , Isloading] = useState(true);
     const [profileData,setProfileData] = useState();
@@ -42,6 +42,7 @@ export default function Viewprofile({role,Address_label,Name_label,header_color}
         })
         .then((response) => {
             console.log(response.data.data);
+            console.log(response.data.role);
             // console.log(response.data);
             setProfileData(response.data.data);
             Isloading(false);
@@ -50,6 +51,11 @@ export default function Viewprofile({role,Address_label,Name_label,header_color}
             console.log(error);
             throw Error('Sorry, there has been a Problem while fetching your data');
         });
+    }
+
+    const logout =()=>{
+        AsyncStorage.removeItem('token');
+        navigation.navigate('Landing');
     }
 
     const editData = async (newData)=>{
@@ -121,6 +127,7 @@ export default function Viewprofile({role,Address_label,Name_label,header_color}
                                 <Text ml='2' fontWeight='light' fontSize='lg' >  {t('Edit your Name')}</Text> 
                             </TouchableOpacity>
                         </HStack>
+                        
 
                         <HStack mt='3' borderWidth={1} py='2' justifyContent='flex-start' borderColor='warning.800' width='100%'>
                             <TouchableOpacity onPress={()=> setShowPasswordModal(true)}>
@@ -142,6 +149,12 @@ export default function Viewprofile({role,Address_label,Name_label,header_color}
                         </HStack>
 
                         <HStack mt='3' borderWidth={1} py='2' justifyContent='flex-start' borderColor='warning.800' width='100%'>
+                            <TouchableOpacity onPress={()=> navigation.navigate('clinics')}>
+                                <Text  ml='2'  fontWeight='light' fontSize='lg' > <FontAwesomeIcon icon={faClinicMedical} /> {t('Show Clinics')}</Text>
+                            </TouchableOpacity>
+                        </HStack>
+
+                        <HStack mt='3' borderWidth={1} py='2' justifyContent='flex-start' borderColor='warning.800' width='100%'>
                             <TouchableOpacity onPress={()=> setShowMaritalStatusModal(true)}>
                                 <Text  ml='2' fontWeight='light' fontSize='lg' > <FontAwesomeIcon icon={faHeart} /> {t('Marital Status')}: {profileData.maritalStatus}</Text>
                             </TouchableOpacity>
@@ -158,7 +171,13 @@ export default function Viewprofile({role,Address_label,Name_label,header_color}
                                 <Text  ml='2' fontWeight='light' fontSize='lg' > <FontAwesomeIcon icon={faPhone} /> {t('Phone Number')}: {profileData.phone}</Text>
                             </TouchableOpacity>
                         </HStack>
-                        
+
+                        <HStack my='3' borderWidth={1} py='2'  borderColor='warning.800' width='100%'>
+                            <TouchableOpacity onPress={logout}>
+                                <Text  textAlign='center' ml='2' fontWeight='light' color='error.500' fontSize='lg' > {t('Logout')}</Text>
+                            </TouchableOpacity>
+                        </HStack>
+
                         {/* Edit name */}
 
                         <Modal size='xl' avoidKeyboard={true} isOpen={showNameModal} onClose={() => setShowNameModal(false)}>
