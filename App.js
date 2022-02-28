@@ -17,7 +17,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import ViewDoctorProfile from "./screens/Doctors/View Doctor Profile";
 import ViewUserProfile from './screens/Users/View User Profile';
 import Clinics from './screens/Doctors/clinics';
-I18nManager.forceRTL(false);
+I18nManager.allowRTL(false)
 I18nManager.allowRTL(false);
 
 
@@ -127,7 +127,10 @@ export default function App() {
           }}/>
           <Stack.Screen  name='clinics'  component={Clinics} options={{
             title:t("Clinics"),
+            headerTintColor:"white",
             headerTitleAlign: 'center',
+            headerStyle:{backgroundColor:"#003049"},
+            headerTitleStyle:{color:"#FEFDFF"},
           }}/>
           <Stack.Screen name="Doctorsignin" options={{ headerShown: false }}  component={Doctorsignin}/>
           <Stack.Screen name="Usersignin" options={{ headerShown: false }}  component={Usersignin}/>

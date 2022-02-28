@@ -1,6 +1,11 @@
 {
     "translation":{
+        "Clinic rating is not valid":"Clinic rating is not valid",
+        "This field is required":"This field is required",
+        "Your Clinic address is invalid":"Your Clinic address is invalid",
+        "Sorry But You have no Clinics data. You should fill Yor clinics Data below":"Sorry But You have no Clinics data. You should fill Yor clinics Data below",
         "Clincis":"Clincis",
+        "Through this page, you can get, Edit, or Add Clinics and their info":"Through this page, you can get, Edit, or Add Clinics and their info",
         "Show Clinics":"Show Clinics",
         "Psy-Awareness":"Psy-Awareness",
         "Both password need to be the same":"Both password need to be the same",

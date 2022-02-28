@@ -42,7 +42,6 @@ export default function Viewprofile({navigation,role,Address_label,Name_label,he
         })
         .then((response) => {
             console.log(response.data.data);
-            console.log(response.data.role);
             // console.log(response.data);
             setProfileData(response.data.data);
             Isloading(false);
@@ -148,11 +147,11 @@ export default function Viewprofile({navigation,role,Address_label,Name_label,he
                             </TouchableOpacity>
                         </HStack>
 
-                        <HStack mt='3' borderWidth={1} py='2' justifyContent='flex-start' borderColor='warning.800' width='100%'>
-                            <TouchableOpacity onPress={()=> navigation.navigate('clinics')}>
+                        {(role === 'doctor') && <HStack mt='3' borderWidth={1} py='2' justifyContent='flex-start' borderColor='warning.800' width='100%'>
+                            <TouchableOpacity onPress={()=> navigation.navigate('clinics',{doctor_id:profileData._id})}>
                                 <Text  ml='2'  fontWeight='light' fontSize='lg' > <FontAwesomeIcon icon={faClinicMedical} /> {t('Show Clinics')}</Text>
                             </TouchableOpacity>
-                        </HStack>
+                        </HStack>}
 
                         <HStack mt='3' borderWidth={1} py='2' justifyContent='flex-start' borderColor='warning.800' width='100%'>
                             <TouchableOpacity onPress={()=> setShowMaritalStatusModal(true)}>
