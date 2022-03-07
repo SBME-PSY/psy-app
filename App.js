@@ -18,6 +18,10 @@ import ViewDoctorProfile from "./screens/Doctors/View Doctor Profile";
 import ViewUserProfile from './screens/Users/View User Profile';
 import Clinics from './screens/Doctors/clinics';
 import waiting from "./screens/WaitingPage";
+import { faHome, faUserCircle} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import Icon from 'react-native-ionicons'
+import { color } from "react-native/Libraries/Components/View/ReactNativeStyleAttributes";
 I18nManager.allowRTL(false)
 I18nManager.allowRTL(false);
 
@@ -46,13 +50,13 @@ function DoctorTabs () {
     >
       <Tab.Screen options={{
         tabBarLabel:t('Home'),
-      }} name='Doctorhome'  component={Doctorhome} />
+        tabBarIcon: ({focused,size})=> (<FontAwesomeIcon size={size} color={!focused ? '#a8a29e':'#fff'} icon={faHome} />)
+      }} name='Doctorhome'  component={Doctorhome}
+      />
       <Tab.Screen options={{
         tabBarLabel:t('Profile'),
+        tabBarIcon: ({focused,size})=> (<FontAwesomeIcon size={size} color={!focused ? '#a8a29e':'#fff'} icon={faUserCircle} />)
       }} name='ViewDoctorProfile'  component={ViewDoctorProfile} />
-      {/* <Tab.Screen options={{
-        tabBarLabel: t('Clinics')
-      }}  name='Clinics' component={Clinics} /> */}
     </Tab.Navigator>
   )
 }
@@ -62,11 +66,11 @@ function UserTabs (){
   return(
     <Tab.Navigator initialRouteName="Home" 
     screenOptions={{
-      tabBarActiveTintColor: '#e91e63',
+      tabBarActiveTintColor: '#fff',
       headerShown:false,
       tabBarStyle:{
         height:60,
-        backgroundColor:'#22c55e',
+        backgroundColor:'#059669',
         borderTopLeftRadius:20,
         borderTopRightRadius:20
       }
@@ -75,10 +79,12 @@ function UserTabs (){
       <Tab.Screen   
         options={{
           tabBarLabel:t('Home'),
+          tabBarIcon: ({focused,size})=> (<FontAwesomeIcon size={size} color={focused ? '#fff':'#a3a3a3'} icon={faHome} />)
         }} name='UserHome'  component={Userhome} 
       />
       <Tab.Screen options={{
         tabBarLabel:t('Profile'),
+        tabBarIcon: ({focused,size})=> (<FontAwesomeIcon size={size} color={focused ? '#fff':'#a3a3a3'} icon={faUserCircle} />)
       }} name='ViewUserProfile'  component={ViewUserProfile} />
     </Tab.Navigator>
   )

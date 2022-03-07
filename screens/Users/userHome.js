@@ -1,10 +1,15 @@
-import { NativeBaseProvider ,Text} from "native-base";
+import { Center, NativeBaseProvider ,Text, VStack} from "native-base";
 import React from "react";
 
 const Userhome=({navigation})=>{
     return(
-        <NativeBaseProvider>
-            <Text>User home</Text>
+        <NativeBaseProvider >
+            <Center safeArea>
+                <VStack>
+                    <Text textAlign='center'>Welcome to</Text>
+                    <Text textAlign='center' >Psy-Awareness</Text>
+                </VStack>
+            </Center>
         </NativeBaseProvider>
     )
 }

@@ -4,7 +4,7 @@ import axios ,{Axios} from 'axios';
 import Constants from "expo-constants";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faArrowAltCircleRight, faArrowRight, faClinicMedical, faEnvelope, faEye, faEyeSlash,faFileSignature, faLockOpen, faUserCircle, faGenderless, faHeart, faHome, faLock, faOutdent, faPhone, faUser, faVenusMars, faSignOutAlt  } from '@fortawesome/free-solid-svg-icons';
+import {  faClinicMedical, faEnvelope, faEye, faEyeSlash,faFileSignature,faHeart, faLock, faPhone, faUser, faVenusMars, faSignOutAlt  } from '@fortawesome/free-solid-svg-icons';
 import { useTranslation } from "react-i18next";
 import { Formik } from "formik";
 import Imageupload from './Image Upload';
