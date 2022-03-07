@@ -63,6 +63,8 @@
         "Male":"Male",
         "Sex":"Sex",
         "Edit":"Edit",
+        "Price":"Price",
+        "Logout":"Logout",
         "Phone number is required":"Phone number is required",
         "Female":"Female",
         "choose your gender":"choose your gender",

@@ -17,6 +17,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import ViewDoctorProfile from "./screens/Doctors/View Doctor Profile";
 import ViewUserProfile from './screens/Users/View User Profile';
 import Clinics from './screens/Doctors/clinics';
+import waiting from "./screens/WaitingPage";
 I18nManager.allowRTL(false)
 I18nManager.allowRTL(false);
 
@@ -30,17 +31,16 @@ const Tab = createBottomTabNavigator();
 function DoctorTabs () {
   const {t,i18n} = useTranslation();
   return(
-    <Tab.Navigator initialRouteName='Home' 
+    <Tab.Navigator  
 
       screenOptions={{
-        tabBarActiveTintColor: '#e91e63',
+        tabBarActiveTintColor: '#fff',
         headerShown:false,
         tabBarStyle:{
           height:60,
-          position: 'absolute',
-          bottom: 16,
-          marginHorizontal:16,
-          borderRadius: 20,
+          backgroundColor:'#003049',
+          borderTopLeftRadius:20,
+          borderTopRightRadius:20
         }
       }}
     >
@@ -66,10 +66,9 @@ function UserTabs (){
       headerShown:false,
       tabBarStyle:{
         height:60,
-        position: 'absolute',
-        bottom: 16,
-        marginHorizontal:16,
-        borderRadius: 20,
+        backgroundColor:'#22c55e',
+        borderTopLeftRadius:20,
+        borderTopRightRadius:20
       }
     }}
     >
@@ -109,7 +108,7 @@ export default function App() {
     <>
       <NavigationContainer >
         <Stack.Navigator  >
-          
+          {/* <Stack.Screen name="waiting" options={{ headerShown: false }}  component={waiting}></Stack.Screen> */}
           <Stack.Screen name="Landing" options={{ headerShown: false }}  component={Landing}></Stack.Screen>
           <Stack.Screen name="Doctorlanding" options={{ headerShown: false }} component={Doctorlanding} />
           <Stack.Screen name="Userregister" options={{

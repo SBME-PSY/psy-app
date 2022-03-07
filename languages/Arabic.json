@@ -1,6 +1,8 @@
 {
     "translation":{
+        "Logout":"تسجيل الخروج",
         "Clinic rating is not valid":"تقييم العياده غير صحيح",
+        "Price":"السعر",
         "This field is required":"هذا الحقل مطلوب",
         "Your Clinic address is invalid":"عنوان العياده غير صحيح",
         "Sorry But You have no Clinics data. You should fill Yor clinics Data below":" عذرا ولكن ﻻ توجد اي بيانات تتعلق بالعيادات الخاصه بك يرجي مليء البيانات الموجوده في الاسفل",

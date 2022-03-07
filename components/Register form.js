@@ -47,18 +47,6 @@ const Registerform = ({navigation,Name_label,address_label,isdoctor,signup,role}
             console.log(err);
         }
     }
-    // const getData = async () => {
-    //     try {
-    //     const value = await AsyncStorage.getItem('token')
-    //     if(value !== null) {
-    //         // value previously stored
-    //         setToken({token:value})
-    //     }
-    //     } catch(e) {
-    //     console.log(e);
-    //     }
-    //     return value;
-    // }
     return(
         <NativeBaseProvider>
                 <Box width="100%">

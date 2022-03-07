@@ -1,10 +1,12 @@
-import { Button, Center, NativeBaseProvider,Spinner,Text, VStack } from "native-base";
+import { Button, Center, FormControl, Input, NativeBaseProvider,Spinner,Text, VStack,Icon } from "native-base";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import Constants from "expo-constants";
 import axios from "axios";
+import { faPhone} from "@fortawesome/free-solid-svg-icons";
 import { Formik } from "formik";
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { Dimensions } from "react-native";
 import * as yup from 'yup';
 import { Rating ,AirbnbRating} from "react-native-ratings";
@@ -18,7 +20,8 @@ const api = (typeof manifest.packagerOpts === `object`) && manifest.packagerOpts
   const Clinics = ({navigation})=>{
     
     const {t,i18n} = useTranslation();
-      
+    
+    cont [emptyClinics,isClinicEmpty] = useState(false);
     const [loading , Isloading] = useState(true);
 
     const [clinics,setClinics] = useState();
@@ -32,21 +35,6 @@ const api = (typeof manifest.packagerOpts === `object`) && manifest.packagerOpts
 
     const getClinics = async()=>{
         let token = await AsyncStorage.getItem('token')
-        // try{
-        //     const  clinicsData = await axios.get(`http://${api}/psy/doctors/clinics/`,{
-        //         headers:{
-        //             Authorization: `Bearer ${token}`
-        //         }
-        //     })
-        //     setTimeout(()=>{
-        //         setClinics(clinicsData.data.data);
-        //     },500)
-        //     Isloading(false);
-        //     console.log(clinics);
-        // }
-        // catch (err){
-        //     console.log(err);
-        // }
         axios.get(`http://${api}/psy/doctors/clinics/`,{
             headers: {
                 Authorization: `Bearer ${token}`
@@ -58,6 +46,10 @@ const api = (typeof manifest.packagerOpts === `object`) && manifest.packagerOpts
             console.log(clinics)
         })
     }
+
+    const addClinicData  = async () =>{
+
+    } 
 
 
 
@@ -71,22 +63,74 @@ const api = (typeof manifest.packagerOpts === `object`) && manifest.packagerOpts
         <NativeBaseProvider>
             <VStack backgroundColor='white' height={Dimensions.get('window').height} safeArea>
                 <Center>
-                <Text my={5}  textAlign='center'>  {t('Through this page, you can get, Edit, or Add Clinics and their info')} </Text>
+                {/* <Text my={5}  textAlign='center'>  {t('Through this page, you can get, Edit, or Add Clinics and their info')} </Text> */}
                 {loading && <Spinner size='lg' color='success.500'/> }
                 {clinics &&
-                   <Text mx={4} textAlign='center' fontSize={18} fontWeight='bold' color='error.500'  >{t('Sorry But You have no Clinics data. You should fill Yor clinics Data below')}</Text>
+                   <Text mx={5} mt={5} fontWeight='bold'  textAlign='center' color='error.500'  >{t('Sorry But You have no Clinics data. You should fill Yor clinics Data below')}</Text>
                 }
-                <AirbnbRating
-                    selectedColor="#facc15"
-                    reviewColor="#003049"
-                    count={5}
-                    reviews={["Terrible", "Decent","OK", "Good", "Amazing"]}
-                    defaultRating={1.5}
-                    size={40}
-                    onFinishRating={(rating)=>{
-                        console.log(rating);
+                <Formik
+                    initialValues={{address:'',rating:'',pictures:[''],phoneNumbers:[''],price:''}}
+                    validationSchema={ReviewSchema}
+                    onSubmit={(data,actions)=>{
+                        axios.post(`http://${api}/psy/doctors/clinics/`,{
+                            headers:{
+                                Authorization: `Bearer ${token}`
+                            }
+                        }).then((res)=>{
+                            console.log(res);
+                        }).catch((err)=>{
+                            console.log(err);
+                        })
                     }}
-                />
+                >   
+                    {(props)=>{
+                        <>
+                            <FormControl  my={2}>
+                                <FormControl.Label _text={{color:'#003049'}}>{t('Clinc Address')}</FormControl.Label>
+                                <Input onChangeText={props.handleChange('address')}
+                                    value={props.values.address}
+                                    onBlur={props.handleBlur('address')}
+                                    variant="underlined"
+                                />
+                                <Text color='danger.500' >{ props.touched.address && props.errors.address}</Text>
+                            </FormControl>
+                            <FormControl my={2} isRequired>
+                                        <FormControl.Label _text={{color:'#003049'}}>{t('Phone Number')}</FormControl.Label>
+                                         <FormControl.HelperText>{t('The Phone number should consist of 11 numbers and start with 011,012,010, or 015')}</FormControl.HelperText>
+                                            <Input 
+                                            onChangeText={props.handleChange('phoneNumbers')}
+                                            value={props.values.phoneNumbers}
+                                            type={'number'}
+                                            keyboardType='phone-pad'
+                                            variant="underlined"
+                                            placeholder= {t('Phone Number')}
+                                            InputLeftElement={<Icon as={<FontAwesomeIcon  icon={faPhone} />}  mr={5} />}/>
+                            </FormControl>
+                            <AirbnbRating
+                                selectedColor="#facc15"
+                                reviewColor="#003049"
+                                count={5}
+                                reviews={["Terrible", "Decent","OK", "Good", "Amazing"]}
+                                defaultRating={1.5}
+                                size={40}
+                                onFinishRating={(rating)=>{
+                                    props.values.rating = rating;
+                                }}
+                            />
+                            <FormControl my={2} isRequired>
+                                        <FormControl.Label _text={{color:'#003049'}}>{t('Price')}</FormControl.Label>
+                                            <Input 
+                                            onChangeText={props.handleChange('price')}
+                                            value={props.values.price}
+                                            type={'number'}
+                                            keyboardType='phone-pad'
+                                            variant="underlined"
+                                            placeholder= {t('Phone Number')}
+                                            InputLeftElement={<Icon as={<FontAwesomeIcon  icon={faPhone} />}  mr={5} />}/>
+                            </FormControl>
+                        </>
+                    }}
+                </Formik>
                 </Center>
             </VStack>
         </NativeBaseProvider>
