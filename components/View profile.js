@@ -1,16 +1,16 @@
-import { Avatar, Center,  HStack,  NativeBaseProvider, ScrollView, Spinner, VStack,Icon,Text, Button,Modal,FormControl,Input,Select,Accordion,Box, Toast} from 'native-base';
+import { Avatar, Center, HStack,  NativeBaseProvider, ScrollView, Spinner, VStack,Icon,Text, Button,Modal,FormControl,Input,Select,Accordion,Box, Toast} from 'native-base';
 import React,{useEffect,useState} from 'react';
 import axios ,{Axios} from 'axios';
 import Constants from "expo-constants";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faArrowAltCircleRight, faArrowRight, faEnvelope, faEye, faEyeSlash, faGenderless, faHeart, faHome, faLock, faPhone, faUser, faVenusMars  } from '@fortawesome/free-solid-svg-icons';
+import {  faClinicMedical, faEnvelope, faEye, faEyeSlash,faFileSignature,faHeart, faLock, faPhone, faUser, faVenusMars, faSignOutAlt  } from '@fortawesome/free-solid-svg-icons';
 import { useTranslation } from "react-i18next";
 import { Formik } from "formik";
 import Imageupload from './Image Upload';
 import { SvgUri , SvgCssUri } from 'react-native-svg';
 import * as yup from 'yup';
-import { Alert, I18nManager, TouchableOpacity, View } from 'react-native';
+import { Alert, I18nManager, TouchableOpacity, Image } from 'react-native';
 
 
 const {manifest} = Constants;
@@ -19,7 +19,7 @@ const api = (typeof manifest.packagerOpts === `object`) && manifest.packagerOpts
   : `api.example.com`;
 
   //address is still to be added
-export default function Viewprofile({role,Address_label,Name_label,header_color}){
+export default function Viewprofile({navigation,role,Address_label,Name_label,header_color}){
     const {t,i18n} = useTranslation();
     const [loading , Isloading] = useState(true);
     const [profileData,setProfileData] = useState();
@@ -32,9 +32,24 @@ export default function Viewprofile({role,Address_label,Name_label,header_color}
     const [isCurrenrtPasswordShown,setIsCurrenrtPasswordShown]=useState(false);
     const [isNewPasswordShown,setIsNewPasswordShown]=useState(false);
     const [isconfirmNewPasswordShowen,setIsconfirmNewPasswordShown] = useState(false);
-    
+
+    const toastSuccessOptions = {
+        title: t('Edited Successfully'),
+        placement:'top',
+        animation:'ease-in-out',
+        status:'success'
+    }
+
+    const toastFailOptions = {
+        title: t('Sorry, Some thing went wrong'),
+        placement:'top',
+        animation:'ease-in-out',
+        status:'error'
+    }
+
+
     const getData = async ()=>{
-        let token = await AsyncStorage.getItem('token')
+        let token =  await AsyncStorage.getItem('token');
         axios.get(`http://${api}/psy/${role}s/profile`,{
             headers: {
                 Authorization: `Bearer ${token}`
@@ -52,6 +67,11 @@ export default function Viewprofile({role,Address_label,Name_label,header_color}
         });
     }
 
+    const logout =()=>{
+        AsyncStorage.removeItem('token');
+        navigation.navigate('Landing');
+    }
+
     const editData = async (newData)=>{
         let token = await AsyncStorage.getItem('token');
         axios.patch(`http://${api}/psy/${role}s/profile`,newData,{
@@ -61,12 +81,7 @@ export default function Viewprofile({role,Address_label,Name_label,header_color}
         })
         .then(res =>{
             console.log(res.data);
-            Toast.show({
-                title: t('Edited Successfully'),
-                placement:'top',
-                animation:'ease-in-out',
-                status:'success'
-            })
+            Toast.show(toastSuccessOptions)
             setTimeout(()=>{
                 getData();
                 setShowNameModal(false);
@@ -75,11 +90,38 @@ export default function Viewprofile({role,Address_label,Name_label,header_color}
                 setShowMaritalStatusModal(false);
                 setShowPhoneModal(false);
                 setShowPictureModal(false);
-
             },500);
         })
         .catch(err => {
             console.error(err);
+            Toast.show(toastFailOptions)
+        })
+    }
+
+    const editPassword = async (newData)=>{
+        let token = await AsyncStorage.getItem('token');
+        axios.patch(`http://${api}/psy/${role}s/update-password/`,newData,{
+            headers:{
+                Authorization: `Bearer ${token}`
+            }
+        })
+        .then(res =>{
+            console.log(res.data);
+            Toast.show(toastSuccessOptions)
+            setTimeout(()=>{
+                setShowNameModal(false);
+                setShowEmailModal(false);
+                setShowPasswordModal(false);
+                setShowMaritalStatusModal(false);
+                setShowPhoneModal(false);
+                setShowPictureModal(false);
+            },500);
+            AsyncStorage.clear()
+            console.log('data cleared')
+            navigation.navigate('Landing')
+        }).catch(err => {
+            console.log(err.message)
+            Toast.show(toastFailOptions)
         })
     }
 
@@ -91,7 +133,7 @@ export default function Viewprofile({role,Address_label,Name_label,header_color}
         return(
             <NativeBaseProvider>
                 <VStack h='100%'>
-                    <HStack mt='90%' justifyContent='center' alignItems='center' ><Text>   <Spinner size='lg'   color='success.700' />  </Text></HStack>
+                    <HStack mt='90%' justifyContent='center' alignItems='center' ><Text>   <Spinner size='lg'   color='success.300' />  </Text></HStack>
                 </VStack>
             </NativeBaseProvider>
         )
@@ -101,64 +143,77 @@ export default function Viewprofile({role,Address_label,Name_label,header_color}
         // view doctor or user profile
         return(
             <NativeBaseProvider>
-                <VStack justifyContent='center'>
-                    <VStack h='30%'>
+                <VStack  justifyContent='center'>
+                    <VStack h='25%'>
                         <HStack w='100%' h='50%'  bgColor={header_color} justifyContent='center' >
                                 {/* <HStack  style={{aspectRatio:1}} w='auto' borderRadius={50}  mt={12} zIndex={3} justifyContent='center' >
                                     <SvgUri width='200' height='120' uri={profileData.picture}/>
                                 </HStack> */}
-                                <Avatar size='2xl' source={{uri:profileData.picture}} zIndex={3} mt='10' />
+                                <Avatar size='xl' source={{uri:profileData.picture}} zIndex={3} mt='5' />
                         </HStack>
-                        <HStack  h='70%' justifyContent='center'>
-                            <Text textAlign='center'  fontWeight='medium' mt='16'  fontSize='2xl'> {profileData.name}</Text>
+                        <HStack  h='54%' justifyContent='center'>
+                            <Text  fontWeight='bold' mt='12'  fontSize='2xl'> {profileData.name}</Text>
                         </HStack>
+                        {/* <Text textAlign='center' color='danger.900'>{t('You can edit any field of your Personal Data by just clicking on it and filing your new data 😊')}</Text> */}
                     </VStack>
-                    <ScrollView h='60%'>
-                        <Text mt='5' textAlign='center' color='danger.900'>{t('You can edit any field of your Personal Data by just clicking on it and filing your new data 😊')}</Text>
+                    <ScrollView mt={5}  h='60%'>
 
-                        <HStack mt='3' borderWidth={1}  py='2' justifyContent='flex-start' borderColor='warning.800' width='100%'>
+                        <HStack mt='1' pt='2' width='100%'>
                             <TouchableOpacity onPress={()=> setShowNameModal(true)}>
-                                <Text ml='2' fontWeight='light' fontSize='lg' >  {t('Edit your Name')}</Text> 
-                            </TouchableOpacity>
-                        </HStack>
-
-                        <HStack mt='3' borderWidth={1} py='2' justifyContent='flex-start' borderColor='warning.800' width='100%'>
-                            <TouchableOpacity onPress={()=> setShowPasswordModal(true)}>
-                                <Text  ml='2' fontWeight='light' fontSize='lg' > {t('Edit your Password')}</Text>
-                            </TouchableOpacity>
-                        </HStack>
-
-                        <HStack mt='3' borderWidth={1} py='2' justifyContent='flex-start' borderColor='warning.800' width='100%'>
-                            <TouchableOpacity onPress={()=> setShowPictureModal(true)}>
-                                <Text ml='2' fontWeight='light' fontSize='lg' > {t('Edit your Profile Picture')}</Text> 
-                            </TouchableOpacity>
-                        </HStack>
-
-
-                        <HStack mt='3' borderWidth={1} py='2' justifyContent='flex-start' borderColor='warning.800' width='100%'>
-                            <TouchableOpacity onPress={()=> setShowEmailModal(true)}>
-                                <Text  ml='2'  fontWeight='light' fontSize='lg' > <FontAwesomeIcon icon={faEnvelope} /> {t('Email')}: {profileData.email}</Text>
-                            </TouchableOpacity>
-                        </HStack>
-
-                        <HStack mt='3' borderWidth={1} py='2' justifyContent='flex-start' borderColor='warning.800' width='100%'>
-                            <TouchableOpacity onPress={()=> setShowMaritalStatusModal(true)}>
-                                <Text  ml='2' fontWeight='light' fontSize='lg' > <FontAwesomeIcon icon={faHeart} /> {t('Marital Status')}: {profileData.maritalStatus}</Text>
-                            </TouchableOpacity>
-                        </HStack>
-
-                        <HStack mt='3' borderWidth={1} py='2' justifyContent='flex-start' borderColor='warning.800' width='100%'>
-                            <TouchableOpacity onPress={()=> Alert.alert(t('Sorry'),t('You cant change your gender after sign up 😞'))}>
-                                <Text  ml='2' fontWeight='light' fontSize='lg' > <FontAwesomeIcon icon={faVenusMars} /> {t('Gender')}: {profileData.sex}</Text>
-                            </TouchableOpacity>
-                        </HStack>
-
-                        <HStack my='3' borderWidth={1} py='2' justifyContent='flex-start' borderColor='warning.800' width='100%'>
-                            <TouchableOpacity onPress={()=> setShowPhoneModal(true)}>
-                                <Text  ml='2' fontWeight='light' fontSize='lg' > <FontAwesomeIcon icon={faPhone} /> {t('Phone Number')}: {profileData.phone}</Text>
+                                <Text ml='2' fontWeight='bold' fontSize='lg' > <FontAwesomeIcon icon={faFileSignature} />  {t('Edit your Name')}</Text> 
                             </TouchableOpacity>
                         </HStack>
                         
+
+                        <HStack mt='3'  pt='2' >
+                            <TouchableOpacity onPress={()=> setShowPasswordModal(true)}>
+                                <Text  ml='2' fontWeight='bold' fontSize='lg' > <FontAwesomeIcon icon={faLock} /> {t('Edit your Password')}</Text>
+                            </TouchableOpacity>
+                        </HStack>
+
+                        <HStack mt='3' pt='2'>
+                            <TouchableOpacity onPress={()=> setShowPictureModal(true)}>
+                                <Text ml='2' fontWeight='bold' fontSize='lg' > <FontAwesomeIcon icon={faUser} /> {t('Edit your Profile Picture')}</Text> 
+                            </TouchableOpacity>
+                        </HStack>
+
+
+                        <HStack mt='3' pt='2'>
+                            <TouchableOpacity onPress={()=> setShowEmailModal(true)}>
+                                <Text  ml='2'  fontWeight='bold' fontSize='lg' > <FontAwesomeIcon icon={faEnvelope} /> {t('Email')}: {profileData.email}</Text>
+                            </TouchableOpacity>
+                        </HStack>
+
+                        {(role === 'doctor') && <HStack mt='3' pt='2'>
+                            <TouchableOpacity onPress={()=> navigation.navigate('clinics',{doctor_id:profileData._id})}>
+                                <Text  ml='2'  fontWeight='bold' fontSize='lg' > <FontAwesomeIcon icon={faClinicMedical} /> {t('Show Clinics')}</Text>
+                            </TouchableOpacity>
+                        </HStack>}
+
+                        <HStack mt='3' pt='2'>
+                            <TouchableOpacity onPress={()=> setShowMaritalStatusModal(true)}>
+                                <Text  ml='2' fontWeight='bold' fontSize='lg' > <FontAwesomeIcon icon={faHeart} /> {t('Marital Status')}: {profileData.maritalStatus}</Text>
+                            </TouchableOpacity>
+                        </HStack>
+
+                        <HStack mt='3' pt='2'>
+                            <TouchableOpacity onPress={()=> Alert.alert(t('Sorry'),t('You cant change your gender after sign up 😞'))}>
+                                <Text  ml='2' fontWeight='bold' fontSize='lg' > <FontAwesomeIcon icon={faVenusMars} /> {t('Gender')}: {profileData.sex}</Text>
+                            </TouchableOpacity>
+                        </HStack>
+
+                        <HStack mt='3' pt='2'>
+                            <TouchableOpacity onPress={()=> setShowPhoneModal(true)}>
+                                <Text  ml='2' fontWeight='bold' fontSize='lg' > <FontAwesomeIcon icon={faPhone} /> {t('Phone Number')}: {profileData.phone}</Text>
+                            </TouchableOpacity>
+                        </HStack>
+
+                        <HStack mt='3' pt='2'>
+                            <TouchableOpacity onPress={logout}>
+                                <Text  textAlign='center' ml='2' fontWeight='bold' color='error.500' fontSize='lg' > <FontAwesomeIcon icon={faSignOutAlt} /> {t('Logout')}</Text>
+                            </TouchableOpacity>
+                        </HStack>
+
                         {/* Edit name */}
 
                         <Modal size='xl' avoidKeyboard={true} isOpen={showNameModal} onClose={() => setShowNameModal(false)}>
@@ -206,7 +261,7 @@ export default function Viewprofile({role,Address_label,Name_label,header_color}
                                 <Modal size='xl' isOpen={showEmailModal} onClose={()=> setShowEmailModal(false)}>
                                     <Modal.Content>
                                         <Modal.CloseButton />
-                                        <Modal.Header>{t('Edit Email')}</Modal.Header>
+                                        <Modal.Header>Edit Email</Modal.Header>
                                         <Modal.Body>
                                             <Formik 
                                             onSubmit={(newData)=>{
@@ -247,7 +302,7 @@ export default function Viewprofile({role,Address_label,Name_label,header_color}
                                 <Modal size='xl' isOpen={showPhoneModal} onClose={()=> setShowPhoneModal(false)}>
                                     <Modal.Content>
                                         <Modal.CloseButton />
-                                        <Modal.Header>{t('Edit Email')}</Modal.Header>
+                                        <Modal.Header>Edit Phone Number</Modal.Header>
                                         <Modal.Body>
                                             <Formik 
                                             onSubmit={(newData)=>{
@@ -289,14 +344,14 @@ export default function Viewprofile({role,Address_label,Name_label,header_color}
                                 <Modal size='xl' isOpen={showPasswordModal} onClose={()=> setShowPasswordModal(false)}>
                                     <Modal.Content>
                                         <Modal.CloseButton />
-                                        <Modal.Header>{t('Edit your Password')}</Modal.Header>
+                                        <Modal.Header>Edit your Password</Modal.Header>
                                         <Modal.Body>
-                                            <Formik 
-                                            onSubmit={(newData)=>{
-                                                console.log(newData);
-                                                editData(newData);
-                                            }}
-                                            initialValues={{currentPassword:``,newPassword:``,confirmNewPassword:``}}
+                                            <Formik
+                                                onSubmit={(newData)=>{
+                                                    editPassword(newData)
+                                                }
+                                                }
+                                            initialValues={{currentPassword:``,newPassword:``,confirmNewPassword:``,role:role}}
                                             >
                                                 {(props)=>(
                                                     <>
@@ -358,7 +413,7 @@ export default function Viewprofile({role,Address_label,Name_label,header_color}
                                 <Modal size='xl' isOpen={showPictureModal} onClose={()=> setShowPictureModal(false)}>
                                     <Modal.Content>
                                         <Modal.CloseButton />
-                                        <Modal.Header>{t('Edit your Profile Picture')}</Modal.Header>
+                                        <Modal.Header>Edit your Profile Picture</Modal.Header>
                                         <Modal.Body>
                                             <Formik 
                                             onSubmit={(newData)=>{
@@ -392,7 +447,7 @@ export default function Viewprofile({role,Address_label,Name_label,header_color}
                                 <Modal size='xl' isOpen={showMaritalStatusModal} onClose={()=> setShowMaritalStatusModal(false)}>
                                     <Modal.Content>
                                         <Modal.CloseButton />
-                                        <Modal.Header>{t('Marital Status')}</Modal.Header>
+                                        <Modal.Header>Marital Status</Modal.Header>
                                         <Modal.Body>
                                             <Formik 
                                             onSubmit={(newData)=>{

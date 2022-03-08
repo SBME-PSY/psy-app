@@ -1,5 +1,16 @@
 {
     "translation":{
+        "You must be 18 or older to start using our App":"يجب ان يكون سنك ١٨ سنه فيما فوق لتتمكن من استخدام التطبيق",
+        "Sorry, Some thing went wrong":"عذرا لقد حدث خطا يرجي المحاوله مره اخري",
+        "Logout":"تسجيل الخروج",
+        "Clinic rating is not valid":"تقييم العياده غير صحيح",
+        "Price":"السعر",
+        "This field is required":"هذا الحقل مطلوب",
+        "Your Clinic address is invalid":"عنوان العياده غير صحيح",
+        "Sorry But You have no Clinics data. You should fill Yor clinics Data below":" عذرا ولكن ﻻ توجد اي بيانات تتعلق بالعيادات الخاصه بك يرجي مليء البيانات الموجوده في الاسفل",
+        "Through this page, you can get, Edit, or Add Clinics and their info":"يمكنك من خلال هذه الصفحه  ان تستعرض معلومات عن عياداتك و ان تضيف او تعدل بيانات تلك العيادات",
+        "Clincis":"العيادات",
+        "Show Clinics":"العيادات",
         "Psy-Awareness":"Psy-Awareness",
         "Both password need to be the same":"يجب ان تتوافق كلمتي السر",
         "A Personal Psychiatrist at the Palm of your hand":"طبيب نفسي خاص  بين يديك",

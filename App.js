@@ -15,8 +15,14 @@ import Userhome from "./screens/Users/userHome";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import ViewDoctorProfile from "./screens/Doctors/View Doctor Profile";
-import ViewUserProfile from './screens/Users/View User Profile'
-I18nManager.forceRTL(false);
+import ViewUserProfile from './screens/Users/View User Profile';
+import Clinics from './screens/Doctors/clinics';
+import waiting from "./screens/WaitingPage";
+import { faHome, faUserCircle} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import Icon from 'react-native-ionicons'
+import { color } from "react-native/Libraries/Components/View/ReactNativeStyleAttributes";
+I18nManager.allowRTL(false)
 I18nManager.allowRTL(false);
 
 
@@ -29,25 +35,27 @@ const Tab = createBottomTabNavigator();
 function DoctorTabs () {
   const {t,i18n} = useTranslation();
   return(
-    <Tab.Navigator initialRouteName='Home' 
+    <Tab.Navigator  
 
       screenOptions={{
-        tabBarActiveTintColor: '#e91e63',
+        tabBarActiveTintColor: '#fff',
         headerShown:false,
         tabBarStyle:{
           height:60,
-          position: 'absolute',
-          bottom: 16,
-          marginHorizontal:16,
-          borderRadius: 20,
+          backgroundColor:'#003049',
+          borderTopLeftRadius:20,
+          borderTopRightRadius:20
         }
       }}
     >
       <Tab.Screen options={{
         tabBarLabel:t('Home'),
-      }} name='Doctorhome'  component={Doctorhome} />
+        tabBarIcon: ({focused,size})=> (<FontAwesomeIcon size={size} color={!focused ? '#a8a29e':'#fff'} icon={faHome} />)
+      }} name='Doctorhome'  component={Doctorhome}
+      />
       <Tab.Screen options={{
         tabBarLabel:t('Profile'),
+        tabBarIcon: ({focused,size})=> (<FontAwesomeIcon size={size} color={!focused ? '#a8a29e':'#fff'} icon={faUserCircle} />)
       }} name='ViewDoctorProfile'  component={ViewDoctorProfile} />
     </Tab.Navigator>
   )
@@ -58,24 +66,29 @@ function UserTabs (){
   return(
     <Tab.Navigator initialRouteName="Home" 
     screenOptions={{
-      tabBarActiveTintColor: '#e91e63',
+      tabBarInactiveTintColor:'#cbd5e1',
+      tabBarActiveTintColor: '#fff',
       headerShown:false,
       tabBarStyle:{
         height:60,
-        position: 'absolute',
-        bottom: 16,
-        marginHorizontal:16,
-        borderRadius: 20,
+        backgroundColor:'#059669',
+        borderTopLeftRadius:20,
+        borderTopRightRadius:20
       }
     }}
     >
       <Tab.Screen   
         options={{
           tabBarLabel:t('Home'),
+          tabBarLabelStyle:{
+            fontSize:12,
+          },
+          tabBarIcon: ({focused,size})=> (<FontAwesomeIcon size={size} color={focused ? '#fff':'#cbd5e1'} icon={faHome} />)
         }} name='UserHome'  component={Userhome} 
       />
       <Tab.Screen options={{
         tabBarLabel:t('Profile'),
+        tabBarIcon: ({focused,size})=> (<FontAwesomeIcon size={size} color={focused ? '#fff':'#cbd5e1'} icon={faUserCircle} />)
       }} name='ViewUserProfile'  component={ViewUserProfile} />
     </Tab.Navigator>
   )
@@ -105,6 +118,7 @@ export default function App() {
     <>
       <NavigationContainer >
         <Stack.Navigator  >
+          {/* <Stack.Screen name="waiting" options={{ headerShown: false }}  component={waiting}></Stack.Screen> */}
           <Stack.Screen name="Landing" options={{ headerShown: false }}  component={Landing}></Stack.Screen>
           <Stack.Screen name="Doctorlanding" options={{ headerShown: false }} component={Doctorlanding} />
           <Stack.Screen name="Userregister" options={{
@@ -119,6 +133,13 @@ export default function App() {
             headerTintColor:"white",
             headerTitleStyle:{color:"#FEFDFF"},
             headerStyle:{backgroundColor:"#003049"}
+          }}/>
+          <Stack.Screen  name='clinics'  component={Clinics} options={{
+            title:t("Clinics"),
+            headerTintColor:"white",
+            headerTitleAlign: 'center',
+            headerStyle:{backgroundColor:"#003049"},
+            headerTitleStyle:{color:"#FEFDFF"},
           }}/>
           <Stack.Screen name="Doctorsignin" options={{ headerShown: false }}  component={Doctorsignin}/>
           <Stack.Screen name="Usersignin" options={{ headerShown: false }}  component={Usersignin}/>

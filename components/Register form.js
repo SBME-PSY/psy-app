@@ -13,6 +13,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios, { Axios } from "axios";
 import CVPicture from "./CertificatePictureUpload";
 
+
 const {manifest} = Constants;
 const api = (typeof manifest.packagerOpts === `object`) && manifest.packagerOpts.dev
   ? manifest.debuggerHost.split(`:`).shift().concat(`:8000`)
@@ -24,7 +25,7 @@ const Registerform = ({navigation,Name_label,address_label,isdoctor,signup,role}
     const [isConfirmPasswordShown,setIsConfirmPasswordShown]=useState(false);
     const {t,i18n} = useTranslation();
     const ReviewSchema= yup.object().shape({
-        age: yup.string().required(t('Age is required')),
+        age: yup.number().lessThan(18,t('You must be 18 or older to start using our App')).required(t('Age is required')),
         phone: yup.string().required(t('Phone number is required')),
         name: yup.string().required(t('Your name is Required')).min(5,t('minimum letters in the name field is 5')),
         email: yup.string().required(t('Email is Required')).email(t('your Email format is not right')),
@@ -46,19 +47,6 @@ const Registerform = ({navigation,Name_label,address_label,isdoctor,signup,role}
             console.log(err);
         }
     }
-
-    // const getData = async () => {
-    //     try {
-    //     const value = await AsyncStorage.getItem('token')
-    //     if(value !== null) {
-    //         // value previously stored
-    //         setToken({token:value})
-    //     }
-    //     } catch(e) {
-    //     console.log(e);
-    //     }
-    //     return value;
-    // }
     return(
         <NativeBaseProvider>
                 <Box width="100%">
@@ -119,17 +107,19 @@ const Registerform = ({navigation,Name_label,address_label,isdoctor,signup,role}
                                             />
                                             <Text color='danger.500' >{ props.touched.email && props.errors.email}</Text>
                                     </FormControl>
-                                    <FormControl my={2} isRequired>
-                                        <FormControl.Label _text={{color:'#003049'}}>{t('Age')}</FormControl.Label>
-                                        <Input 
-                                            onChangeText={props.handleChange('age')}
-                                            value={props.values.age}
-                                            variant="underlined"
-                                            placeholder= {t('Age')}
-                                            keyboardType='phone-pad'
-                                            />
-                                            <Text color='danger.500' >{ props.touched.age && props.errors.age}</Text>
-                                    </FormControl>
+                                    {(role === 'user') && 
+                                                                            <FormControl my={2} isRequired>
+                                                                            <FormControl.Label _text={{color:'#003049'}}>{t('Age')}</FormControl.Label>
+                                                                            <Input 
+                                                                                onChangeText={props.handleChange('age')}
+                                                                                value={props.values.age}
+                                                                                variant="underlined"
+                                                                                placeholder= {t('Age')}
+                                                                                keyboardType='phone-pad'
+                                                                                />
+                                                                                <Text color='danger.500' >{ props.touched.age && props.errors.age}</Text>
+                                                                        </FormControl>
+                                    }
                                     <FormControl my={2} isRequired>
                                         <FormControl.Label _text={{color:'#003049'}}>{t('Password')}</FormControl.Label>
                                         <FormControl.HelperText>{t("the password should be 8 characters. you must also use 1 numbers and 1 special character like !")}</FormControl.HelperText>

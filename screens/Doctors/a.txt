@@ -1,0 +1,65 @@
+                    <Formik
+                        enableReinitialize
+                        initialValues={{address:'',rating:'',pictures:[''],phoneNumbers:'',price:''}}
+                        validationSchema={ReviewSchema}
+                        onSubmit={(data,actions)=>{
+                            axios.post(`http://${api}/psy/doctors/clinics/`,data,{
+                                headers:{
+                                    Authorization: `Bearer ${token}`
+                                }
+                            }).then((res)=>{
+                                console.log(res);
+                                actions.resetForm()
+                            }).catch((err)=>{
+                                console.log(err);
+                            })
+                        }}
+                    >   
+                        {(props)=>{
+                            <>
+                                <FormControl  my={2}>
+                                    <FormControl.Label _text={{color:'#003049'}}>{t('Clinc Address')}</FormControl.Label>
+                                    <Input onChangeText={props.handleChange('address')}
+                                        value={props.values.address}
+                                        onBlur={props.handleBlur('address')}
+                                        variant="underlined"
+                                    />
+                                    <Text color='danger.500' >{ props.touched.address && props.errors.address}</Text>
+                                </FormControl>
+                                <FormControl my={2} isRequired>
+                                            <FormControl.Label _text={{color:'#003049'}}>{t('Phone Number')}</FormControl.Label>
+                                            <FormControl.HelperText>{t('The Phone number should consist of 11 numbers and start with 011,012,010, or 015')}</FormControl.HelperText>
+                                                <Input 
+                                                onChangeText={props.handleChange('phoneNumbers')}
+                                                value={props.values.phoneNumbers}
+                                                type={'number'}
+                                                keyboardType='phone-pad'
+                                                variant="underlined"
+                                                placeholder= {t('Phone Number')}
+                                                InputLeftElement={<Icon as={<FontAwesomeIcon  icon={faPhone} />}  mr={5} />}/>
+                                </FormControl>
+                                <AirbnbRating
+                                    selectedColor="#facc15"
+                                    reviewColor="#003049"
+                                    count={5}
+                                    reviews={["Terrible", "Decent","OK", "Good", "Amazing"]}
+                                    defaultRating={1.5}
+                                    size={40}
+                                    onFinishRating={(rating)=>{
+                                        props.handleChange('rating')
+                                    }}
+                                />
+                                <FormControl my={2} isRequired>
+                                            <FormControl.Label _text={{color:'#003049'}}>{t('Price')}</FormControl.Label>
+                                                <Input 
+                                                onChangeText={props.handleChange('price')}
+                                                value={props.values.price}
+                                                type={'number'}
+                                                keyboardType='phone-pad'
+                                                variant="underlined"
+                                                placeholder= {t('Phone Number')}
+                                                InputLeftElement={<Icon as={<FontAwesomeIcon  icon={faPhone} />}  mr={5} />}/>
+                                </FormControl>
+                            </>
+                        }}
+                    </Formik>

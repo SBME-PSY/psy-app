@@ -2,10 +2,10 @@ import { NativeBaseProvider} from 'native-base';
 import React from 'react';
 import Viewprofile from '../../components/View profile';
 
-const ViewUserProfile=()=>{
+const ViewUserProfile=({navigation})=>{
     return(
         <NativeBaseProvider>
-            <Viewprofile role='user' Address_label='Address' Name_label='Username' header_color='success.500' />
+            <Viewprofile navigation={navigation} role='user' Address_label='Address' Name_label='Username' header_color='success.500' />
         </NativeBaseProvider>
     )
 }
