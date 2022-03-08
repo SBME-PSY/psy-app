@@ -66,6 +66,7 @@ function UserTabs (){
   return(
     <Tab.Navigator initialRouteName="Home" 
     screenOptions={{
+      tabBarInactiveTintColor:'#cbd5e1',
       tabBarActiveTintColor: '#fff',
       headerShown:false,
       tabBarStyle:{
@@ -79,12 +80,15 @@ function UserTabs (){
       <Tab.Screen   
         options={{
           tabBarLabel:t('Home'),
-          tabBarIcon: ({focused,size})=> (<FontAwesomeIcon size={size} color={focused ? '#fff':'#a3a3a3'} icon={faHome} />)
+          tabBarLabelStyle:{
+            fontSize:12,
+          },
+          tabBarIcon: ({focused,size})=> (<FontAwesomeIcon size={size} color={focused ? '#fff':'#cbd5e1'} icon={faHome} />)
         }} name='UserHome'  component={Userhome} 
       />
       <Tab.Screen options={{
         tabBarLabel:t('Profile'),
-        tabBarIcon: ({focused,size})=> (<FontAwesomeIcon size={size} color={focused ? '#fff':'#a3a3a3'} icon={faUserCircle} />)
+        tabBarIcon: ({focused,size})=> (<FontAwesomeIcon size={size} color={focused ? '#fff':'#cbd5e1'} icon={faUserCircle} />)
       }} name='ViewUserProfile'  component={ViewUserProfile} />
     </Tab.Navigator>
   )

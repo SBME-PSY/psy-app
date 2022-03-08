@@ -1,4 +1,4 @@
-import { Avatar, Center,  HStack,  NativeBaseProvider, ScrollView, Spinner, VStack,Icon,Text, Button,Modal,FormControl,Input,Select,Accordion,Box, Toast} from 'native-base';
+import { Avatar, Center, HStack,  NativeBaseProvider, ScrollView, Spinner, VStack,Icon,Text, Button,Modal,FormControl,Input,Select,Accordion,Box, Toast} from 'native-base';
 import React,{useEffect,useState} from 'react';
 import axios ,{Axios} from 'axios';
 import Constants from "expo-constants";
@@ -10,7 +10,7 @@ import { Formik } from "formik";
 import Imageupload from './Image Upload';
 import { SvgUri , SvgCssUri } from 'react-native-svg';
 import * as yup from 'yup';
-import { Alert, I18nManager, TouchableOpacity, View } from 'react-native';
+import { Alert, I18nManager, TouchableOpacity, Image } from 'react-native';
 
 
 const {manifest} = Constants;
@@ -32,9 +32,24 @@ export default function Viewprofile({navigation,role,Address_label,Name_label,he
     const [isCurrenrtPasswordShown,setIsCurrenrtPasswordShown]=useState(false);
     const [isNewPasswordShown,setIsNewPasswordShown]=useState(false);
     const [isconfirmNewPasswordShowen,setIsconfirmNewPasswordShown] = useState(false);
-    
+
+    const toastSuccessOptions = {
+        title: t('Edited Successfully'),
+        placement:'top',
+        animation:'ease-in-out',
+        status:'success'
+    }
+
+    const toastFailOptions = {
+        title: t('Sorry, Some thing went wrong'),
+        placement:'top',
+        animation:'ease-in-out',
+        status:'error'
+    }
+
+
     const getData = async ()=>{
-        let token = await AsyncStorage.getItem('token')
+        let token =  await AsyncStorage.getItem('token');
         axios.get(`http://${api}/psy/${role}s/profile`,{
             headers: {
                 Authorization: `Bearer ${token}`
@@ -66,12 +81,7 @@ export default function Viewprofile({navigation,role,Address_label,Name_label,he
         })
         .then(res =>{
             console.log(res.data);
-            Toast.show({
-                title: t('Edited Successfully'),
-                placement:'top',
-                animation:'ease-in-out',
-                status:'success'
-            })
+            Toast.show(toastSuccessOptions)
             setTimeout(()=>{
                 getData();
                 setShowNameModal(false);
@@ -80,11 +90,38 @@ export default function Viewprofile({navigation,role,Address_label,Name_label,he
                 setShowMaritalStatusModal(false);
                 setShowPhoneModal(false);
                 setShowPictureModal(false);
-
             },500);
         })
         .catch(err => {
             console.error(err);
+            Toast.show(toastFailOptions)
+        })
+    }
+
+    const editPassword = async (newData)=>{
+        let token = await AsyncStorage.getItem('token');
+        axios.patch(`http://${api}/psy/${role}s/update-password/`,newData,{
+            headers:{
+                Authorization: `Bearer ${token}`
+            }
+        })
+        .then(res =>{
+            console.log(res.data);
+            Toast.show(toastSuccessOptions)
+            setTimeout(()=>{
+                setShowNameModal(false);
+                setShowEmailModal(false);
+                setShowPasswordModal(false);
+                setShowMaritalStatusModal(false);
+                setShowPhoneModal(false);
+                setShowPictureModal(false);
+            },500);
+            AsyncStorage.clear()
+            console.log('data cleared')
+            navigation.navigate('Landing')
+        }).catch(err => {
+            console.log(err.message)
+            Toast.show(toastFailOptions)
         })
     }
 
@@ -106,20 +143,20 @@ export default function Viewprofile({navigation,role,Address_label,Name_label,he
         // view doctor or user profile
         return(
             <NativeBaseProvider>
-                <VStack justifyContent='center'>
+                <VStack  justifyContent='center'>
                     <VStack h='25%'>
-                        <HStack w='100%' h='40%'  bgColor={header_color} justifyContent='center' >
+                        <HStack w='100%' h='50%'  bgColor={header_color} justifyContent='center' >
                                 {/* <HStack  style={{aspectRatio:1}} w='auto' borderRadius={50}  mt={12} zIndex={3} justifyContent='center' >
                                     <SvgUri width='200' height='120' uri={profileData.picture}/>
                                 </HStack> */}
                                 <Avatar size='xl' source={{uri:profileData.picture}} zIndex={3} mt='5' />
                         </HStack>
                         <HStack  h='54%' justifyContent='center'>
-                            <Text  fontWeight='normal' mt='12'  fontSize='2xl'> {profileData.name}</Text>
+                            <Text  fontWeight='bold' mt='12'  fontSize='2xl'> {profileData.name}</Text>
                         </HStack>
                         {/* <Text textAlign='center' color='danger.900'>{t('You can edit any field of your Personal Data by just clicking on it and filing your new data 😊')}</Text> */}
                     </VStack>
-                    <ScrollView  h='60%'>
+                    <ScrollView mt={5}  h='60%'>
 
                         <HStack mt='1' pt='2' width='100%'>
                             <TouchableOpacity onPress={()=> setShowNameModal(true)}>
@@ -309,12 +346,12 @@ export default function Viewprofile({navigation,role,Address_label,Name_label,he
                                         <Modal.CloseButton />
                                         <Modal.Header>Edit your Password</Modal.Header>
                                         <Modal.Body>
-                                            <Formik 
-                                            onSubmit={(newData)=>{
-                                                console.log(newData);
-                                                editData(newData);
-                                            }}
-                                            initialValues={{currentPassword:``,newPassword:``,confirmNewPassword:``}}
+                                            <Formik
+                                                onSubmit={(newData)=>{
+                                                    editPassword(newData)
+                                                }
+                                                }
+                                            initialValues={{currentPassword:``,newPassword:``,confirmNewPassword:``,role:role}}
                                             >
                                                 {(props)=>(
                                                     <>

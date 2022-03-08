@@ -1,76 +1,5 @@
-import { Button, Center, FormControl, Input, NativeBaseProvider,Spinner,Text, VStack,Icon } from "native-base";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import React, { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
-import Constants from "expo-constants";
-import axios from "axios";
-import { faPhone} from "@fortawesome/free-solid-svg-icons";
-import { Formik } from "formik";
-import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { Dimensions } from "react-native";
-import * as yup from 'yup';
-import { Rating ,AirbnbRating} from "react-native-ratings";
-
-
-const {manifest} = Constants;
-const api = (typeof manifest.packagerOpts === `object`) && manifest.packagerOpts.dev
-  ? manifest.debuggerHost.split(`:`).shift().concat(`:8000`)
-  : `api.example.com`;
-
-  const Clinics = ({navigation})=>{
-    
-    const {t,i18n} = useTranslation();
-    
-    const [emptyClinics,isClinicEmpty] = useState(false);
-    const [loading , Isloading] = useState(true);
-
-    const [clinics,setClinics] = useState();
-
-    const ReviewSchema = yup.object().shape({
-        address: yup.string().min(5,t('Your Clinic address is invalid')).required(t('This field is required')),
-        rating : yup.number().lessThan(0,t('Clinic rating is not valid')).required(t('This field is required')),
-        phoneNumbers : yup.string().required(t('Phone number is required')),
-        price: yup.number().required(t('This field is required')),
-    })
-
-    const getClinics = async()=>{
-        let token = await AsyncStorage.getItem('token')
-        axios.get(`http://${api}/psy/doctors/clinics/`,{
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        })
-        .then((res)=>{
-            Isloading(false);
-            setClinics(res.data.data);
-            if(res.data.data.length == 0){
-                isClinicEmpty(true)
-                console.log('data is Empty')
-            }
-        })
-    }
-
-    const addClinicData  = async () =>{
-
-    } 
-
-
-
-    useEffect(()=>{
-        setTimeout(()=>{
-            getClinics();
-        },500)
-    },[])
-
-    return(
-        <NativeBaseProvider>
-            <VStack backgroundColor='white' height={Dimensions.get('window').height} safeArea>
-                <Center >
-                {loading && <Spinner mt={20} size='lg' color='success.500'/> }
-                {emptyClinics &&
-                <>
-                    <Text mx={5} mt={5} fontWeight='bold'  textAlign='center' color='error.500'  >{t('Sorry But You have no Clinics data. You should fill Yor clinics Data below')}</Text>
                     <Formik
+                        enableReinitialize
                         initialValues={{address:'',rating:'',pictures:[''],phoneNumbers:'',price:''}}
                         validationSchema={ReviewSchema}
                         onSubmit={(data,actions)=>{
@@ -134,11 +63,3 @@ const api = (typeof manifest.packagerOpts === `object`) && manifest.packagerOpts
                             </>
                         }}
                     </Formik>
-                </>
-                }
-                </Center>
-            </VStack>
-        </NativeBaseProvider>
-    )
-}
-export default Clinics;
