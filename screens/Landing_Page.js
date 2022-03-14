@@ -29,6 +29,19 @@ const Quotes= [
 let globe = <FontAwesomeIcon   color="#fff" icon={faGlobe} />;
 export default function Landing({navigation}) {
   const {t,i18n} = useTranslation();
+//   useEffect(()=>{
+//     setTimeout(async()=>{
+//         let stringAuthData= await AsyncStorage.getItem('authData')
+//         let authData = JSON.parse(stringAuthData)
+//         if(authData !== null){
+//           authData.role === 'doctor' ? navigation.navigate('Doctorhome') : navigation.navigate('Userhome')
+//         }
+//         else{
+//           navigation.navigate('Landing')
+//         }
+//       },500)
+// }
+// ,[])
   return (
     <NativeBaseProvider>
         <VStack width="100%" height="100%">

@@ -30,9 +30,12 @@ const Signin=({btn_color,pressed_btn_color,role})=>{
         password: yup.string().required(t('Password is Required'))
     })
 
-    const storeData= async (value)=>{
+    const storeData= async (value,role )=>{
         try{
-            await  AsyncStorage.setItem('token',value);
+            await  AsyncStorage.setItem('authData',JSON.stringify({
+                token: value,
+                role: role
+            }));
         }
         catch(err){
             console.log(err);
@@ -57,8 +60,8 @@ const Signin=({btn_color,pressed_btn_color,role})=>{
                                 }
                             })
                             .then(res=>{
-                                    storeData(res.data.token);
-                                    console.log(res.data.token);
+                                    storeData(res.data.token,role);
+                                    console.log(res.data.token,role);
                                     if(role === 'doctor'){
                                         navigation.navigate('Doctorhome');
                                     }
