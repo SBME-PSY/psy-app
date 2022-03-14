@@ -46,13 +46,25 @@ export default function Viewprofile({navigation,role,Address_label,Name_label,he
         animation:'ease-in-out',
         status:'error'
     }
+    const getAuthData = async ()=>{
+        try{
+            let stringAuthData = await AsyncStorage.getItem('authData');
+            let authData = JSON.parse(stringAuthData);
+            return authData;
+        }
+        catch(error){
+            console.log(error)
+        }
+        
+    }
 
 
     const getData = async ()=>{
-        let token =  await AsyncStorage.getItem('token');
+        // let token =  await AsyncStorage.getItem('token');
+        let authData  = await getAuthData();
         axios.get(`http://${api}/psy/${role}s/profile`,{
             headers: {
-                Authorization: `Bearer ${token}`
+                Authorization: `Bearer ${authData.token}`
             }
         })
         .then((response) => {
@@ -68,20 +80,20 @@ export default function Viewprofile({navigation,role,Address_label,Name_label,he
     }
 
     const logout =()=>{
-        AsyncStorage.removeItem('token');
+        AsyncStorage.clear();
         navigation.navigate('Landing');
     }
 
     const editData = async (newData)=>{
-        let token = await AsyncStorage.getItem('token');
+        // let token = await AsyncStorage.getItem('token');
+        let authData  = await getAuthData();
         axios.patch(`http://${api}/psy/${role}s/profile`,newData,{
             headers:{
-                Authorization: `Bearer ${token}`
+                Authorization: `Bearer ${authData.token}`
             }
         })
         .then(res =>{
             console.log(res.data);
-            Toast.show(toastSuccessOptions)
             setTimeout(()=>{
                 getData();
                 setShowNameModal(false);
@@ -91,23 +103,33 @@ export default function Viewprofile({navigation,role,Address_label,Name_label,he
                 setShowPhoneModal(false);
                 setShowPictureModal(false);
             },500);
+            Toast.show(toastSuccessOptions)
         })
         .catch(err => {
             console.error(err);
+            setTimeout(()=>{
+                getData();
+                setShowNameModal(false);
+                setShowEmailModal(false);
+                setShowPasswordModal(false);
+                setShowMaritalStatusModal(false);
+                setShowPhoneModal(false);
+                setShowPictureModal(false);
+            },500);
             Toast.show(toastFailOptions)
         })
     }
 
     const editPassword = async (newData)=>{
-        let token = await AsyncStorage.getItem('token');
+        // let token = await AsyncStorage.getItem('token');
+        let authData  = await getAuthData();
         axios.patch(`http://${api}/psy/${role}s/update-password/`,newData,{
             headers:{
-                Authorization: `Bearer ${token}`
+                Authorization: `Bearer ${authData.token}`
             }
         })
         .then(res =>{
             console.log(res.data);
-            Toast.show(toastSuccessOptions)
             setTimeout(()=>{
                 setShowNameModal(false);
                 setShowEmailModal(false);
@@ -115,6 +137,7 @@ export default function Viewprofile({navigation,role,Address_label,Name_label,he
                 setShowMaritalStatusModal(false);
                 setShowPhoneModal(false);
                 setShowPictureModal(false);
+                Toast.show(toastSuccessOptions)
             },500);
             AsyncStorage.clear()
             console.log('data cleared')
@@ -171,11 +194,14 @@ export default function Viewprofile({navigation,role,Address_label,Name_label,he
                             </TouchableOpacity>
                         </HStack>
 
+                        {(role === 'doctor')&&
+                        
                         <HStack mt='3' pt='2'>
                             <TouchableOpacity onPress={()=> setShowPictureModal(true)}>
                                 <Text ml='2' fontWeight='bold' fontSize='lg' > <FontAwesomeIcon icon={faUser} /> {t('Edit your Profile Picture')}</Text> 
                             </TouchableOpacity>
                         </HStack>
+                        }
 
 
                         <HStack mt='3' pt='2'>

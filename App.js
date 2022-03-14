@@ -1,5 +1,5 @@
 import Landing from "./screens/Landing_Page";
-import React from "react";
+import React,{useEffect} from "react";
 import i18n from './languages/i18n';
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
@@ -20,8 +20,7 @@ import Clinics from './screens/Doctors/clinics';
 import waiting from "./screens/WaitingPage";
 import { faHome, faUserCircle} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import Icon from 'react-native-ionicons'
-import { color } from "react-native/Libraries/Components/View/ReactNativeStyleAttributes";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 I18nManager.allowRTL(false)
 I18nManager.allowRTL(false);
 
@@ -63,9 +62,12 @@ function DoctorTabs () {
 
 function UserTabs (){
   const {t,i18n} = useTranslation();
+
+
   return(
     <Tab.Navigator initialRouteName="Home" 
     screenOptions={{
+
       tabBarInactiveTintColor:'#cbd5e1',
       tabBarActiveTintColor: '#fff',
       headerShown:false,
@@ -94,23 +96,6 @@ function UserTabs (){
   )
 }
 
-// function UserDrawer() {
-//   return (
-//       <Drawer.Navigator initialRouteName="Userhome">
-//         <Drawer.Screen name="Userhome" component={Userhome} />
-//       </Drawer.Navigator>
-//   );
-// }
-// function DoctorDrawer() {
-//   const {t,i18n} = useTranslation();
-//   return (
-//       <Drawer.Navigator  initialRouteName="Doctorhome">
-//         <Drawer.Screen  options={{title:t('Home') }} name="Doctorhome" component={Doctorhome} />  
-//         <Drawer.Screen options={{title:t('Profile') }} name="ViewDoctorProfile" component={ViewDoctorProfile}/>  
-//       </Drawer.Navigator>
-//   );
-// }
-
 
 export default function App() {
   const {t,i18n} = useTranslation();
@@ -118,7 +103,7 @@ export default function App() {
     <>
       <NavigationContainer >
         <Stack.Navigator  >
-          {/* <Stack.Screen name="waiting" options={{ headerShown: false }}  component={waiting}></Stack.Screen> */}
+          <Stack.Screen name="waiting" options={{ headerShown: false }}  component={waiting}></Stack.Screen>
           <Stack.Screen name="Landing" options={{ headerShown: false }}  component={Landing}></Stack.Screen>
           <Stack.Screen name="Doctorlanding" options={{ headerShown: false }} component={Doctorlanding} />
           <Stack.Screen name="Userregister" options={{

@@ -39,9 +39,12 @@ const Registerform = ({navigation,Name_label,address_label,isdoctor,signup,role}
         }).required(t("Please confirm your password"))
     });
 
-    const storeData= async (value)=>{
-        try{
-            await  AsyncStorage.setItem('token',value);
+    const storeData= async (value,role)=>{
+        try{     
+            await  AsyncStorage.setItem('authData',JSON.stringify({
+            token: value,
+            role: role
+        }));
         }
         catch(err){
             console.log(err);
@@ -65,8 +68,8 @@ const Registerform = ({navigation,Name_label,address_label,isdoctor,signup,role}
                                         }
                                     })
                                     .then(res=>{
-                                        storeData(res.data.token);
-                                        console.log(res.data.token);
+                                        storeData(res.data.token,role);
+                                        console.log(res.data.token,role);
                                         Alert.alert(t('Congratulations'),t('You have just completed your Sign-up, go and start using the app'),[{text:t('Start using the App'), onPress:()=> {isdoctor ? navigation.navigate('Doctorsignin',data):navigation.navigate('Usersignin',data)}   }]);
                                         actions.resetForm();
                                     }).catch(err=>{
@@ -108,17 +111,17 @@ const Registerform = ({navigation,Name_label,address_label,isdoctor,signup,role}
                                             <Text color='danger.500' >{ props.touched.email && props.errors.email}</Text>
                                     </FormControl>
                                     {(role === 'user') && 
-                                                                            <FormControl my={2} isRequired>
-                                                                            <FormControl.Label _text={{color:'#003049'}}>{t('Age')}</FormControl.Label>
-                                                                            <Input 
-                                                                                onChangeText={props.handleChange('age')}
-                                                                                value={props.values.age}
-                                                                                variant="underlined"
-                                                                                placeholder= {t('Age')}
-                                                                                keyboardType='phone-pad'
-                                                                                />
-                                                                                <Text color='danger.500' >{ props.touched.age && props.errors.age}</Text>
-                                                                        </FormControl>
+                                        <FormControl my={2} isRequired>
+                                                <FormControl.Label _text={{color:'#003049'}}>{t('Age')}</FormControl.Label>
+                                                <Input 
+                                                onChangeText={props.handleChange('age')}
+                                                value={props.values.age}
+                                                variant="underlined"
+                                                placeholder= {t('Age')}
+                                                keyboardType='phone-pad'
+                                                />
+                                            <Text color='danger.500' >{ props.touched.age && props.errors.age}</Text>
+                                        </FormControl>
                                     }
                                     <FormControl my={2} isRequired>
                                         <FormControl.Label _text={{color:'#003049'}}>{t('Password')}</FormControl.Label>
