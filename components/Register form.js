@@ -25,7 +25,7 @@ const Registerform = ({navigation,Name_label,address_label,isdoctor,signup,role}
     const [isConfirmPasswordShown,setIsConfirmPasswordShown]=useState(false);
     const {t,i18n} = useTranslation();
     const ReviewSchema= yup.object().shape({
-        age: yup.number().lessThan(18,t('You must be 18 or older to start using our App')).required(t('Age is required')),
+        age: yup.number().min(18,t('You must be 18 or older to start using our App')).required(t('Age is required')),
         phone: yup.string().required(t('Phone number is required')),
         name: yup.string().required(t('Your name is Required')).min(5,t('minimum letters in the name field is 5')),
         email: yup.string().required(t('Email is Required')).email(t('your Email format is not right')),
@@ -56,7 +56,7 @@ const Registerform = ({navigation,Name_label,address_label,isdoctor,signup,role}
                     <VStack>
                         <Center mt="10%" px={5}>
                             <Formik
-                            initialValues={{name:'',email:'',password:'',age:'',relativePhone:'',confirmPassword:'',sex:'',maritalStatus:'',address:'',phone:''}}
+                            initialValues={{name:'',email:'',password:'',age:'',confirmPassword:'',sex:'',maritalStatus:'',address:'',phone:''}}
                                 onSubmit={ (data,actions)=> {
                                     data["role"]= role;
                                     console.log(data)
@@ -192,7 +192,7 @@ const Registerform = ({navigation,Name_label,address_label,isdoctor,signup,role}
                                             placeholder= {t('Phone Number')}
                                             InputLeftElement={<Icon as={<FontAwesomeIcon  icon={faPhone} />}  mr={5} />}/>
                                     </FormControl>
-                                    {!isdoctor && 
+                                    {/* {!isdoctor && 
                                         <FormControl my={2} isRequired>
                                             <FormControl.Label _text={{color:'#003049'}}>{t('Relative Phone Number')}</FormControl.Label>
                                                 <FormControl.HelperText>{t('The Phone number should consist of 11 numbers and start with 011,012,010, or 015')}</FormControl.HelperText>
@@ -206,7 +206,7 @@ const Registerform = ({navigation,Name_label,address_label,isdoctor,signup,role}
                                                     placeholder= {t('Relative Phone Number')}
                                                     InputLeftElement={<Icon as={<FontAwesomeIcon  icon={faPhone} />}  mr={5} />}/>
                                         </FormControl>
-                                    }
+                                    } */}
                                     <FormControl my="5">
                                         <Button  onPress={props.handleSubmit} bgColor="success.500"  _pressed={{bgColor:"#003049"}} borderRadius={50}>{t(signup)}</Button>
                                     </FormControl>
