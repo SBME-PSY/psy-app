@@ -1,15 +1,14 @@
 import React, { useEffect} from "react";
 import {NativeBaseProvider,VStack,Image} from "native-base";
 import { StyleSheet, View } from "react-native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import psyLogo from '../assets/Img/psy-logo1.png'
 import TypingText from "react-native-typical";
+import getAuthData from "../hooks/getAuthData";
 
 export default function waiting({navigation}){
     useEffect(()=>{
         setTimeout(async()=>{
-            let stringAuthData= await AsyncStorage.getItem('authData')
-            let authData = JSON.parse(stringAuthData)
+            let authData = await getAuthData();
             if(authData !== null){
               authData.role === 'doctor' ? navigation.navigate('Doctorhome') : navigation.navigate('Userhome')
             }
