@@ -1,13 +1,11 @@
 {
   "expo": {
-    "name": "Psy-Awareness",
-    "slug": "Psy-Awareness",
+    "name": "Psy-Awarness",
+    "slug": "PSY",
     "version": "1.0.0",
     "orientation": "portrait",
-    "splash": {
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
+    "icon": "./assets/Img/psy-logo1.png",
+    "owner":"OmarMohamed",
     "updates": {
       "fallbackToCacheTimeout": 0
     },
@@ -19,8 +17,12 @@
     },
     "android": {
       "adaptiveIcon": {
+        "foregroundImage": "./assets/Img/psy-logo1.png",
         "backgroundColor": "#FFFFFF"
       }
+    },
+    "web": {
+      "favicon": "./assets/Img/psy-logo1.png"
     }
   }
 }

@@ -1,23 +1,16 @@
-import React, { useEffect, useState} from "react";
-import {Text,NativeBaseProvider,VStack,Box,Button, HStack,Select, Center,Image} from "native-base";
+import React, { useEffect} from "react";
+import {NativeBaseProvider,VStack,Image} from "native-base";
 import { StyleSheet, View } from "react-native";
-import { ImageBackground ,Dimensions} from "react-native";
-import Therapy_session from '../assets/Img/Therapy_Session.jpeg';
-import { faSignInAlt,faUserPlus, faGlobe } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { useTranslation } from "react-i18next"; 
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import psyLogo from '../assets/Img/psy-logo.png'
+import psyLogo from '../assets/Img/psy-logo1.png'
 import TypingText from "react-native-typical";
-import { flexDirection } from "styled-system";
+import getAuthData from "../hooks/getAuthData";
 
 export default function waiting({navigation}){
     useEffect(()=>{
         setTimeout(async()=>{
-            let stringAuthData= await AsyncStorage.getItem('authData')
-            let authData = JSON.parse(stringAuthData)
+            let authData = await getAuthData();
             if(authData !== null){
-              authData.role === 'doctor' ? navigation.navigate('Doctorhome') : navigation.navigate('Userhome')
+              authData.role === 'doctor' ? navigation.navigate('Doctortabs') : navigation.navigate('Usertabs')
             }
             else{
               navigation.navigate('Landing')

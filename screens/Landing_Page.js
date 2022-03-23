@@ -6,7 +6,7 @@ import { faSignInAlt,faUserPlus, faGlobe } from "@fortawesome/free-solid-svg-ico
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import Slidercarousel from "../components/Slider";
 import { useTranslation } from "react-i18next"; 
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { BackHandler, Alert } from 'react-native';
 
 const {width} = Dimensions.get("window");
 const Quotes= [
@@ -29,19 +29,23 @@ const Quotes= [
 let globe = <FontAwesomeIcon   color="#fff" icon={faGlobe} />;
 export default function Landing({navigation}) {
   const {t,i18n} = useTranslation();
-//   useEffect(()=>{
-//     setTimeout(async()=>{
-//         let stringAuthData= await AsyncStorage.getItem('authData')
-//         let authData = JSON.parse(stringAuthData)
-//         if(authData !== null){
-//           authData.role === 'doctor' ? navigation.navigate('Doctorhome') : navigation.navigate('Userhome')
-//         }
-//         else{
-//           navigation.navigate('Landing')
-//         }
-//       },500)
-// }
-// ,[])
+  useEffect(()=>{
+    navigation.addListener('beforeRemove',(e)=>{
+      e.preventDefault();
+      Alert.alert(t("Stop"),t("Are you sure you want to exit the app?"),[
+        {
+          text: t("Cancel"),
+          onPress: ()=>null,
+          style:"cancel"
+        },
+        {
+          text:t("Yes"),
+          onPress: ()=>BackHandler.exitApp(),
+          style: "default"
+        }
+      ])      
+    })
+  },[])
   return (
     <NativeBaseProvider>
         <VStack width="100%" height="100%">

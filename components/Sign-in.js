@@ -10,13 +10,14 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios, { Axios } from "axios";
 import { Alert } from "react-native";
 import { useNavigation } from "@react-navigation/core";
+import storeAuthData from "../hooks/storeAuthData";
 
 
 
-const {manifest} = Constants;
-const api = (typeof manifest.packagerOpts === `object`) && manifest.packagerOpts.dev
-  ? manifest.debuggerHost.split(`:`).shift().concat(`:8000`)
-  : `api.example.com`;
+// const {manifest} = Constants;
+// const api = (typeof manifest.packagerOpts === `object`) && manifest.packagerOpts.dev
+//   ? manifest.debuggerHost.split(`:`).shift().concat(`:8000`)
+//   : `api.example.com`;
 
 const Signin=({btn_color,pressed_btn_color,role})=>{
 
@@ -30,17 +31,17 @@ const Signin=({btn_color,pressed_btn_color,role})=>{
         password: yup.string().required(t('Password is Required'))
     })
 
-    const storeData= async (value,role )=>{
-        try{
-            await  AsyncStorage.setItem('authData',JSON.stringify({
-                token: value,
-                role: role
-            }));
-        }
-        catch(err){
-            console.log(err);
-        }
-    }
+    // const storeData= async (value,role )=>{
+    //     try{
+    //         await  AsyncStorage.setItem('authData',JSON.stringify({
+    //             token: value,
+    //             role: role
+    //         }));
+    //     }
+    //     catch(err){
+    //         console.log(err);
+    //     }
+    // }
 
 
 
@@ -53,20 +54,20 @@ const Signin=({btn_color,pressed_btn_color,role})=>{
                         validationSchema={ReviewSchema}
                         onSubmit={ (data,actions)=> {
                             data["role"]= role;
-                            axios.post(`http://${api}/psy/${role}s/login`,data,{
+                            axios.post(`/psy/${role}s/login`,data,{
                                 headers:{
                                     'Accept': 'application/json',
                                     'Content-Type': 'application/json'
                                 }
                             })
                             .then(res=>{
-                                    storeData(res.data.token,role);
+                                    storeAuthData(res.data.token,role);
                                     console.log(res.data.token,role);
                                     if(role === 'doctor'){
-                                        navigation.navigate('Doctorhome');
+                                        navigation.navigate('Doctortabs');
                                     }
                                     else{
-                                        navigation.navigate('Userhome');
+                                        navigation.navigate('Usertabs');
                                     }
                                     actions.resetForm();  
                             })         
