@@ -10,7 +10,7 @@ export default function waiting({navigation}){
         setTimeout(async()=>{
             let authData = await getAuthData();
             if(authData !== null){
-              authData.role === 'doctor' ? navigation.navigate('Doctorhome') : navigation.navigate('Userhome')
+              authData.role === 'doctor' ? navigation.navigate('Doctortabs') : navigation.navigate('Usertabs')
             }
             else{
               navigation.navigate('Landing')

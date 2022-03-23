@@ -20,7 +20,17 @@ import Clinics from './screens/Doctors/clinics';
 import waiting from "./screens/WaitingPage";
 import { faHome, faUserCircle} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import axios ,{Axios} from 'axios';
+import Constants from "expo-constants";
+
+const {manifest} = Constants;
+const api = (typeof manifest.packagerOpts === `object`) && manifest.packagerOpts.dev
+  ? manifest.debuggerHost.split(`:`).shift().concat(`:8000`)
+  : `api.example.com`;
+
+const baseURL = axios.defaults.baseURL = `http://${api}`
+
+
 I18nManager.allowRTL(false)
 I18nManager.allowRTL(false);
 
@@ -128,8 +138,8 @@ export default function App() {
           }}/>
           <Stack.Screen name="Doctorsignin" options={{ headerShown: false }}  component={Doctorsignin}/>
           <Stack.Screen name="Usersignin" options={{ headerShown: false }}  component={Usersignin}/>
-          <Stack.Screen name="Doctorhome" options={{ headerShown: false }}  component={DoctorTabs}  />
-          <Stack.Screen name="Userhome" options={{ headerShown: false }}  component={UserTabs}  />
+          <Stack.Screen name="Doctortabs" options={{ headerShown: false }}  component={DoctorTabs}  />
+          <Stack.Screen name="UserTabs" options={{ headerShown: false }}  component={UserTabs}  />
         </Stack.Navigator>
       </NavigationContainer>
     </>

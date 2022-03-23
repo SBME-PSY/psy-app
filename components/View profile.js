@@ -11,12 +11,7 @@ import Imageupload from './Image Upload';
 import { SvgUri , SvgCssUri } from 'react-native-svg';
 import * as yup from 'yup';
 import { Alert, I18nManager, TouchableOpacity, Image } from 'react-native';
-
-
-const {manifest} = Constants;
-const api = (typeof manifest.packagerOpts === `object`) && manifest.packagerOpts.dev
-  ? manifest.debuggerHost.split(`:`).shift().concat(`:8000`)
-  : `api.example.com`;
+import getAuthData from '../hooks/getAuthData';
 
   //address is still to be added
 export default function Viewprofile({navigation,role,Address_label,Name_label,header_color}){
@@ -46,23 +41,13 @@ export default function Viewprofile({navigation,role,Address_label,Name_label,he
         animation:'ease-in-out',
         status:'error'
     }
-    const getAuthData = async ()=>{
-        try{
-            let stringAuthData = await AsyncStorage.getItem('authData');
-            let authData = JSON.parse(stringAuthData);
-            return authData;
-        }
-        catch(error){
-            console.log(error)
-        }
-        
-    }
+
 
 
     const getData = async ()=>{
         // let token =  await AsyncStorage.getItem('token');
         let authData  = await getAuthData();
-        axios.get(`http://${api}/psy/${role}s/profile`,{
+        axios.get(`/psy/${role}s/profile`,{
             headers: {
                 Authorization: `Bearer ${authData.token}`
             }
@@ -87,7 +72,7 @@ export default function Viewprofile({navigation,role,Address_label,Name_label,he
     const editData = async (newData)=>{
         // let token = await AsyncStorage.getItem('token');
         let authData  = await getAuthData();
-        axios.patch(`http://${api}/psy/${role}s/profile`,newData,{
+        axios.patch(`/psy/${role}s/profile`,newData,{
             headers:{
                 Authorization: `Bearer ${authData.token}`
             }
@@ -123,7 +108,7 @@ export default function Viewprofile({navigation,role,Address_label,Name_label,he
     const editPassword = async (newData)=>{
         // let token = await AsyncStorage.getItem('token');
         let authData  = await getAuthData();
-        axios.patch(`http://${api}/psy/${role}s/update-password/`,newData,{
+        axios.patch(`/psy/${role}s/update-password/`,newData,{
             headers:{
                 Authorization: `Bearer ${authData.token}`
             }

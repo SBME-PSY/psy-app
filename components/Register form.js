@@ -12,6 +12,7 @@ import Constants from "expo-constants";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios, { Axios } from "axios";
 import CVPicture from "./CertificatePictureUpload";
+import storeAuthData from "../hooks/storeAuthData";
 
 
 const {manifest} = Constants;
@@ -39,17 +40,19 @@ const Registerform = ({navigation,Name_label,address_label,isdoctor,signup,role}
         }).required(t("Please confirm your password"))
     });
 
-    const storeData= async (value,role)=>{
-        try{     
-            await  AsyncStorage.setItem('authData',JSON.stringify({
-            token: value,
-            role: role
-        }));
-        }
-        catch(err){
-            console.log(err);
-        }
-    }
+    // const storeData= async (value,role)=>{
+    //     try{     
+    //         await  AsyncStorage.setItem('authData',JSON.stringify({
+    //         token: value,
+    //         role: role
+    //     }));
+    //     }
+    //     catch(err){
+    //         console.log(err);
+    //     }
+    // }
+
+
     return(
         <NativeBaseProvider>
                 <Box width="100%">
@@ -60,7 +63,7 @@ const Registerform = ({navigation,Name_label,address_label,isdoctor,signup,role}
                                 onSubmit={ (data,actions)=> {
                                     data["role"]= role;
                                     console.log(data)
-                                    axios.post(`http://${api}/psy/${role}s/signup`,data,{
+                                    axios.post(`/psy/${role}s/signup`,data,{
                                         headers:{
                                             'Accept': 'application/json',
                                             'Content-Type': 'application/json'
@@ -68,7 +71,8 @@ const Registerform = ({navigation,Name_label,address_label,isdoctor,signup,role}
                                         }
                                     })
                                     .then(res=>{
-                                        storeData(res.data.token,role);
+                                        // storeData(res.data.token,role);
+                                        storeAuthData(res.data.token,role)
                                         console.log(res.data.token,role);
                                         Alert.alert(t('Congratulations'),t('You have just completed your Sign-up, go and start using the app'),[{text:t('Start using the App'), onPress:()=> {isdoctor ? navigation.navigate('Doctorsignin',data):navigation.navigate('Usersignin',data)}   }]);
                                         actions.resetForm();
