@@ -31,9 +31,6 @@ const api = (typeof manifest.packagerOpts === `object`) && manifest.packagerOpts
 const baseURL = axios.defaults.baseURL = `http://${api}`
 
 
-I18nManager.allowRTL(false)
-I18nManager.allowRTL(false);
-
 
 const Stack = createNativeStackNavigator();
 

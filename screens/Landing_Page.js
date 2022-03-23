@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import Slidercarousel from "../components/Slider";
 import { useTranslation } from "react-i18next"; 
 import { BackHandler, Alert } from 'react-native';
+import { I18nManager } from "react-native";
 
 const {width} = Dimensions.get("window");
 const Quotes= [
@@ -49,17 +50,21 @@ export default function Landing({navigation}) {
   return (
     <NativeBaseProvider>
         <VStack width="100%" height="100%">
-          <Box height="60%" width="100%" borderBottomRightRadius={50}  bgColor="black">
+          <Box   height="60%" width="100%" borderBottomRightRadius={50}  bgColor="black">
             <ImageBackground blurRadius={3}  borderBottomRightRadius={50} imageStyle={{opacity: 0.6}} source={Therapy_session} style={{flex:1}} resizeMode="cover" >
-              <HStack mt='15%'>
+              <HStack direction={I18nManager.isRTL ? 'row-reverse' : 'row'} mt='15%'>
                 <Text  color="#FEFDFF"  w="80%" fontSize="3xl" fontWeight="bold"  mb="5%" ml="5%">Psy-Awareness</Text>
                 
-                <Select  dropdownIcon={globe} variant='unstyled'>
-                  <Select.Item label="Arabic (ع)" value="ar"  onPress={()=> i18n.changeLanguage("ar")} />
-                  <Select.Item label="English (en) " value="en"  onPress={()=> i18n.changeLanguage("en")}/>
+                <Select pt={6}  dropdownIcon={globe} variant='unstyled'>
+                  <Select.Item label="Arabic (ع)" value="ar"  onPress={()=>{i18n.changeLanguage("ar").then(()=>{
+                    I18nManager.forceRTL(i18n.language === 'ar')
+                  })}}/>
+                  <Select.Item label="English (en) " value="en" onPress={()=>{i18n.changeLanguage("en").then(()=>{
+                    I18nManager.forceRTL(i18n.language === 'en')
+                  })}}/>
                 </Select>
               </HStack>
-              <Text color="#FEFDFF" w="90%" fontSize="lg"  ml="5%" fontWeight='bold'>
+              <Text color="#FEFDFF" w="90%" fontSize="lg"  mx={5} fontWeight='bold'>
                   {t('A Personal Psychiatrist at the Palm of your hand')}
               </Text>
               <VStack alignItems="center" mt="12%">

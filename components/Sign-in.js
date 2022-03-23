@@ -13,12 +13,6 @@ import { useNavigation } from "@react-navigation/core";
 import storeAuthData from "../hooks/storeAuthData";
 
 
-
-// const {manifest} = Constants;
-// const api = (typeof manifest.packagerOpts === `object`) && manifest.packagerOpts.dev
-//   ? manifest.debuggerHost.split(`:`).shift().concat(`:8000`)
-//   : `api.example.com`;
-
 const Signin=({btn_color,pressed_btn_color,role})=>{
 
     const navigation = useNavigation();
@@ -30,20 +24,6 @@ const Signin=({btn_color,pressed_btn_color,role})=>{
         email: yup.string().email(t('your Email format is not right')).required(t('Email is Required')),
         password: yup.string().required(t('Password is Required'))
     })
-
-    // const storeData= async (value,role )=>{
-    //     try{
-    //         await  AsyncStorage.setItem('authData',JSON.stringify({
-    //             token: value,
-    //             role: role
-    //         }));
-    //     }
-    //     catch(err){
-    //         console.log(err);
-    //     }
-    // }
-
-
 
 
     return(
@@ -88,7 +68,7 @@ const Signin=({btn_color,pressed_btn_color,role})=>{
                                     value = {props.values.email}
                                     onSubmitEditing={()=> ref_input_2.current.focus()}
                                     variant="underlined"
-                                    placeholder= {t('Email')}
+                                    mx={5}
                                     InputLeftElement={<Icon as={<FontAwesomeIcon  icon={faEnvelope} />}  mr={5} />}/>
                                     <Text color='danger.500' >{ props.touched.email &&  props.errors.email}</Text>
                             </FormControl>
@@ -101,8 +81,8 @@ const Signin=({btn_color,pressed_btn_color,role})=>{
                                         ref={ref_input_2}
                                         type={isPasswordShown ? "text":"password"}
                                         variant="underlined"
+                                        mx={5}
                                         InputRightElement={!isPasswordShown ? <Icon as={<FontAwesomeIcon  icon={faEye} />} onPress={()=> setIsPasswordShown(!isPasswordShown)}  /> :  <Icon as={<FontAwesomeIcon  icon={faEyeSlash} />} onPress={()=> setIsPasswordShown(!isPasswordShown)}/>}
-                                        placeholder= {t('Password')}
                                         InputLeftElement={<Icon as={<FontAwesomeIcon  icon={faLock} />}  mr={5} />}/>
                                     <Text color='danger.500' >{ props.touched.password &&  props.errors.password}</Text>
                             </FormControl>
