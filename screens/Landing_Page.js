@@ -57,10 +57,11 @@ export default function Landing({navigation}) {
                 
                 <Select pt={6}  dropdownIcon={globe} variant='unstyled'>
                   <Select.Item label="Arabic (ع)" value="ar"  onPress={()=>{i18n.changeLanguage("ar").then(()=>{
-                    I18nManager.forceRTL(i18n.language === 'ar')
+                    I18nManager.forceRTL(true)
                   })}}/>
                   <Select.Item label="English (en) " value="en" onPress={()=>{i18n.changeLanguage("en").then(()=>{
-                    I18nManager.forceRTL(i18n.language === 'en')
+                    I18nManager.allowRTL(false)   
+                    I18nManager.forceRTL(false)   
                   })}}/>
                 </Select>
               </HStack>

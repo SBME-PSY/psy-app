@@ -1,7 +1,24 @@
 import { Center, NativeBaseProvider ,Text,Card, VStack,Avatar,HStack,Button,ScrollView} from "native-base";
-import React from "react";
+import React,{useEffect} from "react";
 
 const Userhome=({navigation})=>{
+    useEffect(()=>{
+        navigation.addListener('beforeRemove',(e)=>{
+          e.preventDefault();
+          Alert.alert(t("Stop"),t("Are you sure you want to exit the app?"),[
+            {
+              text: t("Cancel"),
+              onPress: ()=>null,
+              style:"cancel"
+            },
+            {
+              text:t("Yes"),
+              onPress: ()=>BackHandler.exitApp(),
+              style: "default"
+            }
+          ])      
+        })
+      },[])
     return(
         <NativeBaseProvider >
             <Center safeArea>

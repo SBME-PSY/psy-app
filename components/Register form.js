@@ -65,7 +65,7 @@ const Registerform = ({navigation,Name_label,address_label,isdoctor,signup,role}
                     <VStack>
                         <Center mt="10%" px={5}>
                             <Formik
-                            initialValues={{name:'',email:'',password:'',age:'',confirmPassword:'',sex:'',maritalStatus:'',address:'',phone:'',governorate:''}}
+                                initialValues={{name:'',email:'',password:'',age:'',confirmPassword:'',sex:'',maritalStatus:'',address:'',phone:'',governorate:''}}
                                 onSubmit={ (data,actions)=> {
                                     data["role"]= role;
                                     console.log(data)
@@ -85,7 +85,7 @@ const Registerform = ({navigation,Name_label,address_label,isdoctor,signup,role}
                                         Alert.alert(t('Warning'),t('Some of the data you entered didnt match our critira. Please check the data entered to make sure it follows all the guides we provide to you'),[{text:'go back',onPress: console.log('pressed')}])
                                         console.log('error',err)
                                     })
-                                    }
+                                }
                                 } 
                                 validationSchema={ReviewSchema}
                                 >

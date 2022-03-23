@@ -68,7 +68,6 @@ const Signin=({btn_color,pressed_btn_color,role})=>{
                                     value = {props.values.email}
                                     onSubmitEditing={()=> ref_input_2.current.focus()}
                                     variant="underlined"
-                                    mx={5}
                                     InputLeftElement={<Icon as={<FontAwesomeIcon  icon={faEnvelope} />}  mr={5} />}/>
                                     <Text color='danger.500' >{ props.touched.email &&  props.errors.email}</Text>
                             </FormControl>
@@ -81,7 +80,6 @@ const Signin=({btn_color,pressed_btn_color,role})=>{
                                         ref={ref_input_2}
                                         type={isPasswordShown ? "text":"password"}
                                         variant="underlined"
-                                        mx={5}
                                         InputRightElement={!isPasswordShown ? <Icon as={<FontAwesomeIcon  icon={faEye} />} onPress={()=> setIsPasswordShown(!isPasswordShown)}  /> :  <Icon as={<FontAwesomeIcon  icon={faEyeSlash} />} onPress={()=> setIsPasswordShown(!isPasswordShown)}/>}
                                         InputLeftElement={<Icon as={<FontAwesomeIcon  icon={faLock} />}  mr={5} />}/>
                                     <Text color='danger.500' >{ props.touched.password &&  props.errors.password}</Text>
