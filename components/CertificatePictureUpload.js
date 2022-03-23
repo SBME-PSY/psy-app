@@ -31,6 +31,7 @@ const CVPicture =({navigator,values_object})=>{
             values_object.cvFile =  `data:image/${extension};base64,${_cvImage['uri']}`;
             setSelected(true);
         }
+        console.log(_cvImage.base64)
     }
 
     return (

@@ -14,19 +14,13 @@ import axios, { Axios } from "axios";
 import CVPicture from "./CertificatePictureUpload";
 import storeAuthData from "../hooks/storeAuthData";
 
-
-const {manifest} = Constants;
-const api = (typeof manifest.packagerOpts === `object`) && manifest.packagerOpts.dev
-  ? manifest.debuggerHost.split(`:`).shift().concat(`:8000`)
-  : `api.example.com`;
-
-
 const Registerform = ({navigation,Name_label,address_label,isdoctor,signup,role}) =>{
     const [isPasswordShown,setIsPasswordShown]=useState(false);
     const [isConfirmPasswordShown,setIsConfirmPasswordShown]=useState(false);
     const {t,i18n} = useTranslation();
     const ReviewSchema= yup.object().shape({
         age: yup.number().min(18,t('You must be 18 or older to start using our App')).required(t('Age is required')),
+        governorate:yup.string().required(t('Governrate is required')),
         phone: yup.string().required(t('Phone number is required')),
         name: yup.string().required(t('Your name is Required')).min(5,t('minimum letters in the name field is 5')),
         email: yup.string().required(t('Email is Required')).email(t('your Email format is not right')),
@@ -40,18 +34,30 @@ const Registerform = ({navigation,Name_label,address_label,isdoctor,signup,role}
         }).required(t("Please confirm your password"))
     });
 
-    // const storeData= async (value,role)=>{
-    //     try{     
-    //         await  AsyncStorage.setItem('authData',JSON.stringify({
-    //         token: value,
-    //         role: role
-    //     }));
-    //     }
-    //     catch(err){
-    //         console.log(err);
-    //     }
-    // }
-
+    const governrates = ['Alexandria',
+    'Aswan',
+    'Asyut',
+    'Beheira',
+    'Beni Suef',
+    'Cairo',
+    'Dakahlia',
+    'Damietta',
+    'Faiyum',
+    'Gharbia',
+    'Giza',
+    'Ismailia',
+    'Kafr El Sheikh',
+    'Luxor',
+    'Matruh',
+    'Minya',
+    'Monufia',
+    'New Valley',
+    'North Sinai',
+    'Port Said',
+    'Qalyubia',
+    'Qena',
+    'Red Sea',
+    'Sharqia','Sohag','South Sinai','Suez',]
 
     return(
         <NativeBaseProvider>
@@ -59,7 +65,7 @@ const Registerform = ({navigation,Name_label,address_label,isdoctor,signup,role}
                     <VStack>
                         <Center mt="10%" px={5}>
                             <Formik
-                            initialValues={{name:'',email:'',password:'',age:'',confirmPassword:'',sex:'',maritalStatus:'',address:'',phone:''}}
+                            initialValues={{name:'',email:'',password:'',age:'',confirmPassword:'',sex:'',maritalStatus:'',address:'',phone:'',governorate:''}}
                                 onSubmit={ (data,actions)=> {
                                     data["role"]= role;
                                     console.log(data)
@@ -67,7 +73,6 @@ const Registerform = ({navigation,Name_label,address_label,isdoctor,signup,role}
                                         headers:{
                                             'Accept': 'application/json',
                                             'Content-Type': 'application/json'
-                                            // 'Content-Type': 'multipart/form-data; boundry=----aslfakslkf'
                                         }
                                     })
                                     .then(res=>{
@@ -102,6 +107,7 @@ const Registerform = ({navigation,Name_label,address_label,isdoctor,signup,role}
                                         <FormControl.Label  _text={{color:'#003049'}}>{t('Profile Picture')}</FormControl.Label>
                                         <Imageupload values_object={props.values}/>
                                     </FormControl> */}
+
                                     <FormControl my={2} isRequired>
                                         <FormControl.Label _text={{color:'#003049'}}>{t('Email')}</FormControl.Label>
                                         <Input 
@@ -175,6 +181,20 @@ const Registerform = ({navigation,Name_label,address_label,isdoctor,signup,role}
                                                 <Select.Item label={t('Single')} value='Single'></Select.Item>
                                             </Select>
                                     </FormControl>
+                                    {(role==='doctor') && 
+                                        <>
+                                            <FormControl isRequired>
+                                                <FormControl.Label><Text color='#003049'>{t('Governrate')}</Text></FormControl.Label>
+                                                <Select onValueChange={props.handleChange('governorate')}>
+                                                    {governrates.map((g)=>{
+                                                        return(
+                                                            <Select.Item key={g} label={t(g)} value={g} />
+                                                        )
+                                                    })}
+                                                </Select>
+                                            </FormControl>
+                                        </>
+                                    }
                                     <FormControl my={2} isRequired>
                                         <FormControl.Label _text={{color:'#003049'}}>{t(address_label)}</FormControl.Label>
                                             <Input 
