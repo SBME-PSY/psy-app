@@ -134,7 +134,7 @@ export default function App() {
           <Stack.Screen name="Doctorsignin" options={{ headerShown: false }}  component={Doctorsignin}/>
           <Stack.Screen name="Usersignin" options={{ headerShown: false }}  component={Usersignin}/>
           <Stack.Screen name="Doctortabs" options={{ headerShown: false }}  component={DoctorTabs}  />
-          <Stack.Screen name="UserTabs" options={{ headerShown: false }}  component={UserTabs}  />
+          <Stack.Screen name="Usertabs" options={{ headerShown: false }}  component={UserTabs}  />
         </Stack.Navigator>
       </NavigationContainer>
     </>
