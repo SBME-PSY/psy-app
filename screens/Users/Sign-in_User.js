@@ -12,7 +12,7 @@ const Usersignin=()=>{
                 <KeyboardAvoidingView>
                         <Box width='100%' mt='20%' height='20%'>
                             <Text textAlign='center' color="#FEFDFF"  fontSize="3xl" fontWeight="bold" >Psy-Awareness</Text>
-                            <Text textAlign='center'  ml="10%" width='80%' color="#FEFDFF"  fontSize="2xl" fontWeight="bold"  >{t('Welcome to our App')}</Text>
+                            <Text textAlign='center'  mx="10%" width='80%' color="#FEFDFF"  fontSize="2xl" fontWeight="bold"  >{t('Welcome to our App')}</Text>
                         </Box>
                 </KeyboardAvoidingView>
                 <Box height='80%' width="100%" bg='white' borderTopRadius={50}>

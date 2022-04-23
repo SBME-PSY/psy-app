@@ -65,18 +65,12 @@ const Registerform = ({navigation,Name_label,address_label,isdoctor,signup,role}
                     <VStack>
                         <Center mt="10%" px={5}>
                             <Formik
-                                initialValues={{name:'',email:'',password:'',age:'',confirmPassword:'',sex:'',maritalStatus:'',address:'',phone:'',governorate:''}}
+                                initialValues={{name:'',email:'',password:'',confirmPassword:'',sex:'',maritalStatus:'',address:'',phone:'',governorate:''}}
                                 onSubmit={ (data,actions)=> {
                                     data["role"]= role;
                                     console.log(data)
-                                    axios.post(`/psy/${role}s/signup`,data,{
-                                        headers:{
-                                            'Accept': 'application/json',
-                                            'Content-Type': 'application/json'
-                                        }
-                                    })
+                                    axios.post(`/psy/${role}s/signup`,data)
                                     .then(res=>{
-                                        // storeData(res.data.token,role);
                                         storeAuthData(res.data.token,role)
                                         console.log(res.data.token,role);
                                         Alert.alert(t('Congratulations'),t('You have just completed your Sign-up, go and start using the app'),[{text:t('Start using the App'), onPress:()=> {isdoctor ? navigation.navigate('Doctorsignin',data):navigation.navigate('Usersignin',data)}   }]);
