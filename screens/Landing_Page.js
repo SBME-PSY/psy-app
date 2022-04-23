@@ -51,7 +51,7 @@ export default function Landing({navigation}) {
     <NativeBaseProvider>
         <VStack width="100%" height="100%">
           <Box   height="62%" width="100%"  borderBottomRightRadius={50} bgColor="black">
-            <ImageBackground blurRadius={2}  style={{flex:1}} borderBottomRightRadius={50}  imageStyle={{opacity: 0.6}} source={Therapy_session} resizeMode='cover' >
+            <ImageBackground blurRadius={2}  style={{flex:1}}   imageStyle={{opacity: 0.6}} source={Therapy_session} resizeMode='cover' >
               <HStack direction={I18nManager.isRTL ? 'row-reverse' : 'row'}    mt='15%'>
                 <Text  color="#FEFDFF"  w="80%" fontSize="3xl" fontWeight="bold"  mb="5%" mr='5%' ml="6%">Psy-Awareness</Text>
                 
