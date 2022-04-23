@@ -18,10 +18,11 @@ import ViewDoctorProfile from "./screens/Doctors/View Doctor Profile";
 import ViewUserProfile from './screens/Users/View User Profile';
 import Clinics from './screens/Doctors/clinics';
 import waiting from "./screens/WaitingPage";
-import { faHome, faUserCircle} from '@fortawesome/free-solid-svg-icons';
+import { faHome, faList, faUserCircle} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import axios ,{Axios} from 'axios';
 import Constants from "expo-constants";
+import tests from "./screens/Users/test";
 
 const {manifest} = Constants;
 const api = (typeof manifest.packagerOpts === `object`) && manifest.packagerOpts.dev? manifest.debuggerHost.split(`:`).shift().concat(`:8000`): `api.example.com`;
@@ -97,6 +98,10 @@ function UserTabs (){
         tabBarLabel:t('Profile'),
         tabBarIcon: ({focused,size})=> (<FontAwesomeIcon size={size} color={focused ? '#fff':'#cbd5e1'} icon={faUserCircle} />)
       }} name='ViewUserProfile'  component={ViewUserProfile} />
+      <Tab.Screen options={{
+        tabBarLabel:t('Tests'),
+        tabBarIcon: ({focused,size})=> (<FontAwesomeIcon size={size} color={focused ? '#fff':'#cbd5e1'} icon={faList} />)
+      }} name='Tests'  component={tests} />
     </Tab.Navigator>
   )
 }
