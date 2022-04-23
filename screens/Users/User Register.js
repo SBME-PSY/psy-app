@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { useTranslation } from "react-i18next";
 import { KeyboardAvoidingView } from "native-base";
 import { Alert } from "react-native";
-import Registerform from "../../components/Register form";
 import {  faEnvelope, faEye, faEyeSlash, faHome, faLock, faPhone, faUser } from "@fortawesome/free-solid-svg-icons";
 import storeAuthData from "../../hooks/storeAuthData";
 import * as yup from 'yup';

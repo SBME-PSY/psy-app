@@ -7,7 +7,6 @@ import {  faEnvelope, faEye, faEyeSlash, faHome, faLock, faPhone, faUser } from 
 import storeAuthData from "../../hooks/storeAuthData";
 import { useTranslation } from "react-i18next";
 import { KeyboardAvoidingView } from "native-base";
-import Registerform from "../../components/Register form";
 import CVPicture from "../../components/CertificatePictureUpload";
 import { Formik } from "formik";
 import axios, { Axios } from "axios";
@@ -66,50 +65,6 @@ const Doctorregister=({navigation})=>{
                         <Heading mt="10" fontSize="2xl" fontWeight="bold"  textAlign="center" color="#003049" >{t('Hello Doctor')} </Heading>
                         <Heading fontSize="sm" mt="2"  textAlign="center" color="#003049" >{t('Just a few more steps to start')} !!!</Heading>
                 </KeyboardAvoidingView>
-            {/* <Formik
-                initialValues={{
-                    name: "",
-                    email: "",
-                    password: "",
-                    confirmPassword: "",
-                    phone: "",
-                    role:"doctor",
-                    sex:"",
-                    maritalStatus:"",
-                    address:"",
-                    cvFile:"",
-                    governorate:""
-                }}
-            >
-                {(props)=>{
-                    <>
-                        <FormControl isRequired>
-                            <FormControl.Label _text={{color:'#003049'}}>{t('Doctor Name')}</FormControl.Label>
-                                <Input
-                                    variant="underlined"
-                                    placeholder= {t('Doctor Name')}
-                                    onChangeText={props.handleChange('name')}
-                                    value={props.values.name}
-                                    InputLeftElement={<Icon as={<FontAwesomeIcon  icon={faUser} />}  mr={5} />}
-                                    onBlur={props.handleBlur('name')}
-                                />
-                            <Text color='danger.500' >{ props.touched.name &&  props.errors.name}</Text>
-                        </FormControl>
-                        <FormControl my={2} isRequired>
-                                    <FormControl.Label _text={{color:'#003049'}}>{t('Email')}</FormControl.Label>
-                                    <Input 
-                                        onChangeText={props.handleChange('email')}
-                                        onBlur={props.handleBlur('email')}
-                                        value={props.values.email}
-                                        variant="underlined"
-                                        placeholder= {t('Email')}
-                                        InputLeftElement={<Icon as={<FontAwesomeIcon  icon={faEnvelope} />}  mr={5} />}
-                                        />
-                                        <Text color='danger.500' >{ props.touched.email && props.errors.email}</Text>
-                        </FormControl>
-                    </>
-                }}
-            </Formik> */}
                 <Formik
                     initialValues={{
                         name: "",
