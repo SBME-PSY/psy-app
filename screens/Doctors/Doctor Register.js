@@ -82,10 +82,10 @@ const Doctorregister=({navigation})=>{
                     onSubmit={(data,actions)=>{
                         axios.post('/psy/doctors/signup',data).then((res)=>{
                             storeAuthData(res.data.token,role)
-                            Alert.alert(t('Congratulations'),t('You have just completed your Sign-up, go and start using the app'),[{text:t('Start using the App'), onPress:()=> {isdoctor ? navigation.navigate('Doctorsignin',data):navigation.navigate('Usersignin',data)}   }]);1
+                            Alert.alert(t('Congratulations'),t('You have just completed your Sign-up, go and start using the app'),[{text:t('Start using the App'), onPress:()=> navigation.navigate('Doctorsignin')   }]);
                         })
                         .catch((err)=>{
-                            Alert.alert(t('Warning'),t('Some of the data you entered didnt match our critira. Please check the data entered to make sure it follows all the guides we provide to you'),[{text:'go back',onPress: console.log('pressed')}])
+                            Alert.alert(t('Warning'),t('Some of the data you entered didnt match our critira. Please check the data entered to make sure it follows all the guides we provide to you'),[{text:'go back'}])
                         })
                     }}
                 >
