@@ -53,7 +53,7 @@ export default function Landing({navigation}) {
           <Box   height="62%" width="100%"  borderBottomRightRadius={50} bgColor="black">
             <ImageBackground blurRadius={2}  style={{flex:1}}   imageStyle={{opacity: 0.6}} source={Therapy_session} resizeMode='cover' >
               <HStack direction={I18nManager.isRTL ? 'row-reverse' : 'row'}    mt='15%'>
-                <Text  color="#FEFDFF"  w="80%" fontSize="3xl" fontWeight="bold"  mb="5%" mr='5%' ml="6%">Psy-Awareness</Text>
+                <Text  color="#FEFDFF"  w="80%" fontSize="3xl" fontWeight="bold"  mb="5%" mr='3%' ml="4%">Psy-Awareness</Text>
                 
                 <Select pt={6}  dropdownIcon={globe} variant='unstyled'>
                   <Select.Item label="Arabic (ع)" value="ar"  onPress={()=>{i18n.changeLanguage("ar").then(()=>{
