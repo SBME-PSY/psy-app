@@ -22,7 +22,7 @@ import { faHome, faList, faUserCircle} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import axios ,{Axios} from 'axios';
 import Constants from "expo-constants";
-import tests from "./screens/Users/test";
+import testCategories from "./screens/Users/testCategories";
 
 const {manifest} = Constants;
 const api = (typeof manifest.packagerOpts === `object`) && manifest.packagerOpts.dev? manifest.debuggerHost.split(`:`).shift().concat(`:8000`): `api.example.com`;
@@ -101,7 +101,7 @@ function UserTabs (){
       <Tab.Screen options={{
         tabBarLabel:t('Tests'),
         tabBarIcon: ({focused,size})=> (<FontAwesomeIcon size={size} color={focused ? '#fff':'#cbd5e1'} icon={faList} />)
-      }} name='Tests'  component={tests} />
+      }} name='Tests'  component={testCategories} />
     </Tab.Navigator>
   )
 }
