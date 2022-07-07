@@ -1,5 +1,5 @@
 import React, { useState ,useEffect} from "react";
-import { NativeBaseProvider,VStack,Text,Card,Avatar, HStack, Center,Radio, Button,Checkbox} from "native-base";
+import { NativeBaseProvider,VStack,Text,Card,Avatar, HStack, Center,Radio, Button,Checkbox, FormControl} from "native-base";
 import { useTranslation } from "react-i18next";
 import axios from "axios";
 import { I18nManager ,StyleSheet} from "react-native";
@@ -10,11 +10,14 @@ import { Formik } from "formik";
 // declare module 'react-native-simple-survey'
 
 export default function tests(){
+    const {t,i18n} = useTranslation();
     let results={}
     const handleSubmit = () => {
         results.questionnaireID = responses.data._id
         results.category = responses.data.category
-        console.log(results)
+        if(!results.answers){
+            
+        }
     }
     const catchValue = (value,index) => {
         results.answers =[]
@@ -46,22 +49,20 @@ export default function tests(){
                         <>
                             <Text textAlign='center' fontSize={15} mt={2} key={Index} >{Index+1}  :  {I18nManager.isRTL ?   question.body.ar + " ؟" :question.body.en + " ?"} </Text>
                             <Center>
+                                <FormControl isRequired>
                             {question.answers.map((answer,index)=>{
                                 return(
-                                    // <Checkbox.Group colorScheme="success" onChange={(val)=>console.log(val[0])}>
-                                    //     <Checkbox value={I18nManager.isRTL ? answer.body.ar :answer.body.en}>
-                                    //         <Text key={index}>{I18nManager.isRTL ? answer.body.ar :answer.body.en}</Text>
-                                    //     </Checkbox>
-                                    // </Checkbox.Group>
-                                    <Radio.Group key={index} colorScheme="success" onChange={(val)=>{catchValue(val,Index)}}>
-                                        <Radio value={I18nManager.isRTL ? answer.body.ar :answer.body.en}>
-                                            <Text >{I18nManager.isRTL ? answer.body.ar :answer.body.en}</Text>
-                                        </Radio>
-                                    </Radio.Group>
-
+                                        <Radio.Group key={index}  colorScheme="success" onChange={(val)=>{catchValue(val,Index)}}>
+                                            <Radio value={I18nManager.isRTL ? answer.body.ar :answer.body.en}>
+                                                <Text mx={5} >{I18nManager.isRTL ? answer.body.ar :answer.body.en}</Text>
+                                            </Radio>
+                                        </Radio.Group>   
                                 )
                             })}
-                            <Button onPress={handleSubmit} >Submit</Button>
+                                <FormControl>
+                                    <Button my={2} borderRadius={35} onPress={handleSubmit} >{t('Submit')}</Button>
+                                </FormControl>
+                                </FormControl>
                             </Center>
                         </>
                     )

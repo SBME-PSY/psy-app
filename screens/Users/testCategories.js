@@ -1,5 +1,5 @@
 import React, { useState ,useEffect} from "react";
-import { NativeBaseProvider,VStack,Text,Card,Avatar, HStack} from "native-base";
+import { NativeBaseProvider,VStack,Text,Card,Avatar, HStack, Center} from "native-base";
 import { useTranslation } from "react-i18next";
 import axios from "axios";
 import { I18nManager ,StyleSheet} from "react-native";
@@ -25,8 +25,8 @@ export default function testCategories({navigation}){
 
     return(
         <NativeBaseProvider>
-            <HStack flexWrap='wrap' px={15} safeArea>
-                {tests && tests.map((test,index)=>{
+            <HStack justifyContent='center' flexWrap='wrap' px={15} safeArea>
+            {tests && tests.map((test,index)=>{
                     return(
                         <TouchableOpacity onPress={()=>{navigation.navigate('tests')}}  key={index}>
                             <VStack>
