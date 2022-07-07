@@ -11,12 +11,19 @@ import { Formik } from "formik";
 
 export default function tests(){
     const {t,i18n} = useTranslation();
+    const [error,setError] = useState(false);
     let results={}
     const handleSubmit = () => {
         results.questionnaireID = responses.data._id
         results.category = responses.data.category
         if(!results.answers){
-            
+            setError(true)
+            setInterval(() => {
+                setError(false)
+            }, 5000);
+        }
+        else{
+            console.log(results)
         }
     }
     const catchValue = (value,index) => {
@@ -59,8 +66,9 @@ export default function tests(){
                                         </Radio.Group>   
                                 )
                             })}
+                                {error && <Text italic={true} color='error.700'>{t('Please Answer the above Questions')}</Text>}
                                 <FormControl>
-                                    <Button my={2} borderRadius={35} onPress={handleSubmit} >{t('Submit')}</Button>
+                                    <Button my={2} colorScheme='emerald' borderRadius={35} onPress={handleSubmit} >{t('Submit')}</Button>
                                 </FormControl>
                                 </FormControl>
                             </Center>
