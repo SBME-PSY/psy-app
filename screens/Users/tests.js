@@ -2,7 +2,7 @@ import React, { useState ,useEffect} from "react";
 import { NativeBaseProvider,VStack,Text,Card,Avatar, HStack, Center,Radio, Button,Checkbox, FormControl} from "native-base";
 import { useTranslation } from "react-i18next";
 import axios from "axios";
-import { I18nManager ,StyleSheet} from "react-native";
+import { I18nManager ,StyleSheet, ToastAndroid} from "react-native";
 import depressed from '../../assets/Img/depression.png'
 import { TouchableOpacity } from "react-native";
 import responses from "../../assets/responses";
@@ -24,6 +24,13 @@ export default function tests(){
         }
         else{
             console.log(results)
+            ToastAndroid.showWithGravityAndOffset(
+                t("Your answers have been submitted"),
+                ToastAndroid.LONG,
+                ToastAndroid.BOTTOM,
+                25,
+                50
+            );
         }
     }
     const catchValue = (value,index) => {
