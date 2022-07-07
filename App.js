@@ -16,13 +16,15 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import ViewDoctorProfile from "./screens/Doctors/View Doctor Profile";
 import ViewUserProfile from './screens/Users/View User Profile';
-import Clinics from './screens/Doctors/clinics';
+import addClinics from "./screens/Doctors/addClinics";
 import waiting from "./screens/WaitingPage";
 import { faHome, faList, faUserCircle} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import axios ,{Axios} from 'axios';
 import Constants from "expo-constants";
 import testCategories from "./screens/Users/testCategories";
+import showClinics from "./screens/Doctors/showClinic";
+import tests from "./screens/Users/tests";
 
 const {manifest} = Constants;
 const api = (typeof manifest.packagerOpts === `object`) && manifest.packagerOpts.dev? manifest.debuggerHost.split(`:`).shift().concat(`:8000`): `api.example.com`;
@@ -101,7 +103,7 @@ function UserTabs (){
       <Tab.Screen options={{
         tabBarLabel:t('Tests'),
         tabBarIcon: ({focused,size})=> (<FontAwesomeIcon size={size} color={focused ? '#fff':'#cbd5e1'} icon={faList} />)
-      }} name='Tests'  component={testCategories} />
+      }} name='testsCat'  component={testCategories} />
     </Tab.Navigator>
   )
 }
@@ -129,8 +131,15 @@ export default function App() {
             headerTitleStyle:{color:"#FEFDFF"},
             headerStyle:{backgroundColor:"#003049"}
           }}/>
-          <Stack.Screen  name='clinics'  component={Clinics} options={{
-            title:t("Clinics"),
+          <Stack.Screen  name='addClinics'  component={addClinics} options={{
+            title:t("Add Clinics"),
+            headerTintColor:"white",
+            headerTitleAlign: 'center',
+            headerStyle:{backgroundColor:"#003049"},
+            headerTitleStyle:{color:"#FEFDFF"},
+          }}/>
+          <Stack.Screen  name='showClinics'  component={showClinics} options={{
+            title:t("Show Clinics"),
             headerTintColor:"white",
             headerTitleAlign: 'center',
             headerStyle:{backgroundColor:"#003049"},
@@ -140,6 +149,15 @@ export default function App() {
           <Stack.Screen name="Usersignin" options={{ headerShown: false }}  component={Usersignin}/>
           <Stack.Screen name="Doctortabs" options={{ headerShown: false }}  component={DoctorTabs}  />
           <Stack.Screen name="Usertabs" options={{ headerShown: false }}  component={UserTabs}  />
+          <Stack.Screen name="tests" 
+            options={{
+              title:t("Tests"),
+              headerTintColor:"white",
+              headerTitleAlign: 'center',
+              headerStyle:{backgroundColor:"#059669"},
+              headerTitleStyle:{color:"#FEFDFF"},
+            }}
+            component={tests}  />
         </Stack.Navigator>
       </NavigationContainer>
     </>

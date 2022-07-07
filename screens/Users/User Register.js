@@ -51,7 +51,7 @@ const Userregister=({navigation})=>{
                     }}
                     onSubmit={(data,actions)=>{
                         axios.post('/psy/users/signup',data).then((res)=>{
-                            storeAuthData(res.data.token,role)
+                            storeAuthData(res.data.token,'user')
                             Alert.alert(t('Congratulations'),t('You have just completed your Sign-up, go and start using the app'),[{text:t('Start using the App'), onPress: ()=> navigation.navigate('Usersignin')   }]);
                         })
                         .catch((err)=>{

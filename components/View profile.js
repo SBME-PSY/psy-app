@@ -2,9 +2,10 @@ import { Avatar, Center, HStack,  NativeBaseProvider, ScrollView, Spinner, VStac
 import React,{useEffect,useState} from 'react';
 import axios ,{Axios} from 'axios';
 import Constants from "expo-constants";
+import {Dimensions} from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import {  faClinicMedical, faEnvelope, faEye, faEyeSlash,faFileSignature,faHeart, faLock, faPhone, faUser, faVenusMars, faSignOutAlt  } from '@fortawesome/free-solid-svg-icons';
+import {  faClinicMedical, faEnvelope, faEye, faEyeSlash,faFileSignature,faHeart, faLock, faPhone, faUser, faVenusMars, faSignOutAlt, faPlus  } from '@fortawesome/free-solid-svg-icons';
 import { useTranslation } from "react-i18next";
 import { Formik } from "formik";
 import Imageupload from './Image Upload';
@@ -161,7 +162,7 @@ export default function Viewprofile({navigation,role,Address_label,Name_label,he
                             <Text  fontWeight='bold' mt='12'  fontSize='2xl'> {profileData.name}</Text>
                         </HStack>
                     </VStack>
-                    <ScrollView mt={5}  h='60%'>
+                    <ScrollView mt={5}  h='65%'>
 
                         <HStack mt='1' pt='2' width='100%'>
                             <TouchableOpacity onPress={()=> setShowNameModal(true)}>
@@ -185,18 +186,26 @@ export default function Viewprofile({navigation,role,Address_label,Name_label,he
                         </HStack>
                         }
 
+                        {(role === 'doctor')&&
+                        <>
+                        <HStack mt='3' pt='2'>
+                            <TouchableOpacity onPress={()=>  navigation.navigate('addClinics') } >
+                                <Text ml='2' fontWeight='bold' fontSize='lg' > <FontAwesomeIcon icon={faPlus} /> {t('Add Clinics')}</Text> 
+                            </TouchableOpacity>
+                        </HStack>
+                        <HStack mt='3' pt='2'>
+                            <TouchableOpacity onPress={()=> navigation.navigate('showClinics')}>
+                                <Text  ml='2'  fontWeight='bold' fontSize='lg' > <FontAwesomeIcon icon={faClinicMedical} /> {t('Show Clinics')}</Text>
+                            </TouchableOpacity>
+                        </HStack>
+                        </>
+                        }
 
                         <HStack mt='3' pt='2'>
                             <TouchableOpacity onPress={()=> setShowEmailModal(true)}>
                                 <Text  ml='2'  fontWeight='bold' fontSize='lg' > <FontAwesomeIcon icon={faEnvelope} /> {t('Email')}: {profileData.email}</Text>
                             </TouchableOpacity>
                         </HStack>
-
-                        {(role === 'doctor') && <HStack mt='3' pt='2'>
-                            <TouchableOpacity onPress={()=> navigation.navigate('clinics',{doctor_id:profileData._id})}>
-                                <Text  ml='2'  fontWeight='bold' fontSize='lg' > <FontAwesomeIcon icon={faClinicMedical} /> {t('Show Clinics')}</Text>
-                            </TouchableOpacity>
-                        </HStack>}
 
                         <HStack mt='3' pt='2'>
                             <TouchableOpacity onPress={()=> setShowMaritalStatusModal(true)}>
@@ -224,7 +233,7 @@ export default function Viewprofile({navigation,role,Address_label,Name_label,he
 
                         {/* Edit name */}
 
-                        <Modal size='xl' avoidKeyboard={true} isOpen={showNameModal} onClose={() => setShowNameModal(false)}>
+                        <Modal size='xl'   avoidKeyboard={true} isOpen={showNameModal} onClose={() => setShowNameModal(false)}   >
                                     <Modal.Content>
                                     <Modal.CloseButton />
                                     <Modal.Header>{t('Edit your Name')}</Modal.Header>
