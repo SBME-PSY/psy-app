@@ -26,6 +26,9 @@ export default function tests(){
                 if(results.answers[i].index==index && results.answers[i].answer ==value){
                     return;
                 }
+                else if(results.answers[i].index==index && results.answers[i].answer !=value){
+                    results.answer[i].answer = value
+                }
                 else{
                     results.answer.push({qIndex:index,answer:value})
                 }
