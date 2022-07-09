@@ -2,7 +2,7 @@ import { Avatar, Center, HStack,  NativeBaseProvider, ScrollView, Spinner, VStac
 import React,{useEffect,useState} from 'react';
 import axios ,{Axios} from 'axios';
 import Constants from "expo-constants";
-import {Dimensions} from 'react-native'
+import {Dimensions, ToastAndroid} from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import {  faClinicMedical, faEnvelope, faEye, faEyeSlash,faFileSignature,faHeart, faLock, faPhone, faUser, faVenusMars, faSignOutAlt, faPlus  } from '@fortawesome/free-solid-svg-icons';
@@ -55,14 +55,13 @@ export default function Viewprofile({navigation,role,Address_label,Name_label,he
             }
         })
         .then((response) => {
-            console.log(response.data.data);
             // console.log(response.data);
             setProfileData(response.data.data);
             Isloading(false);
         })
         .catch((error) => {
             console.log(error);
-            throw Error('Sorry, there has been a Problem while fetching your data');
+            ToastAndroid.show(t('Sorry, Some thing went wrong'), ToastAndroid.SHORT);
         });
     }
 

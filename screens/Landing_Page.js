@@ -59,8 +59,10 @@ export default function Landing({navigation}) {
                   <Select.Item label="Arabic (ع)" value="ar"  onPress={()=>{i18n.changeLanguage("ar").then(()=>{
                     I18nManager.forceRTL(true)
                   })}}/>
-                  <Select.Item label="English (en) " value="en" onPress={()=>{console.log(i18n.changeLanguage('en'))
-                }}/>
+                  <Select.Item label="English (en) " value="en" onPress={()=>{i18n.changeLanguage('en').then(()=>{
+                    I18nManager.forceRTL(false)
+                  }
+                  )}}/>
                 </Select>
               </HStack>
               <Text color="#FEFDFF" w="90%" fontSize="lg"  mx={5} fontWeight='bold'>

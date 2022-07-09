@@ -11,7 +11,7 @@ import CVPicture from "../../components/CertificatePictureUpload";
 import { Formik } from "formik";
 import axios, { Axios } from "axios";
 import governrates from "../../Constants/governrates";
-
+import specializations from "../../Constants/specializations";
 
 const Doctorregister=({navigation})=>{
     const [isPasswordShown,setIsPasswordShown]=useState(false);
@@ -55,7 +55,8 @@ const Doctorregister=({navigation})=>{
                         maritalStatus:"",
                         address:"",
                         cvFile:"",
-                        governorate:""
+                        governorate:"",
+                        specialization:""
                     }}
                     onSubmit={(data,actions)=>{
                         axios.post('/psy/doctors/signup',data).then((res)=>{
@@ -145,9 +146,19 @@ const Doctorregister=({navigation})=>{
                             <FormControl isRequired>
                                 <FormControl.Label><Text color='#003049'>{t('Governrate')}</Text></FormControl.Label>
                                 <Select onValueChange={props.handleChange('governorate')}>
-                                    {governrates.map((g)=>{
+                                    {governrates.map((g,i)=>{
                                         return(
-                                            <Select.Item key={g} label={t(g)} value={g} />
+                                            <Select.Item key={i} label={t(g)} value={g} />
+                                        )
+                                    })}
+                                </Select>
+                            </FormControl>
+                            <FormControl isRequired>
+                                <FormControl.Label><Text color='#003049'>{t('Specialization')}</Text></FormControl.Label>
+                                <Select onValueChange={props.handleChange('specialization')}>
+                                    {specializations.map((s,i)=>{
+                                        return(
+                                            <Select.Item key={i} label={t(s)} value={s} />
                                         )
                                     })}
                                 </Select>

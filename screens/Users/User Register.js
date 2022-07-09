@@ -129,9 +129,9 @@ const Userregister=({navigation})=>{
                             <FormControl isRequired>
                                 <FormControl.Label><Text color='#003049'>{t('Governrate')}</Text></FormControl.Label>
                                 <Select onValueChange={props.handleChange('governorate')}>
-                                    {governrates.map((g)=>{
+                                    {governrates.map((g,i)=>{
                                         return(
-                                            <Select.Item key={g} label={t(g)} value={g} />
+                                            <Select.Item key={i} label={t(g)} value={g} />
                                         )
                                     })}
                                 </Select>

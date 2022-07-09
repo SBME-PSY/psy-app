@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import axios from "axios";
 import { I18nManager ,StyleSheet} from "react-native";
 import depressed from '../../assets/Img/depression.png'
-import { TouchableOpacity } from "react-native";
+import { TouchableOpacity,Image } from "react-native";
 import Constants from "expo-constants";
 import SkeletonContent from "react-native-skeleton-content";
 
@@ -16,7 +16,7 @@ export default function testCategories({navigation}){
     const {t,i18n} = useTranslation();
     const [tests, setTests] = useState([]);
     const getTests=()=>{
-        axios.get('/psy/questionnaires/category').then((res)=>{
+        axios.get('/psy/questionnaires/categories').then((res)=>{
             console.log(res.data)
             setTests(res.data.data)
         }).then(
@@ -33,14 +33,14 @@ export default function testCategories({navigation}){
 
     return(
         <NativeBaseProvider>
-            {isLoading && <Spinner mt={50} size='lg'/>}
-            {!isLoading &&                 <HStack justifyContent='center' flexWrap='wrap' px={15} safeArea>
+            {loading && <Spinner mt={50} size='lg'/>}
+            {!loading &&                 <HStack justifyContent='center' flexWrap='wrap' px={15} safeArea>
                 {tests && tests.map((test,index)=>{
                         return(
                             <TouchableOpacity onPress={()=>{navigation.navigate('tests')}}  key={index}>
                                 <VStack>
                                     <Card height={150} width='100%'>
-                                        <Avatar size={70}  alignSelf='center' source={{uri:`https://www.flaticon.com/premium-icon/anxiety_2266068?related_id=2266068h`}}/>
+                                        <Avatar size={70} alignSelf='center'  source={{uri:test.base64}}/>
                                         <Text textAlign='center' mt={5} fontWeight='bold' >{I18nManager.isRTL ? test.name.ar : test.name.en}</Text>
                                     </Card>
                                 </VStack>
