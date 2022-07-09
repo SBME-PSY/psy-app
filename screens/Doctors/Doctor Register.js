@@ -10,6 +10,7 @@ import { KeyboardAvoidingView } from "native-base";
 import CVPicture from "../../components/CertificatePictureUpload";
 import { Formik } from "formik";
 import axios, { Axios } from "axios";
+import governrates from "../../Constants/governrates";
 
 
 const Doctorregister=({navigation})=>{
@@ -32,30 +33,6 @@ const Doctorregister=({navigation})=>{
         }).required(t("Please confirm your password"))
     });
 
-    const governrates = ['Alexandria',
-    'Aswan',
-    'Asyut',
-    'Beheira',
-    'Beni Suef',
-    'Cairo',
-    'Dakahlia',
-    'Damietta',
-    'Faiyum',
-    'Gharbia',
-    'Giza',
-    'Ismailia',
-    'Kafr El Sheikh',
-    'Luxor',
-    'Matruh',
-    'Minya',
-    'Monufia',
-    'New Valley',
-    'North Sinai',
-    'Port Said',
-    'Qalyubia',
-    'Qena',
-    'Red Sea',
-    'Sharqia','Sohag','South Sinai','Suez',]
     
     return(
         <NativeBaseProvider>

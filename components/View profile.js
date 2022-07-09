@@ -153,8 +153,8 @@ export default function Viewprofile({navigation,role,Address_label,Name_label,he
         // view doctor or user profile
         return(
             <NativeBaseProvider>
-                <VStack  justifyContent='center'>
-                    <VStack h='25%'>
+                <VStack safeArea justifyContent='center'>
+                    <VStack h='26%'>
                         <HStack w='100%' h='50%'  bgColor={header_color} justifyContent='center' >
                             <Lightbox navigator={navigator} ><Avatar size='xl' source={{uri:profileData.picture}} zIndex={3} mt='5' /></Lightbox>
                         </HStack>

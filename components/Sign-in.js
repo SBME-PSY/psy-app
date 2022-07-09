@@ -41,6 +41,7 @@ const Signin=({btn_color,pressed_btn_color,role})=>{
                                 }
                             })
                             .then(res=>{
+                                console.log(role)
                                     storeAuthData(res.data.token,role);
                                     console.log(res.data.token,role);
                                     if(role === 'doctor'){

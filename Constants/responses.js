@@ -52,6 +52,42 @@ export default{
           "_id": "62c1a8de3d1b40fcdb5b2650",
           "createdAt": "2022-07-03T14:34:06.529Z",
           "updatedAt": "2022-07-03T14:34:06.529Z"
+        },
+        {
+          "body": { "en": "Do You Love JavaScript", "ar": "هل تحب جافاسكريبت" },
+          "answers": [
+            {
+              "body": { "en": "0", "ar": "0" },
+              "weight": 0,
+              "_id": "62c1a8de3d1b40fcdb5b2651",
+              "createdAt": "2022-07-03T14:34:06.528Z",
+              "updatedAt": "2022-07-03T14:34:06.528Z"
+            },
+            {
+              "body": { "en": "1", "ar": "1" },
+              "weight": 2,
+              "_id": "62c1a8de3d1b40fcdb5b2652",
+              "createdAt": "2022-07-03T14:34:06.529Z",
+              "updatedAt": "2022-07-03T14:34:06.529Z"
+            },
+            {
+              "body": { "en": "2", "ar": "2" },
+              "weight": 4,
+              "_id": "62c1a8de3d1b40fcdb5b2653",
+              "createdAt": "2022-07-03T14:34:06.529Z",
+              "updatedAt": "2022-07-03T14:34:06.529Z"
+            },
+            {
+              "body": { "en": "3", "ar": "3" },
+              "weight": 6,
+              "_id": "62c1a8de3d1b40fcdb5b2654",
+              "createdAt": "2022-07-03T14:34:06.529Z",
+              "updatedAt": "2022-07-03T14:34:06.529Z"
+            }
+          ],
+          "_id": "62c1a8de3d1b40fcdb5b2650",
+          "createdAt": "2022-07-03T14:34:06.529Z",
+          "updatedAt": "2022-07-03T14:34:06.529Z"
         }
       ],
       "author": "619926e30cd34afc524a67be",

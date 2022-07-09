@@ -1,6 +1,5 @@
 import Landing from "./screens/Landing_Page";
-import React,{useEffect} from "react";
-import i18n from './languages/i18n';
+import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
 import Doctorlanding from "./screens/Doctors/Doctor Landing";
@@ -9,7 +8,6 @@ import { useTranslation } from "react-i18next";
 import Doctorregister from "./screens/Doctors/Doctor Register";
 import Doctorsignin from "./screens/Doctors/Sign-in_Doctors";
 import Usersignin from "./screens/Users/Sign-in_User";
-import { I18nManager, View } from "react-native";
 import Doctorhome from "./screens/Doctors/doctorHome";
 import Userhome from "./screens/Users/userHome";
 import { createDrawerNavigator } from "@react-navigation/drawer";
@@ -20,11 +18,12 @@ import addClinics from "./screens/Doctors/addClinics";
 import waiting from "./screens/WaitingPage";
 import { faHome, faList, faUserCircle} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import axios ,{Axios} from 'axios';
+import axios  from 'axios';
 import Constants from "expo-constants";
 import testCategories from "./screens/Users/testCategories";
 import showClinics from "./screens/Doctors/showClinic";
 import tests from "./screens/Users/tests";
+
 
 const {manifest} = Constants;
 const api = (typeof manifest.packagerOpts === `object`) && manifest.packagerOpts.dev? manifest.debuggerHost.split(`:`).shift().concat(`:8000`): `api.example.com`;
@@ -69,7 +68,7 @@ function DoctorTabs () {
 }
 
 function UserTabs (){
-  const {t,i18n} = useTranslation();
+  const {t,i18n} = useTranslation()
 
 
   return(

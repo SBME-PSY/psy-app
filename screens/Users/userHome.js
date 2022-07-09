@@ -1,7 +1,10 @@
 import { Center, NativeBaseProvider ,Text,Card, VStack,Avatar,HStack,Button,ScrollView} from "native-base";
 import React,{useEffect} from "react";
+import { useTranslation } from "react-i18next";
+import { BackHandler ,Alert} from "react-native";
 
 const Userhome=({navigation})=>{
+    const {t} = useTranslation();
     useEffect(()=>{
         navigation.addListener('beforeRemove',(e)=>{
           e.preventDefault();
