@@ -7,6 +7,7 @@ import { Alert } from "react-native";
 import {  faEnvelope, faEye, faEyeSlash, faHome, faLock, faPhone, faUser } from "@fortawesome/free-solid-svg-icons";
 import storeAuthData from "../../hooks/storeAuthData";
 import * as yup from 'yup';
+import governrates from "../../Constants/governrates";
 
 import { Formik } from "formik";
 import axios from "axios";
@@ -48,10 +49,11 @@ const Userregister=({navigation})=>{
                         sex:"",
                         maritalStatus:"",
                         age:"",
+                        governorate:""
                     }}
                     onSubmit={(data,actions)=>{
                         axios.post('/psy/users/signup',data).then((res)=>{
-                            storeAuthData(res.data.token,role)
+                            storeAuthData(res.data.token,'user')
                             Alert.alert(t('Congratulations'),t('You have just completed your Sign-up, go and start using the app'),[{text:t('Start using the App'), onPress: ()=> navigation.navigate('Usersignin')   }]);
                         })
                         .catch((err)=>{
@@ -123,6 +125,16 @@ const Userregister=({navigation})=>{
                                             InputRightElement={!isConfirmPasswordShown? <Icon as={<FontAwesomeIcon  icon={faEye} />} onPress={()=> setIsConfirmPasswordShown(!isConfirmPasswordShown)}  /> :  <Icon as={<FontAwesomeIcon  icon={faEyeSlash} />} onPress={()=> setIsConfirmPasswordShown(!isConfirmPasswordShown)}/>}
                                             InputLeftElement={<Icon as={<FontAwesomeIcon  icon={faLock} />}  mr={5} />}/>
                                             <Text color='danger.500' >{ props.touched.confirmPassword&& props.errors.confirmPassword}</Text>
+                            </FormControl>
+                            <FormControl isRequired>
+                                <FormControl.Label><Text color='#003049'>{t('Governrate')}</Text></FormControl.Label>
+                                <Select onValueChange={props.handleChange('governorate')}>
+                                    {governrates.map((g,i)=>{
+                                        return(
+                                            <Select.Item key={i} label={t(g)} value={g} />
+                                        )
+                                    })}
+                                </Select>
                             </FormControl>
                             <FormControl my={2} isRequired>
                                         <FormControl.Label><Text color='#003049'>{t('choose your gender')}</Text></FormControl.Label>

@@ -50,8 +50,8 @@ export default function Landing({navigation}) {
   return (
     <NativeBaseProvider>
         <VStack width="100%" height="100%">
-          <Box   height="62%" width="100%"  borderBottomRightRadius={50} bgColor="black">
-            <ImageBackground blurRadius={2}  style={{flex:1}}   imageStyle={{opacity: 0.6}} source={Therapy_session} resizeMode='cover' >
+          <Box   height="62%" width="100%" style={{borderBottomStartRadius:50}}  bgColor="black">
+            <ImageBackground blurRadius={2}   style={{flex:1,borderBottomStartRadius:50}}   imageStyle={{opacity: 0.6}} source={Therapy_session} resizeMode='cover' >
               <HStack direction={I18nManager.isRTL ? 'row-reverse' : 'row'}    mt='15%'>
                 <Text  color="#FEFDFF"  w="80%" fontSize="3xl" fontWeight="bold"  mb="5%" mr='3%' ml="4%">Psy-Awareness</Text>
                 
@@ -59,10 +59,10 @@ export default function Landing({navigation}) {
                   <Select.Item label="Arabic (ع)" value="ar"  onPress={()=>{i18n.changeLanguage("ar").then(()=>{
                     I18nManager.forceRTL(true)
                   })}}/>
-                  <Select.Item label="English (en) " value="en" onPress={()=>{i18n.changeLanguage("en").then(()=>{
-                    I18nManager.allowRTL(false)   
-                    I18nManager.forceRTL(false)   
-                  })}}/>
+                  <Select.Item label="English (en) " value="en" onPress={()=>{i18n.changeLanguage('en').then(()=>{
+                    I18nManager.forceRTL(false)
+                  }
+                  )}}/>
                 </Select>
               </HStack>
               <Text color="#FEFDFF" w="90%" fontSize="lg"  mx={5} fontWeight='bold'>

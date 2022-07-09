@@ -10,13 +10,14 @@ import { KeyboardAvoidingView } from "native-base";
 import CVPicture from "../../components/CertificatePictureUpload";
 import { Formik } from "formik";
 import axios, { Axios } from "axios";
-
+import governrates from "../../Constants/governrates";
+import specializations from "../../Constants/specializations";
 
 const Doctorregister=({navigation})=>{
     const [isPasswordShown,setIsPasswordShown]=useState(false);
     const [isConfirmPasswordShown,setIsConfirmPasswordShown]=useState(false);
     const {t,i18n} = useTranslation();
-    const ReviewSchema= yup.object().shape({
+    const ReviewSchema = yup.object().shape({
         age: yup.number().min(18,t('You must be 18 or older to start using our App')).required(t('Age is required')),
         governorate:yup.string().required(t('Governrate is required')),
         phone: yup.string().required(t('Phone number is required')),
@@ -32,30 +33,6 @@ const Doctorregister=({navigation})=>{
         }).required(t("Please confirm your password"))
     });
 
-    const governrates = ['Alexandria',
-    'Aswan',
-    'Asyut',
-    'Beheira',
-    'Beni Suef',
-    'Cairo',
-    'Dakahlia',
-    'Damietta',
-    'Faiyum',
-    'Gharbia',
-    'Giza',
-    'Ismailia',
-    'Kafr El Sheikh',
-    'Luxor',
-    'Matruh',
-    'Minya',
-    'Monufia',
-    'New Valley',
-    'North Sinai',
-    'Port Said',
-    'Qalyubia',
-    'Qena',
-    'Red Sea',
-    'Sharqia','Sohag','South Sinai','Suez',]
     
     return(
         <NativeBaseProvider>
@@ -66,6 +43,7 @@ const Doctorregister=({navigation})=>{
                         <Heading fontSize="sm" mt="2"  textAlign="center" color="#003049" >{t('Just a few more steps to start')} !!!</Heading>
                 </KeyboardAvoidingView>
                 <Formik
+                    validationSchema={ReviewSchema}
                     initialValues={{
                         name: "",
                         email: "",
@@ -77,11 +55,12 @@ const Doctorregister=({navigation})=>{
                         maritalStatus:"",
                         address:"",
                         cvFile:"",
-                        governorate:""
+                        governorate:"",
+                        specialization:""
                     }}
                     onSubmit={(data,actions)=>{
                         axios.post('/psy/doctors/signup',data).then((res)=>{
-                            storeAuthData(res.data.token,role)
+                            storeAuthData(res.data.token,'doctor')
                             Alert.alert(t('Congratulations'),t('You have just completed your Sign-up, go and start using the app'),[{text:t('Start using the App'), onPress:()=> navigation.navigate('Doctorsignin')   }]);
                         })
                         .catch((err)=>{
@@ -167,9 +146,19 @@ const Doctorregister=({navigation})=>{
                             <FormControl isRequired>
                                 <FormControl.Label><Text color='#003049'>{t('Governrate')}</Text></FormControl.Label>
                                 <Select onValueChange={props.handleChange('governorate')}>
-                                    {governrates.map((g)=>{
+                                    {governrates.map((g,i)=>{
                                         return(
-                                            <Select.Item key={g} label={t(g)} value={g} />
+                                            <Select.Item key={i} label={t(g)} value={g} />
+                                        )
+                                    })}
+                                </Select>
+                            </FormControl>
+                            <FormControl isRequired>
+                                <FormControl.Label><Text color='#003049'>{t('Specialization')}</Text></FormControl.Label>
+                                <Select onValueChange={props.handleChange('specialization')}>
+                                    {specializations.map((s,i)=>{
+                                        return(
+                                            <Select.Item key={i} label={t(s)} value={s} />
                                         )
                                     })}
                                 </Select>
