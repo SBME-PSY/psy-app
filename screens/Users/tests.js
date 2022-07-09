@@ -43,23 +43,6 @@ export default function tests(){
         );
     }
     const catchValue = (value,questions) => {
-        // results.answers =[]
-        // if(results.answers.length == 0){
-        //     results.answers.push({qIndex:index,answer:value})
-        // }
-        // else{
-        //     for(let i=0;i<results.answers.length;i++){
-        //         if(results.answers[i].index==index && results.answers[i].answer ==value){
-        //             return;
-        //         }
-        //         else if(results.answers[i].index==index && results.answers[i].answer !=value){
-        //             results.answer[i].answer = value
-        //         }
-        //         else{
-        //             results.answer.push({qIndex:index,answer:value})
-        //         }
-        //     }
-        // }
         for(let i=0;i<questions.length;i++){
             for(let j = 0; j<questions[i].answers.length;j++){
                 if(questions[i].answers[j].body.en == value && questions[i].answers[j].body.en == value){
@@ -71,7 +54,6 @@ export default function tests(){
             }
         }
         results.questions = questions
-        // console.log(results)
     }
     return(
         <NativeBaseProvider>
@@ -86,7 +68,7 @@ export default function tests(){
                                 <FormControl isRequired>
                             {question.answers.map((answer,index)=>{
                                 return(
-                                        <Radio.Group key={index} value={radioValue} colorScheme="success" onChange={(val)=>{catchValue(val,Index,responses.data.questions)}}>
+                                        <Radio.Group key={index} value={radioValue} colorScheme="success" onChange={(val)=>{catchValue(val,responses.data.questions)}}>
                                             <Radio value={I18nManager.isRTL ? answer.body.ar :answer.body.en}>
                                                 <Text mx={5} >{I18nManager.isRTL ? answer.body.ar :answer.body.en}</Text>
                                             </Radio>
