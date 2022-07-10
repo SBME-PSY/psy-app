@@ -4,7 +4,7 @@
     "slug": "PSY",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/Img/psy-logo1.png",
+    "icon": "./assets/Img/logo.png",
     "owner":"OmarMohamed",
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -17,12 +17,12 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/Img/psy-logo1.png",
+        "foregroundImage": "./assets/Img/logo.png",
         "backgroundColor": "#FFFFFF"
       }
     },
     "web": {
-      "favicon": "./assets/Img/psy-logo1.png"
+      "favicon": "./assets/Img/logo.png"
     }
   }
 }
