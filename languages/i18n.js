@@ -12,9 +12,6 @@ i18next.use(initReactI18next).init({
         ar: arabic,
     },
     fallbackLng: 'en',
-    interpolation: {
-        escapeValue: false 
-    },
     react:{
         useSuspense:false,
     },

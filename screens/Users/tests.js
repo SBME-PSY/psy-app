@@ -31,6 +31,9 @@ export default function tests(){
                 25,
                 50
             );
+            setTimeout(()=>{
+                results = {}
+            },1000)
         }
     }
     const catchValue = (value,questions) => {
