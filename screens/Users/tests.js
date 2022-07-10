@@ -3,7 +3,6 @@ import { NativeBaseProvider,VStack,Text,Card,Avatar, HStack, Center,Radio, Butto
 import { useTranslation } from "react-i18next";
 import axios from "axios";
 import { I18nManager ,StyleSheet, ToastAndroid} from "react-native";
-import depressed from '../../assets/Img/depression.png'
 import { TouchableOpacity } from "react-native";
 import responses from "../../Constants/responses";
 import { Formik } from "formik";
@@ -17,30 +16,22 @@ export default function tests(){
     const handleSubmit = () => {
         results.questionnaireID = responses.data._id
         results.category = responses.data.category
-        // if(!results.answers){
-        //     setError(true)
-        //     setInterval(() => {
-        //         setError(false)
-        //     }, 5000);
-        // }
-        // else{
-        //     console.log(results)
-        //     ToastAndroid.showWithGravityAndOffset(
-        //         t("Your answers have been submitted"),
-        //         ToastAndroid.LONG,
-        //         ToastAndroid.BOTTOM,
-        //         25,
-        //         50
-        //     );
-        // }
-        console.log(results)
-        ToastAndroid.showWithGravityAndOffset(
-            t("Your answers have been submitted successfully"),
-            ToastAndroid.LONG,
-            ToastAndroid.BOTTOM,
-            25,
-            50
-        );
+        if(!results.questions || results.questions[0].answers.length !== responses.data.questions.length){
+            setError(true)
+            setInterval(() => {
+                setError(false)
+            }, 5000);
+        }
+        else{
+            console.log(results)
+            ToastAndroid.showWithGravityAndOffset(
+                t("Your answers have been submitted"),
+                ToastAndroid.LONG,
+                ToastAndroid.BOTTOM,
+                25,
+                50
+            );
+        }
     }
     const catchValue = (value,questions) => {
         for(let i=0;i<questions.length;i++){
@@ -75,14 +66,17 @@ export default function tests(){
                                         </Radio.Group>   
                                 )
                             })}
-                                {error && <Text italic={true} color='error.700'>{t('Please Answer the above Questions')}</Text>}
+                                
                                 </FormControl>
                             </Center>
                         </>
                     )
                 })}
                 <FormControl>
-                    <Button my={2} colorScheme='emerald' borderRadius={35} onPress={handleSubmit} >{t('Submit')}</Button>
+                    <Center>
+                        {error && <Text italic={true} color='error.700'>{t('Please Answer all the above Questions')}</Text>}
+                        <Button width={200}  my={2} colorScheme='emerald' borderRadius={35} onPress={handleSubmit} >{t('Submit')}</Button>
+                    </Center>
                 </FormControl>
                 </Center>
             </VStack>

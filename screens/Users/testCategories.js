@@ -3,7 +3,6 @@ import { NativeBaseProvider,VStack,Text,Card,Avatar, HStack, Center, Spinner} fr
 import { useTranslation } from "react-i18next";
 import axios from "axios";
 import { I18nManager ,StyleSheet} from "react-native";
-import depressed from '../../assets/Img/depression.png'
 import { TouchableOpacity,Image } from "react-native";
 import Constants from "expo-constants";
 import SkeletonContent from "react-native-skeleton-content";
