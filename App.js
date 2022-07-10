@@ -1,5 +1,6 @@
 import Landing from "./screens/Landing_Page";
 import React from "react";
+import './languages/i18n'
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
 import Doctorlanding from "./screens/Doctors/Doctor Landing";

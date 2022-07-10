@@ -1,22 +1,40 @@
 import React, { useState ,useEffect} from "react";
-import { NativeBaseProvider,VStack,Text,Card,Avatar, HStack, Center,Radio, Button,Checkbox, FormControl} from "native-base";
+import { NativeBaseProvider,VStack,Text,Card,Avatar, HStack, Center,Radio, Button,Checkbox, FormControl, ScrollView} from "native-base";
 import { useTranslation } from "react-i18next";
 import axios from "axios";
-import { I18nManager ,StyleSheet, ToastAndroid} from "react-native";
+import { I18nManager ,StyleSheet, ToastAndroid,Dimensions} from "react-native";
 import { TouchableOpacity } from "react-native";
-import responses from "../../Constants/responses";
+// import responses from "../../Constants/responses";
 import { Formik } from "formik";
 // declare module 'react-native-simple-survey'
 
-export default function tests(){
+export default function tests({navigation,route}){
     const {t,i18n} = useTranslation();
+    const [responses,setResponses] = useState()
     const [error,setError] = useState(false);
-    const [radioValue,setRadioValue] = useState();
+    const [qCounter,setQCounter] = useState(0)
+    const testID = route.params._id
     let results={}
+
+    const getQuestionaire = ()=>{
+        axios.get(`/psy/questionnaires`,{params:{categoryID:testID}}).then(res=>{
+            console.log(res.data)
+        }).then(error=>{
+            console.log(error)
+        })
+    }
+
+    useEffect(()=>{
+        setTimeout(()=>{
+            getQuestionaire()
+        },500)
+    },[])
+
     const handleSubmit = () => {
         results.questionnaireID = responses.data._id
         results.category = responses.data.category
-        if(!results.questions || results.questions[0].answers.length !== responses.data.questions.length){
+        if(!results.questions){
+            console.log(results.questions)
             setError(true)
             setInterval(() => {
                 setError(false)
@@ -24,6 +42,7 @@ export default function tests(){
         }
         else{
             console.log(results)
+            setQCounter(0)
             ToastAndroid.showWithGravityAndOffset(
                 t("Your answers have been submitted"),
                 ToastAndroid.LONG,
@@ -31,9 +50,6 @@ export default function tests(){
                 25,
                 50
             );
-            setTimeout(()=>{
-                results = {}
-            },1000)
         }
     }
     const catchValue = (value,questions) => {
@@ -51,8 +67,9 @@ export default function tests(){
     }
     return(
         <NativeBaseProvider>
+            {/* <ScrollView>
             <VStack safeArea >
-                <Text textAlign='center' fontSize={20} mt={2} >{I18nManager.isRTL ? responses.data.rules.ar :responses.data.rules.en}</Text>
+                <Text textAlign='center' color='danger.900' fontSize={20} mt={2} >{I18nManager.isRTL ? responses.data.rules.ar :responses.data.rules.en}</Text>
                 <Center>
                 {responses.data.questions.map((question,Index)=>{
                     return(
@@ -62,9 +79,9 @@ export default function tests(){
                                 <FormControl isRequired>
                             {question.answers.map((answer,index)=>{
                                 return(
-                                        <Radio.Group key={index} value={radioValue} colorScheme="success" onChange={(val)=>{catchValue(val,responses.data.questions)}}>
-                                            <Radio value={I18nManager.isRTL ? answer.body.ar :answer.body.en}>
-                                                <Text mx={5} >{I18nManager.isRTL ? answer.body.ar :answer.body.en}</Text>
+                                        <Radio.Group defaultValue={undefined}  my={2} key={index} colorScheme="success" onChange={(val)=>{catchValue(val,responses.data.questions)}}>
+                                            <Radio mx={5} value={I18nManager.isRTL ? answer.body.ar :answer.body.en}>
+                                                <Text mx={1} >{I18nManager.isRTL ? answer.body.ar :answer.body.en}</Text>
                                             </Radio>
                                         </Radio.Group>   
                                 )
@@ -83,6 +100,7 @@ export default function tests(){
                 </FormControl>
                 </Center>
             </VStack>
+            </ScrollView> */}
         </NativeBaseProvider>
     )
 }

@@ -16,7 +16,7 @@ export default function testCategories({navigation}){
     const [tests, setTests] = useState([]);
     const getTests=()=>{
         axios.get('/psy/questionnaires/categories').then((res)=>{
-            console.log(res.data)
+            console.log(res.data.data)
             setTests(res.data.data)
         }).then(
             isLoading(false)
@@ -36,7 +36,9 @@ export default function testCategories({navigation}){
             {!loading &&                 <HStack justifyContent='center' flexWrap='wrap' px={15} safeArea>
                 {tests && tests.map((test,index)=>{
                         return(
-                            <TouchableOpacity onPress={()=>{navigation.navigate('tests')}}  key={index}>
+                            <TouchableOpacity onPress={()=>{
+                                navigation.navigate('tests',{_id:test._id})
+                            }}  key={index}>
                                 <VStack>
                                     <Card height={150} width='100%'>
                                         <Avatar size={70} alignSelf='center'  source={{uri:test.base64}}/>
