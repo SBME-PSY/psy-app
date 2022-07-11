@@ -40,8 +40,10 @@ export default function selectTest({navigation,route}){
                     <ScrollView>
                         {tests && tests.map((test,index)=>{
                             return(
-                                <Card key={index} mx={5} my={2}>
-                                    <TouchableOpacity ><Text>{I18nManager.isRTL ? test.title.ar : test.title.en}</Text></TouchableOpacity>
+                                <Card  key={index} mx={5} my={2}>
+                                    <TouchableOpacity onPress={()=>{
+                                        navigation.navigate('tests',{_id:test._id})
+                                    }} ><Text textAlign='center' fontSize='md' fontWeight='bold' >{I18nManager.isRTL ? test.title.ar : test.title.en}</Text></TouchableOpacity>
                                 </Card>
                             )
                         })}

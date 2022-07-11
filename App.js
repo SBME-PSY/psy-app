@@ -39,7 +39,6 @@ const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
 
 const Tab = createBottomTabNavigator();
-
 function DoctorTabs () {
   const {t,i18n} = useTranslation();
   return(
@@ -49,10 +48,13 @@ function DoctorTabs () {
         tabBarActiveTintColor: '#fff',
         headerShown:false,
         tabBarStyle:{
-          height:60,
           backgroundColor:'#003049',
-          borderTopLeftRadius:20,
-          borderTopRightRadius:20
+          height:60,
+          position: 'absolute',
+          bottom: 16,
+          paddingBottom: 3,
+          marginHorizontal:12,
+          borderRadius: 20,
         }
       }}
     >
@@ -69,6 +71,7 @@ function DoctorTabs () {
   )
 }
 
+
 function UserTabs (){
   const {t,i18n} = useTranslation()
 
@@ -81,11 +84,15 @@ function UserTabs (){
       tabBarActiveTintColor: '#fff',
       headerShown:false,
       tabBarStyle:{
-        height:60,
         backgroundColor:'#059669',
-        borderTopLeftRadius:20,
-        borderTopRightRadius:20
+        height:60,
+        position: 'absolute',
+        bottom: 16,
+        paddingBottom: 3,
+        marginHorizontal:12,
+        borderRadius: 20,
       }
+
     }}
     >
       <Tab.Screen   
@@ -161,7 +168,7 @@ export default function App() {
           component={selectTest}  />
           <Stack.Screen name="tests" 
             options={{
-              title:t("Tests"),
+              title:t("Test Questions"),
               headerTintColor:"white",
               headerTitleAlign: 'center',
               headerStyle:{backgroundColor:"#059669"},

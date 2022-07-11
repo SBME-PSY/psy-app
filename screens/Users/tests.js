@@ -13,11 +13,12 @@ export default function tests({navigation,route}){
     const [error,setError] = useState(false);
     const [qCounter,setQCounter] = useState(0)
     const testID = route.params._id
+    console.log(testID)
     let results={}
 
     const getQuestionaire = ()=>{
         axios.get(`/psy/questionnaires`,{params:{categoryID: testID}}).then(res=>{
-            console.log(res.data)
+            console.log(res.data.data)
         }).catch(error=>{
             console.log(error)
         })
