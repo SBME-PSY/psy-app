@@ -5,7 +5,7 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/Img/logo.png",
-    "owner":"OmarMohamed",
+    "owner": "omarmohamed_1",
     "updates": {
       "fallbackToCacheTimeout": 0
     },
@@ -19,7 +19,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/Img/logo.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.Psy.Awareness"
     },
     "web": {
       "favicon": "./assets/Img/logo.png"
