@@ -13,14 +13,13 @@ const api = (typeof manifest.packagerOpts === `object`) && manifest.packagerOpts
 export default function testCategories({navigation}){
     const [loading,isLoading] = useState(true);
     const {t,i18n} = useTranslation();
-    const [tests, setTests] = useState([]);
+    const [testCategories, setTestCategories] = useState([]);
     const getTests=()=>{
         axios.get('/psy/questionnaires/categories').then((res)=>{
             console.log(res.data.data)
-            setTests(res.data.data)
-        }).then(
+            setTestCategories(res.data.data)
             isLoading(false)
-        )
+        }).catch(err=>{console.log(err.message)})
     }
 
     useEffect(()=>{
@@ -32,12 +31,12 @@ export default function testCategories({navigation}){
 
     return(
         <NativeBaseProvider>
-            {loading && <Spinner mt={50} size='lg'/>}
+            {loading && <HStack mt='90%' justifyContent='center' alignItems='center' ><Spinner size='lg'   color='success.300' /></HStack>}
             {!loading &&                 <HStack justifyContent='center' flexWrap='wrap' px={15} safeArea>
-                {tests && tests.map((test,index)=>{
+                {testCategories && testCategories.map((test,index)=>{
                         return(
                             <TouchableOpacity onPress={()=>{
-                                navigation.navigate('tests',{_id:test._id})
+                                navigation.navigate('selectTest',{_id:test._id})
                             }}  key={index}>
                                 <VStack>
                                     <Card height={150} width='100%'>

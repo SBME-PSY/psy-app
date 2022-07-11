@@ -24,6 +24,7 @@ import Constants from "expo-constants";
 import testCategories from "./screens/Users/testCategories";
 import showClinics from "./screens/Doctors/showClinic";
 import tests from "./screens/Users/tests";
+import selectTest from "./screens/Users/selectTest";
 
 
 const {manifest} = Constants;
@@ -149,6 +150,15 @@ export default function App() {
           <Stack.Screen name="Usersignin" options={{ headerShown: false }}  component={Usersignin}/>
           <Stack.Screen name="Doctortabs" options={{ headerShown: false }}  component={DoctorTabs}  />
           <Stack.Screen name="Usertabs" options={{ headerShown: false }}  component={UserTabs}  />
+          <Stack.Screen name="selectTest" 
+          options={{
+            title:t("Availabe Tests"),
+            headerTintColor:"white",
+            headerTitleAlign: 'center',
+            headerStyle:{backgroundColor:"#059669"},
+            headerTitleStyle:{color:"#FEFDFF"},
+          }}
+          component={selectTest}  />
           <Stack.Screen name="tests" 
             options={{
               title:t("Tests"),

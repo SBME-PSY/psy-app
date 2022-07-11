@@ -4,22 +4,21 @@ import { useTranslation } from "react-i18next";
 import axios from "axios";
 import { I18nManager ,StyleSheet, ToastAndroid,Dimensions} from "react-native";
 import { TouchableOpacity } from "react-native";
-// import responses from "../../Constants/responses";
+import responses from '../../Constants/responses'
 import { Formik } from "formik";
 // declare module 'react-native-simple-survey'
 
 export default function tests({navigation,route}){
     const {t,i18n} = useTranslation();
-    const [responses,setResponses] = useState()
     const [error,setError] = useState(false);
     const [qCounter,setQCounter] = useState(0)
     const testID = route.params._id
     let results={}
 
     const getQuestionaire = ()=>{
-        axios.get(`/psy/questionnaires`,{params:{categoryID:testID}}).then(res=>{
+        axios.get(`/psy/questionnaires`,{params:{categoryID: testID}}).then(res=>{
             console.log(res.data)
-        }).then(error=>{
+        }).catch(error=>{
             console.log(error)
         })
     }
