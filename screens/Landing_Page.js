@@ -8,6 +8,7 @@ import Slidercarousel from "../components/Slider";
 import { useTranslation } from "react-i18next"; 
 import { BackHandler, Alert } from 'react-native';
 import { I18nManager } from "react-native";
+import { Restart } from "fiction-expo-restart";
 
 const {width} = Dimensions.get("window");
 const Quotes= [
@@ -62,10 +63,12 @@ export default function Landing({navigation}) {
                     I18nManager.allowRTL(true)
                     I18nManager.forceRTL(true)
                     i18n.changeLanguage(val)
+                    Restart()
                   }else{
                     I18nManager.forceRTL(false)
                     I18nManager.allowRTL(false)
                     i18n.changeLanguage(val)
+                    Restart()
                   }
                 }} dropdownIcon={globe} variant='unstyled'>
                   <Select.Item label="Arabic (ع)" value="ar" />

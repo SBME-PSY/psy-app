@@ -14,6 +14,8 @@ import * as yup from 'yup';
 import { Alert, I18nManager, TouchableOpacity, Image } from 'react-native';
 import getAuthData from '../hooks/getAuthData';
 import Lightbox from 'react-native-lightbox-v2';
+import { Restart } from 'fiction-expo-restart';
+
 
   //address is still to be added
 export default function Viewprofile({navigation,role,Address_label,Name_label,header_color,navigator}){
@@ -164,8 +166,14 @@ export default function Viewprofile({navigation,role,Address_label,Name_label,he
                     <ScrollView mt={5}  h='65%'>
 
                         <HStack mt='1' pt='2'>  
-                        <TouchableOpacity onPress={()=> setShowNameModal(true)}>
-                                <Text ml='2' fontWeight='bold' fontSize='lg' > <FontAwesomeIcon icon={faGlobe} />  {t('Change Language')}</Text> 
+                        <TouchableOpacity onPress={()=>{
+                            i18n.changeLanguage(i18n.language === 'ar' ? 'en' : 'ar' )
+                            I18nManager.allowRTL(i18n.language === 'ar' ? true : false)
+                            I18nManager.forceRTL(i18n.language === 'ar' ? true : false)
+                            Restart()
+                            console.log(i18n.language)
+                        }}>
+                                <Text ml='2' fontWeight='bold' fontSize='lg' > <FontAwesomeIcon icon={faGlobe} />  {t('Change Language to:')} { I18nManager.isRTL ? 'English' : 'العربية'}</Text> 
                             </TouchableOpacity>
                         </HStack>
 
