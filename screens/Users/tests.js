@@ -97,6 +97,7 @@ export default function tests({navigation,route}){
                 <ScrollView>
                     <VStack safeArea >
                         <Center>
+                        <Text textAlign='center' my={2} px={2} color='warning.800'>{t('Desclaimer !!!, This test is only an indication you should visit a doctor to get a more trusted diagnosis')}</Text>
                         {responses.data.questions.map((question,Index)=>{
                             return(
                                 <Center key={Index}>
