@@ -5,16 +5,14 @@ import axios from "axios";
 import { I18nManager ,StyleSheet, ToastAndroid,Dimensions, Alert} from "react-native";
 import { TouchableOpacity } from "react-native";
 import getAuthData from "../../hooks/getAuthData";
-import { Formik } from "formik";
-// declare module 'react-native-simple-survey'
 
 export default function tests({navigation,route}){
     const {t,i18n} = useTranslation();
     const [responses,setResponses] = useState([])
     const [error,setError] = useState(false);
     const [loading,isLoading] = useState(true)
-    const [qCounter,setQCounter] = useState(0)
-    // let qCounter = 0
+    const [answered,setAnswered] = useState(false)
+    let qCounter = 0
     const testID = route.params._id
     // let results={}
     const [results,setResults] = useState({})
@@ -44,17 +42,14 @@ export default function tests({navigation,route}){
                 delete questions[i].answers[j]._id
                 delete questions[i].answers[j].createdAt
                 delete questions[i].answers[j].updatedAt 
-                if(questions[i].answers[j].body.en == value && questions[i].answers[j].body.en == value){
+                if(questions[i].answers[j].body.en == value || questions[i].answers[j].body.ar == value){
                     questions[i].answers[j].choosen = true
                 }
-                else{
-                    questions[i].answers[j].choosen = false
-                    
-                }
             }
-            setQCounter(qCounter+1)
+            
             results['questions'] = questions
         }
+        qCounter++
     }
 
     const handleSubmit = async () => {
@@ -62,30 +57,30 @@ export default function tests({navigation,route}){
         results.category = responses.data.category
         results.rules = {}
 
-        if(!results.questions || results.questions.length != qCounter){
+        if(!results.questions || results.questions.length != qCounter ){
             setError(true)
             setInterval(() => {
                 setError(false)
             }, 5000);
         }
         else{
-            setQCounter(0)
+            console.log(qCounter)
+            qCounter = 0
             let authData  = await getAuthData();
-            console.log(results)
             axios.post('/psy/results',results,{
                 headers:{
                     'Accept': 'application/json',
                     Authorization: `Bearer ${authData.token}`
             }}).then(res=>{
-                Alert.alert(t('Thank you for your participation'),`${i18n.language === 'ar' ? res.data.data.result.ar:res.data.data.result.ar}`,[
+                Alert.alert(t('Thank you for your participation'),`${ t('Your test result is:  ') + i18n.language === 'ar' ? res.data.data.result.ar:res.data.data.result.ar}`,[
                     {
-                        text: t("Cancel"),
-                        onPress: ()=>null,
+                        text: t("Take the test again"),
+                        onPress: ()=> navigation.navigate('testsCat'),
                         style:"cancel"
                     },
                     {
                         text:t("Go to Home Page"),
-                        onPress: ()=> navigation.navigate('Profile'),
+                        onPress: ()=> navigation.navigate('ViewUserProfile'),
                         style: "default"
                     }
 
@@ -101,7 +96,6 @@ export default function tests({navigation,route}){
             {!loading && 
                 <ScrollView>
                     <VStack safeArea >
-                        {/* <Text textAlign='center' color='danger.900' fontSize={20} mt={2} >{I18nManager.isRTL ? responses.data.rules.ar :responses.data.rules.en}</Text> */}
                         <Center>
                         {responses.data.questions.map((question,Index)=>{
                             return(
@@ -111,7 +105,7 @@ export default function tests({navigation,route}){
                                         {question.answers.map((answer,index)=>{
                                             return(
                                                 <FormControl key={index} isRequired>
-                                                    <Radio.Group   my={2} key={index} colorScheme="success" onChange={(val)=>{catchValue(val,responses.data.questions)}}>
+                                                    <Radio.Group shadow={answered}  my={2} key={index} colorScheme="success" onChange={(val)=>{catchValue(val,responses.data.questions)}}>
                                                         <Radio mx={5} value={I18nManager.isRTL ? answer.body.ar :answer.body.en}>
                                                             <Text mx={1} >{I18nManager.isRTL ? answer.body.ar :answer.body.en}</Text>
                                                         </Radio>

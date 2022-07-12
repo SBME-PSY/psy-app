@@ -6,7 +6,6 @@ import { I18nManager ,StyleSheet, ToastAndroid,Dimensions, Alert} from "react-na
 import { TouchableOpacity } from "react-native";
 import { Formik } from "formik";
 import getAuthData from "../../hooks/getAuthData";
-// declare module 'react-native-simple-survey'
 
 export default function testResults({navigation,route}){
     const [loading,isLoading] = useState(true);
