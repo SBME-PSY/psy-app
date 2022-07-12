@@ -25,7 +25,7 @@ import testCategories from "./screens/Users/testCategories";
 import showClinics from "./screens/Doctors/showClinic";
 import tests from "./screens/Users/tests";
 import selectTest from "./screens/Users/selectTest";
-
+import testResults from "./screens/Users/testResults";
 
 const {manifest} = Constants;
 const api = (typeof manifest.packagerOpts === `object`) && manifest.packagerOpts.dev? manifest.debuggerHost.split(`:`).shift().concat(`:8000`): `api.example.com`;
@@ -175,6 +175,15 @@ export default function App() {
               headerTitleStyle:{color:"#FEFDFF"},
             }}
             component={tests}  />
+            <Stack.Screen name="testResults" 
+            options={{
+              title:t("Test Results"),
+              headerTintColor:"white",
+              headerTitleAlign: 'center',
+              headerStyle:{backgroundColor:"#059669"},
+              headerTitleStyle:{color:"#FEFDFF"},
+            }}
+            component={testResults}  />
         </Stack.Navigator>
       </NavigationContainer>
     </>

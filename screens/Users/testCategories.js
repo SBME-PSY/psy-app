@@ -16,7 +16,6 @@ export default function testCategories({navigation}){
     const [testCategories, setTestCategories] = useState([]);
     const getTests=()=>{
         axios.get('/psy/questionnaires/categories').then((res)=>{
-            console.log(res.data.data)
             setTestCategories(res.data.data)
             isLoading(false)
         }).catch(err=>{console.log(err.message)})
