@@ -1,5 +1,6 @@
 import Landing from "./screens/Landing_Page";
 import React from "react";
+import './languages/i18n'
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
 import Doctorlanding from "./screens/Doctors/Doctor Landing";
@@ -23,7 +24,8 @@ import Constants from "expo-constants";
 import testCategories from "./screens/Users/testCategories";
 import showClinics from "./screens/Doctors/showClinic";
 import tests from "./screens/Users/tests";
-
+import selectTest from "./screens/Users/selectTest";
+import testResults from "./screens/Users/testResults";
 
 const {manifest} = Constants;
 const api = (typeof manifest.packagerOpts === `object`) && manifest.packagerOpts.dev? manifest.debuggerHost.split(`:`).shift().concat(`:8000`): `api.example.com`;
@@ -37,7 +39,6 @@ const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
 
 const Tab = createBottomTabNavigator();
-
 function DoctorTabs () {
   const {t,i18n} = useTranslation();
   return(
@@ -47,10 +48,13 @@ function DoctorTabs () {
         tabBarActiveTintColor: '#fff',
         headerShown:false,
         tabBarStyle:{
-          height:60,
           backgroundColor:'#003049',
-          borderTopLeftRadius:20,
-          borderTopRightRadius:20
+          height:60,
+          position: 'absolute',
+          bottom: 16,
+          paddingBottom: 3,
+          marginHorizontal:12,
+          borderRadius: 20,
         }
       }}
     >
@@ -67,6 +71,7 @@ function DoctorTabs () {
   )
 }
 
+
 function UserTabs (){
   const {t,i18n} = useTranslation()
 
@@ -79,11 +84,15 @@ function UserTabs (){
       tabBarActiveTintColor: '#fff',
       headerShown:false,
       tabBarStyle:{
-        height:60,
         backgroundColor:'#059669',
-        borderTopLeftRadius:20,
-        borderTopRightRadius:20
+        height:60,
+        position: 'absolute',
+        bottom: 16,
+        paddingBottom: 3,
+        marginHorizontal:12,
+        borderRadius: 20,
       }
+
     }}
     >
       <Tab.Screen   
@@ -148,15 +157,33 @@ export default function App() {
           <Stack.Screen name="Usersignin" options={{ headerShown: false }}  component={Usersignin}/>
           <Stack.Screen name="Doctortabs" options={{ headerShown: false }}  component={DoctorTabs}  />
           <Stack.Screen name="Usertabs" options={{ headerShown: false }}  component={UserTabs}  />
+          <Stack.Screen name="selectTest" 
+          options={{
+            title:t("Availabe Tests"),
+            headerTintColor:"white",
+            headerTitleAlign: 'center',
+            headerStyle:{backgroundColor:"#059669"},
+            headerTitleStyle:{color:"#FEFDFF"},
+          }}
+          component={selectTest}  />
           <Stack.Screen name="tests" 
             options={{
-              title:t("Tests"),
+              title:t("Test Questions"),
               headerTintColor:"white",
               headerTitleAlign: 'center',
               headerStyle:{backgroundColor:"#059669"},
               headerTitleStyle:{color:"#FEFDFF"},
             }}
             component={tests}  />
+            <Stack.Screen name="testResults" 
+            options={{
+              title:t("Test Results"),
+              headerTintColor:"white",
+              headerTitleAlign: 'center',
+              headerStyle:{backgroundColor:"#059669"},
+              headerTitleStyle:{color:"#FEFDFF"},
+            }}
+            component={testResults}  />
         </Stack.Navigator>
       </NavigationContainer>
     </>

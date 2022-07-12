@@ -5,7 +5,7 @@ import Constants from "expo-constants";
 import {Dimensions, ToastAndroid} from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import {  faClinicMedical, faEnvelope, faEye, faEyeSlash,faFileSignature,faHeart, faLock, faPhone, faUser, faVenusMars, faSignOutAlt, faPlus  } from '@fortawesome/free-solid-svg-icons';
+import { faGlobe, faClinicMedical, faEnvelope, faEye, faEyeSlash,faFileSignature,faHeart, faLock, faPhone, faUser, faVenusMars, faSignOutAlt, faPlus, faFile  } from '@fortawesome/free-solid-svg-icons';
 import { useTranslation } from "react-i18next";
 import { Formik } from "formik";
 import Imageupload from './Image Upload';
@@ -14,6 +14,8 @@ import * as yup from 'yup';
 import { Alert, I18nManager, TouchableOpacity, Image } from 'react-native';
 import getAuthData from '../hooks/getAuthData';
 import Lightbox from 'react-native-lightbox-v2';
+import { Restart } from 'fiction-expo-restart';
+
 
   //address is still to be added
 export default function Viewprofile({navigation,role,Address_label,Name_label,header_color,navigator}){
@@ -163,9 +165,26 @@ export default function Viewprofile({navigation,role,Address_label,Name_label,he
                     </VStack>
                     <ScrollView mt={5}  h='65%'>
 
-                        <HStack mt='1' pt='2' width='100%'>
+                        <HStack mt='1' pt='2'>  
+                        <TouchableOpacity onPress={()=>{
+                            i18n.changeLanguage(i18n.language === 'ar' ? 'en' : 'ar' )
+                            I18nManager.allowRTL(i18n.language === 'ar' ? true : false)
+                            I18nManager.forceRTL(i18n.language === 'ar' ? true : false)
+                            Restart()
+                            console.log(i18n.language)
+                        }}>
+                                <Text ml='2' fontWeight='bold' fontSize='lg' > <FontAwesomeIcon icon={faGlobe} />  {t('Change Language to:')} { I18nManager.isRTL ? 'English' : 'العربية'}</Text> 
+                            </TouchableOpacity>
+                        </HStack>
+
+                        <HStack mt='3' pt='2' width='100%'>
                             <TouchableOpacity onPress={()=> setShowNameModal(true)}>
                                 <Text ml='2' fontWeight='bold' fontSize='lg' > <FontAwesomeIcon icon={faFileSignature} />  {t('Edit your Name')}</Text> 
+                            </TouchableOpacity>
+                        </HStack>
+                        <HStack mt='3' pt='2' width='100%'>
+                            <TouchableOpacity onPress={()=> navigation.navigate('testResults')}>
+                                <Text ml='2' fontWeight='bold' fontSize='lg' > <FontAwesomeIcon icon={faFile} />  {t('Your test results')}</Text> 
                             </TouchableOpacity>
                         </HStack>
                         
@@ -229,6 +248,8 @@ export default function Viewprofile({navigation,role,Address_label,Name_label,he
                                 <Text  textAlign='center' ml='2' fontWeight='bold' color='error.500' fontSize='lg' > <FontAwesomeIcon icon={faSignOutAlt} /> {t('Logout')}</Text>
                             </TouchableOpacity>
                         </HStack>
+
+
 
                         {/* Edit name */}
 

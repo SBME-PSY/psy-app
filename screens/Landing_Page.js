@@ -8,6 +8,7 @@ import Slidercarousel from "../components/Slider";
 import { useTranslation } from "react-i18next"; 
 import { BackHandler, Alert } from 'react-native';
 import { I18nManager } from "react-native";
+import { Restart } from "fiction-expo-restart";
 
 const {width} = Dimensions.get("window");
 const Quotes= [
@@ -29,6 +30,7 @@ const Quotes= [
 ];
 let globe = <FontAwesomeIcon   color="#fff" icon={faGlobe} />;
 export default function Landing({navigation}) {
+  console.log(I18nManager.isRTL)
   const {t,i18n} = useTranslation();
   useEffect(()=>{
     navigation.addListener('beforeRemove',(e)=>{
@@ -55,14 +57,22 @@ export default function Landing({navigation}) {
               <HStack direction={I18nManager.isRTL ? 'row-reverse' : 'row'}    mt='15%'>
                 <Text  color="#FEFDFF"  w="80%" fontSize="3xl" fontWeight="bold"  mb="5%" mr='3%' ml="4%">Psy-Awareness</Text>
                 
-                <Select pt={6}  dropdownIcon={globe} variant='unstyled'>
-                  <Select.Item label="Arabic (ع)" value="ar"  onPress={()=>{i18n.changeLanguage("ar").then(()=>{
+                <Select pt={6} onValueChange={(val)=> {
+                  i18n.changeLanguage(val)
+                  if(val === 'ar'){ 
+                    I18nManager.allowRTL(true)
                     I18nManager.forceRTL(true)
-                  })}}/>
-                  <Select.Item label="English (en) " value="en" onPress={()=>{i18n.changeLanguage('en').then(()=>{
+                    i18n.changeLanguage(val)
+                    Restart()
+                  }else{
                     I18nManager.forceRTL(false)
+                    I18nManager.allowRTL(false)
+                    i18n.changeLanguage(val)
+                    Restart()
                   }
-                  )}}/>
+                }} dropdownIcon={globe} variant='unstyled'>
+                  <Select.Item label="Arabic (ع)" value="ar" />
+                  <Select.Item label="English (en) " value="en" />
                 </Select>
               </HStack>
               <Text color="#FEFDFF" w="90%" fontSize="lg"  mx={5} fontWeight='bold'>
