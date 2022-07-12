@@ -10,6 +10,7 @@ import getAuthData from "../../hooks/getAuthData";
 export default function testResults({navigation,route}){
     const [loading,isLoading] = useState(true);
     const [scores,setScores] = useState()
+    const {t,i18n} =  useTranslation()
 
     const getScores = async ()=>{
         let authData = await getAuthData()
@@ -19,7 +20,7 @@ export default function testResults({navigation,route}){
                 Authorization: `Bearer ${authData.token}`
         }
         }).then(res=>{
-            console.log(res.data.data)
+            // console.log(res.data.data)
             setScores(res.data.data)
             isLoading(false)
         }
@@ -38,7 +39,25 @@ export default function testResults({navigation,route}){
     return(
         <NativeBaseProvider>
             {loading && <HStack mt='10%' justifyContent='center' alignItems='center' ><Spinner size='lg'   color='success.300' /></HStack>}
-            {}
+            {!loading &&      
+                <ScrollView mt={5}>
+                    {/* <Text textAlign='center' fontWeight='bold' borderBottomWidth={2} borderBottomColor="black" my={2} pb={2}  >{t('Test results:  ')}</Text> */}
+                        {scores && scores.map((score,index)=>{
+                            console.log(score.description)
+                            return(
+                                <Center>
+                                    {score.score.description && <Text>{i18n.language == 'ar' ? score.description.ar : score.description.en}</Text> }
+                                    <Center  key={index}>
+                                        <Text fontSize='lg' fontWeight='bold' >{ t("description  ") + t('test ')+ (index+1)+"   "+ ":"+"   "+ (i18n.language == 'ar' ? score.result.ar: score.result.en)} </Text>
+                                    </Center>
+                                    <Center>
+                                        <Text fontSize='lg' fontWeight='bold' >{ t("score ") + t('test ')+ (index+1)+ ":"+"   "+ (i18n.language == 'ar' ? score.score: score.score)} </Text>
+                                    </Center>
+                                </Center>
+                            )
+                        })}
+                </ScrollView>
+        }
         </NativeBaseProvider>
     )
 }
