@@ -15,6 +15,15 @@ export default function tests({navigation,route}){
     const [answeredQuestions,setAnsweredQuestions] = useState(qCounter)
     const testID = route.params._id
     const [results,setResults] = useState({})
+
+    const [active,setActive]=useState(0);
+    const change=({nativeEvent})=>{
+      const slide = Math.ceil(nativeEvent.contentOffset.x / nativeEvent.layoutMeasurement.width);
+      if(slide !== active){
+        setActive(slide);
+      }
+    };
+    const {width} = Dimensions.get("window");
     
 
     const getQuestionaire = ()=>{
@@ -30,7 +39,7 @@ export default function tests({navigation,route}){
     useEffect(()=>{
         setTimeout(()=>{
             getQuestionaire()
-        },1000)
+        },500)
     },[])
 
 
@@ -51,7 +60,7 @@ export default function tests({navigation,route}){
             results['questions'] = questions
         }
         qCounter++
-        setAnsweredQuestions(qCounter)
+        // setAnsweredQuestions(qCounter)
     }
 
     const handleSubmit = async () => {
@@ -99,7 +108,13 @@ export default function tests({navigation,route}){
                     <VStack safeArea >
                         <Center>
                         <Text textAlign='center'  fontWeight='bold' fontSize='md' my={2} px={2} color='warning.800'>{t('Desclaimer !!!, This test is only an indication you should visit a doctor to get a more trusted diagnosis')}</Text>
-                        <ScrollView py={2}  horizontal>
+                <ScrollView
+                    horizontal
+                    pagingEnabled
+                    showsHorizontalScrollIndicator={false}
+                    style={{width}}
+                    onScroll={change}
+                    >
                         {responses.questions.map((question,Index)=>{
                             return(
                             <Card mb={2} mx={1}  key={Index}>
@@ -124,17 +139,17 @@ export default function tests({navigation,route}){
                             </Card>
                             )
                         })}
-                </ScrollView>
-                        <FormControl>
-                            {/* <Progress mx={3} colorScheme="success"  min='0' max={responses.questions.length}  value={answeredQuestions} /> */}
-                            <Text>{t('Number of Questions Answered:')+'  '+ answeredQuestions}</Text>
-                            <Center>
-                                {error && <Text italic={true} color='error.700'>{t('Please Answer all the above Questions')}</Text>}
-                                <Button width={200}  mt={12} colorScheme='emerald' borderRadius={35} onPress={handleSubmit} >{t('Submit')}</Button>
-                            </Center>
-                        </FormControl>
+                    </ScrollView>
+                    <FormControl>
+                        {/* <Progress mx={3} colorScheme="success"  min='0' max={responses.questions.length}  value={answeredQuestions} /> */}
+                        <Text>{t('Number of Questions Answered:')+'  '+ answeredQuestions}</Text>
+                        <Center>
+                            {error && <Text italic={true} color='error.700'>{t('Please Answer all the above Questions')}</Text>}
+                            <Button width={200}  mt={12} colorScheme='emerald' borderRadius={35} onPress={handleSubmit} >{t('Submit')}</Button>
                         </Center>
-                    </VStack>
+                    </FormControl>
+                    </Center>
+            </VStack>
             }
         </NativeBaseProvider>
     )
