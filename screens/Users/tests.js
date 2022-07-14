@@ -141,8 +141,6 @@ export default function tests({navigation,route}){
                         })}
                     </ScrollView>
                     <FormControl>
-                        {/* <Progress mx={3} colorScheme="success"  min='0' max={responses.questions.length}  value={answeredQuestions} /> */}
-                        <Text>{t('Number of Questions Answered:')+'  '+ answeredQuestions}</Text>
                         <Center>
                             {error && <Text italic={true} color='error.700'>{t('Please Answer all the above Questions')}</Text>}
                             <Button width={200}  mt={12} colorScheme='emerald' borderRadius={35} onPress={handleSubmit} >{t('Submit')}</Button>
