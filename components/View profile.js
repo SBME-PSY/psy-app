@@ -163,7 +163,7 @@ export default function Viewprofile({navigation,role,Address_label,Name_label,he
                             <Text  fontWeight='bold' mt='12'  fontSize='2xl'> {profileData.name}</Text>
                         </HStack>
                     </VStack>
-                    <ScrollView mt={5}  h='65%'>
+                    <ScrollView mt={5}  h='60%'>
 
                         <HStack mt='1' pt='2'>  
                         <TouchableOpacity onPress={()=>{
