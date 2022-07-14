@@ -16,6 +16,7 @@ export default function selectTest({navigation,route}){
     const [emptyTests,setEmptytests] = useState(false)
     const getQuestionaire = ()=>{
         axios.get(`/psy/questionnaires`,{params:{categoryID: testCategoryID}}).then(res=>{
+
             setTests(res.data.data)
             if(res.data.data.length == 0){
                 setEmptytests(true)
@@ -39,11 +40,14 @@ export default function selectTest({navigation,route}){
                 {(!loading && !emptyTests) && 
                     <ScrollView>
                         {tests && tests.map((test,index)=>{
+                            console.log(test)
                             return(
                                 <Card  key={index} mx={5} my={2}>
                                     <TouchableOpacity onPress={()=>{
                                         navigation.navigate('tests',{_id:test._id})
-                                    }} ><Text textAlign='center' fontSize='md' fontWeight='bold' >{I18nManager.isRTL ? test.title.ar : test.title.en}</Text></TouchableOpacity>
+                                    }} ><Text textAlign='center' fontSize='xl' fontWeight='bold' >{I18nManager.isRTL ? test.title.ar : test.title.en}</Text>
+                                        <Text textAlign='center'>{test.description ? (I18nManager.isRTL ? test.description.ar : test.description.en) : null }</Text>
+                                    </TouchableOpacity>
                                 </Card>
                             )
                         })}
