@@ -163,7 +163,7 @@ export default function Viewprofile({navigation,role,Address_label,Name_label,he
                             <Text  fontWeight='bold' mt='12'  fontSize='2xl'> {profileData.name}</Text>
                         </HStack>
                     </VStack>
-                    <ScrollView mt={5}  h='65%'>
+                    <ScrollView mt={5}  h='60%'>
 
                         <HStack mt='1' pt='2'>  
                         <TouchableOpacity onPress={()=>{
@@ -182,11 +182,14 @@ export default function Viewprofile({navigation,role,Address_label,Name_label,he
                                 <Text ml='2' fontWeight='bold' fontSize='lg' > <FontAwesomeIcon icon={faFileSignature} />  {t('Edit your Name')}</Text> 
                             </TouchableOpacity>
                         </HStack>
-                        <HStack mt='3' pt='2' width='100%'>
-                            <TouchableOpacity onPress={()=> navigation.navigate('testResults')}>
-                                <Text ml='2' fontWeight='bold' fontSize='lg' > <FontAwesomeIcon icon={faFile} />  {t('Your test results')}</Text> 
-                            </TouchableOpacity>
-                        </HStack>
+
+                        {(role === 'user') &&
+                            <HStack mt='3' pt='2' width='100%'>
+                                <TouchableOpacity onPress={()=> navigation.navigate('testResults')}>
+                                    <Text ml='2' fontWeight='bold' fontSize='lg' > <FontAwesomeIcon icon={faFile} />  {t('Your test results')}</Text> 
+                                </TouchableOpacity>
+                            </HStack>
+                        }
                         
 
                         <HStack mt='3'  pt='2' >
@@ -242,13 +245,12 @@ export default function Viewprofile({navigation,role,Address_label,Name_label,he
                                 <Text  ml='2' fontWeight='bold' fontSize='lg' > <FontAwesomeIcon icon={faPhone} /> {t('Phone Number')}: {profileData.phone}</Text>
                             </TouchableOpacity>
                         </HStack>
-
+                        
                         <HStack mt='3' pt='2'>
                             <TouchableOpacity onPress={logout}>
                                 <Text  textAlign='center' ml='2' fontWeight='bold' color='error.500' fontSize='lg' > <FontAwesomeIcon icon={faSignOutAlt} /> {t('Logout')}</Text>
                             </TouchableOpacity>
                         </HStack>
-
 
 
                         {/* Edit name */}

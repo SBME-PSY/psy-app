@@ -18,7 +18,6 @@ const Doctorregister=({navigation})=>{
     const [isConfirmPasswordShown,setIsConfirmPasswordShown]=useState(false);
     const {t,i18n} = useTranslation();
     const ReviewSchema = yup.object().shape({
-        age: yup.number().min(18,t('You must be 18 or older to start using our App')).required(t('Age is required')),
         governorate:yup.string().required(t('Governrate is required')),
         phone: yup.string().required(t('Phone number is required')),
         name: yup.string().required(t('Your name is Required')).min(5,t('minimum letters in the name field is 5')),
