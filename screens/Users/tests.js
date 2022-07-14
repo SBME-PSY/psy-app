@@ -12,17 +12,8 @@ export default function tests({navigation,route}){
     const [error,setError] = useState(false);
     const [loading,isLoading] = useState(true)
     let qCounter = 0
-    const [answeredQuestions,setAnsweredQuestions] = useState(qCounter)
     const testID = route.params._id
     const [results,setResults] = useState({})
-
-    const [active,setActive]=useState(0);
-    const change=({nativeEvent})=>{
-      const slide = Math.ceil(nativeEvent.contentOffset.x / nativeEvent.layoutMeasurement.width);
-      if(slide !== active){
-        setActive(slide);
-      }
-    };
     const {width} = Dimensions.get("window");
     
 
@@ -109,11 +100,10 @@ export default function tests({navigation,route}){
                         <Center>
                         <Text textAlign='center'  fontWeight='bold' fontSize='md' my={2} px={2} color='warning.800'>{t('Desclaimer !!!, This test is only an indication you should visit a doctor to get a more trusted diagnosis')}</Text>
                 <ScrollView
-                    horizontal
-                    pagingEnabled
-                    showsHorizontalScrollIndicator={false}
-                    style={{width}}
-                    onScroll={change}
+                horizontal
+                pagingEnabled
+                showsHorizontalScrollIndicator={false}
+                style={{width}}
                     >
                         {responses.questions.map((question,Index)=>{
                             return(
