@@ -1,10 +1,12 @@
 import React, { useState ,useEffect} from "react";
-import { NativeBaseProvider,VStack,Text,Card,Avatar, HStack, Center,Radio, Button,Checkbox, FormControl, ScrollView, Spinner,Progress, FlatList} from "native-base";
+import { NativeBaseProvider,VStack,Text,Card,Avatar, HStack, Center,Radio, Button,Checkbox, FormControl, ScrollView, Spinner,Toast, FlatList} from "native-base";
 import { useTranslation } from "react-i18next";
 import axios from "axios";
-import { I18nManager ,StyleSheet, ToastAndroid,Dimensions, Alert} from "react-native";
+import { I18nManager ,StyleSheet,Dimensions, Alert} from "react-native";
 import { TouchableOpacity } from "react-native";
 import getAuthData from "../../hooks/getAuthData"
+import { BaseToast } from "react-native-toast-message";
+
 
 export default function tests({navigation,route}){
     const {t,i18n} = useTranslation();
@@ -14,6 +16,16 @@ export default function tests({navigation,route}){
     let qCounter = 0
     const testID = route.params._id
     const [results,setResults] = useState({})
+    const [disclaimer,shoDisclaimer] = useState(false)
+    const toastSuccessOptions = {
+        title: t('Pro Tip:'),
+        description: t('Swipe the cards to see the questions'),
+        animation:'ease-in-out',
+        varient:'solid',
+        isClosable: true,
+        status:'success',
+        duration:6000,
+    }
     const {width} = Dimensions.get("window");
     
 
@@ -30,6 +42,10 @@ export default function tests({navigation,route}){
         setTimeout(()=>{
             getQuestionaire()
         },500)
+        setTimeout(()=>{
+            Toast.show(toastSuccessOptions)
+        },1000)
+        shoDisclaimer(true)
     },[])
 
 
@@ -96,9 +112,9 @@ export default function tests({navigation,route}){
             {/* <ConfettiCannon count={200} origin={{x: -10, y: 0}} /> */}
             {loading && <HStack mt='10%' justifyContent='center' alignItems='center' ><Spinner size='lg'   color='success.300' /></HStack> }
             {!loading && 
-                    <VStack safeArea >
-                        <Center>
-                        <Text textAlign='center'  fontWeight='bold' fontSize='md' my={2} px={2} color='warning.800'>{t('Desclaimer !!!, This test is only an indication you should visit a doctor to get a more trusted diagnosis')}</Text>
+                <VStack safeArea >
+                <Center>
+                <Text textAlign='center'  fontWeight='bold' fontSize='md' my={2} px={2} color='warning.800'>{t('Desclaimer !!!, This test is only an indication you should visit a doctor to get a more trusted diagnosis')}</Text>
                 <ScrollView
                 mt={10}
                 horizontal
