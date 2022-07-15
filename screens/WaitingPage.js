@@ -1,9 +1,10 @@
 import React, { useEffect} from "react";
-import {NativeBaseProvider,VStack,Image} from "native-base";
+import {NativeBaseProvider,VStack,Image,Text, HStack} from "native-base";
 import { StyleSheet, View } from "react-native";
 import psyLogo from '../assets/Img/psy-logo1.png'
 import TypingText from "react-native-typical";
 import getAuthData from "../hooks/getAuthData";
+import ProgressBar from "react-native-animated-progress";
 
 export default function waiting({navigation}){
     useEffect(()=>{
@@ -22,12 +23,15 @@ export default function waiting({navigation}){
         <NativeBaseProvider>
                 <VStack safeArea>
                     <Image source={psyLogo} alt='psy-logo' size={500}/>
-                    {/* <Text textAlign='center' fontWeight='bold' fontSize={20} ></Text> */}
-                    <TypingText
+                    <Text textAlign='center' fontWeight='bold' fontSize={20} >Psy-Awareness</Text>
+                    {/* <TypingText
                         steps={['Psy-Awareness',1000]}
                         loop={1}
                         style={style.typewriter}
-                    />
+                    /> */}
+                        <View style={{ marginHorizontal:50,marginTop:50}}>
+                            <ProgressBar height={7}  indeterminate backgroundColor="#059669"/>
+                        </View>
                 </VStack>
         </NativeBaseProvider>
     )

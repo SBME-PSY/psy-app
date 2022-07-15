@@ -1,10 +1,10 @@
 import React, { useState ,useEffect} from "react";
-import { NativeBaseProvider,VStack,Text,Card,Avatar, HStack, Center,Radio, Button,Checkbox, FormControl, ScrollView, Spinner,Progress} from "native-base";
+import { NativeBaseProvider,VStack,Text,Card,Avatar, HStack, Center,Radio, Button,Checkbox, FormControl, ScrollView, Spinner,Progress, FlatList} from "native-base";
 import { useTranslation } from "react-i18next";
 import axios from "axios";
 import { I18nManager ,StyleSheet, ToastAndroid,Dimensions, Alert} from "react-native";
 import { TouchableOpacity } from "react-native";
-import getAuthData from "../../hooks/getAuthData";
+import getAuthData from "../../hooks/getAuthData"
 
 export default function tests({navigation,route}){
     const {t,i18n} = useTranslation();
@@ -20,7 +20,6 @@ export default function tests({navigation,route}){
     const getQuestionaire = ()=>{
         axios.get(`/psy/questionnaires/${testID}`).then(res=>{
             setResponses(res.data.data)
-            // setResultLength(responses.questions.length)
             isLoading(false)
         }).catch(error=>{
             console.log(error)
@@ -94,12 +93,14 @@ export default function tests({navigation,route}){
     }
     return(
         <NativeBaseProvider>
+            {/* <ConfettiCannon count={200} origin={{x: -10, y: 0}} /> */}
             {loading && <HStack mt='10%' justifyContent='center' alignItems='center' ><Spinner size='lg'   color='success.300' /></HStack> }
             {!loading && 
                     <VStack safeArea >
                         <Center>
                         <Text textAlign='center'  fontWeight='bold' fontSize='md' my={2} px={2} color='warning.800'>{t('Desclaimer !!!, This test is only an indication you should visit a doctor to get a more trusted diagnosis')}</Text>
                 <ScrollView
+                mt={10}
                 horizontal
                 pagingEnabled
                 showsHorizontalScrollIndicator={false}
@@ -107,7 +108,7 @@ export default function tests({navigation,route}){
                     >
                         {responses.questions.map((question,Index)=>{
                             return(
-                            <Card  shadow={0} mx={1} mb={2} borderTopWidth={3} borderBottomWidth={3} borderTopColor='tertiary.500' borderBottomColor='tertiary.500'  key={Index}>
+                            <Card shadow={0} mx={1} mb={2} borderTopWidth={4} borderBottomWidth={4} borderTopColor='#059669' borderBottomColor='#059669'  key={Index}>
                                 <Center width={Dimensions.get('window').width-40} height={300} >
                                     <Text textAlign='center' pb={2} borderBottomWidth={2} borderBottomColor="black" fontSize='lg' fontWeight='bold'  key={Index} >{Index+1}  :  {I18nManager.isRTL ?   question.body.ar + " ؟" :question.body.en + " ?"} </Text>
                                     <VStack alignItems='flex-start'>

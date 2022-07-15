@@ -41,6 +41,7 @@
     "react-dom": "16.13.1",
     "react-i18next": "^11.18.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-42.0.0.tar.gz",
+    "react-native-animated-progress": "^1.0.2",
     "react-native-gesture-handler": "~1.10.2",
     "react-native-lightbox-v2": "^0.9.0",
     "react-native-ratings": "^8.1.0",
