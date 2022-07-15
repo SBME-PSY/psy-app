@@ -107,7 +107,7 @@ export default function tests({navigation,route}){
                     >
                         {responses.questions.map((question,Index)=>{
                             return(
-                            <Card  shadow={0}  mb={2} mx={1}  key={Index}>
+                            <Card  shadow={0} mx={1} mb={2} borderTopWidth={3} borderBottomWidth={3} borderTopColor='tertiary.500' borderBottomColor='tertiary.500'  key={Index}>
                                 <Center width={Dimensions.get('window').width-40} height={300} >
                                     <Text textAlign='center' pb={2} borderBottomWidth={2} borderBottomColor="black" fontSize='lg' fontWeight='bold'  key={Index} >{Index+1}  :  {I18nManager.isRTL ?   question.body.ar + " ؟" :question.body.en + " ?"} </Text>
                                     <VStack alignItems='flex-start'>
