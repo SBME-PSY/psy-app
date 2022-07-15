@@ -107,24 +107,24 @@ export default function tests({navigation,route}){
                     >
                         {responses.questions.map((question,Index)=>{
                             return(
-                            <Card mb={2} mx={1}  key={Index}>
-                                <Center width={Dimensions.get('window').width-40} >
-                                    <Text textAlign='center' pb={2} borderBottomWidth={2} borderBottomColor="black" fontSize='lg' fontWeight='bold' mt={2} key={Index} >{Index+1}  :  {I18nManager.isRTL ?   question.body.ar + " ؟" :question.body.en + " ?"} </Text>
-                                    <Center>
+                            <Card  shadow={0}  mb={2} mx={1}  key={Index}>
+                                <Center width={Dimensions.get('window').width-40} height={300} >
+                                    <Text textAlign='center' pb={2} borderBottomWidth={2} borderBottomColor="black" fontSize='lg' fontWeight='bold'  key={Index} >{Index+1}  :  {I18nManager.isRTL ?   question.body.ar + " ؟" :question.body.en + " ?"} </Text>
+                                    <VStack alignItems='flex-start'>
                                         {question.answers.map((answer,index)=>{
                                             return(
                                                     <FormControl key={index} isRequired>
                                                         <Radio.Group my={2} key={index} colorScheme="success" onChange={(val)=>{catchValue(val,responses.questions)}}>
                                                             <HStack my={1} >
                                                                 <Radio mx={5} value={I18nManager.isRTL ? answer.body.ar :answer.body.en}>
-                                                                    <Text mx={1} >{I18nManager.isRTL ? answer.body.ar :answer.body.en}</Text>
+                                                                    <Text mx={5} >{I18nManager.isRTL ? answer.body.ar :answer.body.en}</Text>
                                                                 </Radio>
                                                             </HStack>
                                                         </Radio.Group>   
                                                     </FormControl>
                                             )
                                         })}
-                                    </Center>
+                                    </VStack>
                                 </Center>
                             </Card>
                             )
