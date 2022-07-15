@@ -144,7 +144,7 @@ export default function Viewprofile({navigation,role,Address_label,Name_label,he
         return(
             <NativeBaseProvider>
                 <VStack h='100%'>
-                    <HStack mt='90%' justifyContent='center' alignItems='center' ><Text>   <Spinner size='lg'   color='success.300' />  </Text></HStack>
+                    <HStack mt='90%' justifyContent='center' alignItems='center' ><Text>   <Spinner size='lg'   color={role==='doctor'? '#003049' :'#059669'} />  </Text></HStack>
                 </VStack>
             </NativeBaseProvider>
         )

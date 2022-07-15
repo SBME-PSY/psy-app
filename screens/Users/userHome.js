@@ -1,4 +1,4 @@
-import { Center, NativeBaseProvider ,Text,Card, VStack,Avatar,HStack,Button,ScrollView} from "native-base";
+import { Center, NativeBaseProvider ,Text,Card, VStack,Avatar,HStack,Button,ScrollView, View} from "native-base";
 import React,{useEffect} from "react";
 import { useTranslation } from "react-i18next";
 import { BackHandler ,Alert} from "react-native";
@@ -26,6 +26,7 @@ const Userhome=({navigation})=>{
         <NativeBaseProvider >
             <Center safeArea>
                 <VStack mt={5}>
+
                     {/* <Text textAlign='center'>Welcome to</Text>
                     <Text textAlign='center' >Psy-Awareness</Text> */}
                     <Card mt={3} >
