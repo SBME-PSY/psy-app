@@ -42,8 +42,8 @@ export default function selectTest({navigation,route}){
                         {tests && tests.map((test,index)=>{
                             return(
                                 <Card  key={index} mx={5} my={2}>
-                                    <View style={{ position: 'absolute', top: -5, right: -10 }} >
-                                        <Ribbon color={test.authorModel === 'Admin'? '#831843': '#059669'} text={test.authorModel === 'Admin' ? t('Official'): t('Custom') } textColor={'white'}/>
+                                    <View style={{ position: 'absolute', top: -4, right: I18nManager.isRTL ? 290 : -10 }} >
+                                        <Ribbon color={test.authorModel === 'Admin'? '#831843': '#059669'} text={test.authorModel === 'Admin' ? 'Official': 'Custom' } textColor={'white'}/>
                                     </View>
                                     <TouchableOpacity onPress={()=>{
                                         navigation.navigate('tests',{_id:test._id})

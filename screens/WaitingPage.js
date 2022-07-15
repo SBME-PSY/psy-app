@@ -24,13 +24,8 @@ export default function waiting({navigation}){
                 <VStack safeArea>
                     <Image source={psyLogo} alt='psy-logo' size={500}/>
                     <Text textAlign='center' fontWeight='bold' fontSize={20} >Psy-Awareness</Text>
-                    {/* <TypingText
-                        steps={['Psy-Awareness',1000]}
-                        loop={1}
-                        style={style.typewriter}
-                    /> */}
                         <View style={{ marginHorizontal:50,marginTop:50}}>
-                            <ProgressBar height={7}  indeterminate backgroundColor="#059669"/>
+                            <ProgressBar height={5}  indeterminate backgroundColor="#059669"/>
                         </View>
                 </VStack>
         </NativeBaseProvider>
