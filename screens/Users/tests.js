@@ -5,7 +5,6 @@ import axios from "axios";
 import { I18nManager ,StyleSheet,Dimensions, Alert} from "react-native";
 import { TouchableOpacity } from "react-native";
 import getAuthData from "../../hooks/getAuthData"
-import { BaseToast } from "react-native-toast-message";
 
 
 export default function tests({navigation,route}){
