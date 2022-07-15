@@ -109,7 +109,7 @@ export default function tests({navigation,route}){
     return(
         <NativeBaseProvider>
             {/* <ConfettiCannon count={200} origin={{x: -10, y: 0}} /> */}
-            {loading && <HStack mt='10%' justifyContent='center' alignItems='center' ><Spinner size='lg'   color='success.300' /></HStack> }
+            {loading && <HStack mt='10%' justifyContent='center' alignItems='center' ><Spinner size='lg'   color='#059669' /></HStack> }
             {!loading && 
                 <VStack safeArea >
                 <Center>

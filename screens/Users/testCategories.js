@@ -5,7 +5,8 @@ import axios from "axios";
 import { I18nManager ,StyleSheet} from "react-native";
 import { TouchableOpacity,Image } from "react-native";
 import Constants from "expo-constants";
-import SkeletonContent from "react-native-skeleton-content";
+import { View } from "react-native";
+import Ribbon from "../../components/ribbon";
 
 const {manifest} = Constants;
 const api = (typeof manifest.packagerOpts === `object`) && manifest.packagerOpts.dev? manifest.debuggerHost.split(`:`).shift().concat(`:8000`): `api.example.com`;
@@ -30,7 +31,7 @@ export default function testCategories({navigation}){
 
     return(
         <NativeBaseProvider>
-            {loading && <HStack mt='90%' justifyContent='center' alignItems='center' ><Spinner size='lg'   color='success.300' /></HStack>}
+            {loading && <HStack mt='90%' justifyContent='center' alignItems='center' ><Spinner size='lg'   color='#059669' /></HStack>}
             {!loading &&                 <HStack justifyContent='center' flexWrap='wrap' px={15} safeArea>
                 {testCategories && testCategories.map((test,index)=>{
                         return(
