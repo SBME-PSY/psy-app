@@ -45,13 +45,13 @@ export default function testResults({navigation,route}){
                         {scores && scores.map((score,index)=>{
                             console.log(score.description)
                             return(
-                                <Card zIndex={Dimensions.get('window').width-index} mb={3} >
+                                <Card key={index} zIndex={Dimensions.get('window').width-index} mb={3} >
                                     {score.score.description && <Text>{i18n.language == 'ar' ? score.description.ar : score.description.en}</Text> }
                                     <Center  key={index}>
                                         <Text fontSize='lg' fontWeight='bold' >{ t("description  ") + t('test ')+ (index+1)+"   "+ ":"+"   "+ (i18n.language == 'ar' ? score.result.ar: score.result.en)} </Text>
                                     </Center>
                                     <Center>
-                                        <Text fontSize='lg' fontWeight='bold' >{ t("score ") + t('test ')+ (index+1)+ " :"+"   "+ (i18n.language == 'ar' ? score.score: score.score)} </Text>
+                                        <Text fontSize='lg' fontWeight='bold' >{ t("score ") + t('test ')+ (index+1)+ "  :"+"   "+ (i18n.language == 'ar' ? score.score: score.score)} </Text>
                                     </Center>
                                 </Card>
                             )
