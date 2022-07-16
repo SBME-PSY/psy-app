@@ -40,20 +40,20 @@ export default function testResults({navigation,route}){
         <NativeBaseProvider>
             {loading && <HStack mt='10%' justifyContent='center' alignItems='center' ><Spinner size='lg'   color='success.300' /></HStack>}
             {!loading &&      
-                <ScrollView mt={5}>
+                <ScrollView  pagingEnabled  mt={5}>
                     {/* <Text textAlign='center' fontWeight='bold' borderBottomWidth={2} borderBottomColor="black" my={2} pb={2}  >{t('Test results:  ')}</Text> */}
                         {scores && scores.map((score,index)=>{
                             console.log(score.description)
                             return(
-                                <Center>
+                                <Card zIndex={Dimensions.get('window').width-index} mb={3} >
                                     {score.score.description && <Text>{i18n.language == 'ar' ? score.description.ar : score.description.en}</Text> }
                                     <Center  key={index}>
                                         <Text fontSize='lg' fontWeight='bold' >{ t("description  ") + t('test ')+ (index+1)+"   "+ ":"+"   "+ (i18n.language == 'ar' ? score.result.ar: score.result.en)} </Text>
                                     </Center>
                                     <Center>
-                                        <Text fontSize='lg' fontWeight='bold' >{ t("score ") + t('test ')+ (index+1)+ ":"+"   "+ (i18n.language == 'ar' ? score.score: score.score)} </Text>
+                                        <Text fontSize='lg' fontWeight='bold' >{ t("score ") + t('test ')+ (index+1)+ " :"+"   "+ (i18n.language == 'ar' ? score.score: score.score)} </Text>
                                     </Center>
-                                </Center>
+                                </Card>
                             )
                         })}
                 </ScrollView>
