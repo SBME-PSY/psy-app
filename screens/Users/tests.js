@@ -120,7 +120,7 @@ export default function tests({navigation,route}){
                     >
                         {responses.questions.map((question,Index)=>{
                             return(
-                            <Card  shadow={0} mx={1} mb={2} borderTopWidth={4} borderBottomWidth={4} borderTopColor='#059669' borderBottomColor='#059669'  key={Index}>
+                            <Card pt={12} height={400} shadow={0} mx={1} mb={2} borderTopWidth={4} borderBottomWidth={4} borderTopColor='#059669' borderBottomColor='#059669'  key={Index}>
                                 <Center width={Dimensions.get('window').width-40} height={300} >
                                     <Text textAlign='center'  pb={2} borderBottomWidth={2} borderBottomColor="black" fontSize='lg' fontWeight='bold'  key={Index} >{Index+1}  :  {I18nManager.isRTL ?   question.body.ar + " ؟" :question.body.en + " ?"} </Text>
                                     <VStack alignItems='flex-start'>
@@ -129,7 +129,7 @@ export default function tests({navigation,route}){
                                                     <FormControl key={index} isRequired>
                                                         <Radio.Group my={2} key={index} colorScheme="success" onChange={(val)=>{catchValue(val,responses.questions)}}>
                                                             <HStack my={1} >
-                                                                <Radio mx={2} value={I18nManager.isRTL ? answer.body.ar :answer.body.en}>
+                                                                <Radio mx={1} value={I18nManager.isRTL ? answer.body.ar :answer.body.en}>
                                                                     <Text mx={2} >{I18nManager.isRTL ? answer.body.ar :answer.body.en}</Text>
                                                                 </Radio>
                                                             </HStack>
