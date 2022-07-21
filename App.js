@@ -65,7 +65,7 @@ function DoctorTabs () {
       <Tab.Screen options={{
         tabBarLabel:t('Profile'),
         tabBarIcon: ({focused,size})=> (<FontAwesomeIcon size={size} color={!focused ? '#a8a29e':'#fff'} icon={faUserCircle} />)
-      }} name='ViewDoctorProfile'  component={ViewDoctorProfile} />
+      }} name='ViewDoctorProfile'  component={addClinics} />
     </Tab.Navigator>
   )
 }
