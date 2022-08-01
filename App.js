@@ -26,10 +26,12 @@ import showClinics from "./screens/Doctors/showClinic";
 import tests from "./screens/Users/tests";
 import selectTest from "./screens/Users/selectTest";
 import testResults from "./screens/Users/testResults";
+import clinicSlots from "./screens/Doctors/clinicSlots";
 
 const {manifest} = Constants;
 const api = (typeof manifest.packagerOpts === `object`) && manifest.packagerOpts.dev? manifest.debuggerHost.split(`:`).shift().concat(`:8000`): `api.example.com`;
-const baseURL = axios.defaults.baseURL = 'https://psy-web.herokuapp.com'
+// const baseURL = axios.defaults.baseURL = 'https://psy-web.herokuapp.com'
+const baseURL = axios.defaults.baseURL = `http://${api}`
 
 
 
@@ -42,7 +44,6 @@ function DoctorTabs () {
   const {t,i18n} = useTranslation();
   return(
     <Tab.Navigator  
-
       screenOptions={{
         tabBarActiveTintColor: '#fff',
         headerShown:false,
@@ -65,7 +66,7 @@ function DoctorTabs () {
       <Tab.Screen options={{
         tabBarLabel:t('Profile'),
         tabBarIcon: ({focused,size})=> (<FontAwesomeIcon size={size} color={!focused ? '#a8a29e':'#fff'} icon={faUserCircle} />)
-      }} name='ViewDoctorProfile'  component={addClinics} />
+      }} name='ViewDoctorProfile'  component={showClinics} />
     </Tab.Navigator>
   )
 }
@@ -183,6 +184,12 @@ export default function App() {
               headerTitleStyle:{color:"#FEFDFF"},
             }}
             component={testResults}  />
+            <Stack.Screen name="clinicSlots" options={{
+            title:t("Clinc Slots"),
+            headerTintColor:"white",
+            headerTitleAlign: 'center',
+            headerTitleStyle:{color:"#FEFDFF"},
+            headerStyle:{backgroundColor:"#003049"}}} component={clinicSlots} />
         </Stack.Navigator>
       </NavigationContainer>
     </>

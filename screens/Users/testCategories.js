@@ -8,12 +8,10 @@ import Constants from "expo-constants";
 import { View } from "react-native";
 import Ribbon from "../../components/ribbon";
 
-const {manifest} = Constants;
-const api = (typeof manifest.packagerOpts === `object`) && manifest.packagerOpts.dev? manifest.debuggerHost.split(`:`).shift().concat(`:8000`): `api.example.com`;
 
 export default function testCategories({navigation}){
-    const [loading,isLoading] = useState(true);
     const {t,i18n} = useTranslation();
+    const [loading,isLoading] = useState(true);
     const [testCategories, setTestCategories] = useState([]);
     const getTests=()=>{
         axios.get('/psy/questionnaires/categories').then((res)=>{
